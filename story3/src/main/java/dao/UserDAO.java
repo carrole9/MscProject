@@ -15,7 +15,10 @@ import entities.User;
 		User getUserById(int id);
 		Collection<User> getUserByType(String userType);
 		Collection<User> getAllUsers();
-	
+		void deleteUser(int id);
+		User getUserIdByName(String name);
+		User getUserIdByPassword(String passwd);
+		
 
 
 }

@@ -21,20 +21,25 @@ public class User implements Serializable{
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		@Column(name="id")
-		private int id;
+		int id;
 
 		// add attributes for all the remaining properties
-		@Column(name="username") private String username;
-		@Column(name="password") private String password;
-		@Column(name="usertype") private String usertype;
+		@Column(name="username") String username;
+		@Column(name="password") String password;
+		@Column(name="usertype") String usertype;
 
 		public User() {}
 
-		public User(String username, String password, String usertype){
+		public User(String username, String password, String usertype,  int id){
+			this.id=id;
 			this.username = username;
 			this.password = password;
 			this.usertype = usertype;		    
 		  }
+
+		public int getId() {
+			return id;
+		}
 
 		public void setId(int id) {
 			this.id = id;
@@ -64,8 +69,6 @@ public class User implements Serializable{
 			this.usertype = usertype;
 		}
 
-		public int getId() {
-			return id;
-		}
+		
 
 }
