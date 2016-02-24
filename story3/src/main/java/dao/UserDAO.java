@@ -18,6 +18,7 @@ import entities.User;
 		void deleteUser(int id);
 		User getUserIdByName(String name);
 		User getUserIdByPassword(String passwd);
+		void loadUsersFromExcel();
 		
 
 

@@ -16,6 +16,9 @@ public interface UserService {
 	public void deleteUsers(int id);
 	public User getIdByUsername(String name);
 	public User getIdByPassword(String passwd);
+	void loadUsersFromExcel();
+	public boolean login(String username, String password);
+	public String getUserType(String username, String password);
 	
 	}
 

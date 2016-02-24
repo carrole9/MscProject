@@ -73,6 +73,44 @@ import entities.User;
 
 
 
+		@Override
+		public void loadUsersFromExcel() {
+			System.out.println("in the excel service");
+			dao.loadUsersFromExcel();
+		}
+
+
+
+		@Override
+		public boolean login(String username, String password) {
+			// TODO Auto-generated method stub
+			boolean userInDatabase=false;
+			for(User user : dao.getAllUsers()){
+				if(user.getUsername().equals(username)&&user.getPassword().equals(password))
+					userInDatabase = true;
+				
+				if(userInDatabase)
+					break;				
+			}			
+			return userInDatabase;
+		}
+
+
+
+		@Override
+		public String getUserType(String username, String password) {
+			for(User user : dao.getAllUsers()){
+				if(user.getUsername().equals(username)&&user.getPassword().equals(password))
+					return user.getUsertype();
+			}
+			return "Wrong Type";
+		}
+		
+		
+		
+		
+
+
 		
 
 
