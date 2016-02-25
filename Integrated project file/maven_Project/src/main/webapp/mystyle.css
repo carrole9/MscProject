@@ -1,0 +1,32 @@
+body {
+
+    background-image: url("/maven_Project/background.jpg");
+}
+#header {
+    color:white;
+    text-align:center;
+    padding:100px;
+}	
+#nav {
+    line-height:30px;
+    width:500px;
+    float:left;
+    padding:5px;	      
+}		
+#section {
+	color:white;
+    width:350px;
+    height:400px;
+    float:left;
+    padding:10px;	 	 
+}
+#footer {
+    color:white;
+    clear:both;
+    text-align:center;
+   	padding:5px;	 	 
+}
+#print {
+	color:red;
+}	
+}
