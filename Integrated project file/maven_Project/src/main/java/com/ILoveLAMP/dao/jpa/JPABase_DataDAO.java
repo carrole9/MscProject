@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import com.ILoveLAMP.dao.Base_DataDAO;
 import com.ILoveLAMP.entities.Base_Data;
+import com.ILoveLAMP.entities.Error_Data;
 import com.ILoveLAMP.entities.Event_Cause;
 import com.ILoveLAMP.entities.Failure;
 import com.ILoveLAMP.entities.Operator;
@@ -99,6 +100,14 @@ public class JPABase_DataDAO implements Base_DataDAO{
 				}
 			
 		}
+
+	@Override
+	public void addErrorData(Collection<Error_Data> data) {
+		for(Error_Data errorData: data){
+			em.merge(errorData);
+		}
+		
+	}
 		
 	}
 

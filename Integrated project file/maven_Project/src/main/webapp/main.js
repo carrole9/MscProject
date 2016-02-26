@@ -5,6 +5,8 @@ var User = function(id, username, password, usertype) {
 		    this.usertype = usertype;
 		    }
 
+
+
 $(function (){
 	
 	var $print = $('#print');
@@ -15,11 +17,75 @@ $(function (){
 	var $usertype = $('#UserType');
 	var $loginusername = $('#LoginUserName');
 	var $loginpassword = $('#LoginPassword');
+	var $basedatas = $('#basedatas');
+	
+	function close_window(currentURL, newURL){
+	    var newWindow = window.open(newURL, '_self', ''); //open the new window
+	    window.close(url); //close the current window
+	 }
 	
 	function addUser(user) {
 		$users.append('<li> Id: '+user.id+' UserName: '+user.username+' Password: '+
 				user.password+' Usertype: '+user.usertype+'</li>');
 	}
+	
+//	$.ajax({
+//		async:false,
+//		type: 'GET',
+//		url: 'rest/basedata/getAll',
+//		success: function(data){
+//
+//			$.each(data, function(i, users){
+//				
+//				$.each(users, function(i,user){
+//					$basedatas.append('<li> Id:'+user.dataId+ user.failure.failureId+'</li>');
+//				})
+//		})
+//		},
+//		
+//		error: function(){
+//			alert('error loading users');
+//		}
+//		
+//	});
+	
+	$.ajax({
+	async:false,
+	type: 'GET',
+	url: 'rest/basedata/getAll',
+	success: function(data){
+
+		$.each(data, function(i, basedatas){
+			
+			$.each(basedatas, function(i,basedata){
+				var row = $("<tr><td>" + basedata.dataId
+						+ "</td><td>" + basedata.dateTime 
+						+ "</td><td>" + basedata.eventCause.eventId 
+						+ "</td><td>" + basedata.failure.failureId
+						+ "</td><td>" + basedata.userEquipment.userEquipmentId
+						+ "</td><td>" + basedata.operator.mcc
+						+ "</td><td>" + basedata.operator.mnc
+						+ "</td><td>" + basedata.cellId
+						+ "</td><td>" + basedata.duration
+						+ "</td><td>" + basedata.eventCause.causeCode
+						+ "</td><td>" + basedata.neVersion
+						+ "</td><td>" + basedata.imsi
+						+ "</td><td>" + basedata.hier3Id
+						+ "</td><td>" + basedata.hier32Id
+						+ "</td><td>" + basedata.hier321Id
+						+"</td></tr>");
+                $("#myData").append(row);
+			})
+	})
+	},
+	
+	error: function(){
+		alert('error loading users');
+	}
+	
+});
+	
+	
 	
 	$.ajax({
 		async:false,
@@ -60,104 +126,76 @@ $(function (){
 	});
 	
 	
-$('#load-excel-user').on('click', function(){
-		
-		$.ajax({
+	$('#load-excel-user').on('click', function(){
 			
-			url: 'rest/users/excel',
-//			success: function(){	
-//				alert('success');
-//			},
-//			error: function(){
-//				alert('error saving user');
-//			}
+			$.ajax({
+				
+				url: 'rest/users/excel',
+	//			success: function(){	
+	//				alert('success');
+	//			},
+	//			error: function(){
+	//				alert('error saving user');
+	//			}
+			})
+		});
+
+
+	$('#login').on('click', function(){
+			
+		$.ajax({
+			type: 'POST',
+			url: 'rest/users/login',
+			contentType: "application/json",
+			data: JSON.stringify({username: $loginusername.val(), password: $loginpassword.val()}),
+			success: function(data){	
+					if(data){
+						
+						$print.text('');
+						
+						var currentURL = "http://localhost:8080/maven_Project/login.html";
+						var newURL = "http://localhost:8080/maven_Project/selectusertype.html";
+						
+						close_window(currentURL, newURL);
+					}
+					else
+						$print.text('User Does Not Exist!!!');	
+			}
 		})
 	});
 
-
-$('#login').on('click', function(){
+	$('#admin').on('click', function(){
 		
-	$.ajax({
-		type: 'POST',
-		url: 'rest/users/login',
-		contentType: "application/json",
-		data: JSON.stringify({username: $loginusername.val(), password: $loginpassword.val()}),
-		success: function(data){
-//			alert('success');
-			
-//				$("#content").load("http://localhost:8080/story3/try1.html");
-//				window.open('http://localhost:8080/story3/try1.html', '_blank');
-//				$print.append('<li>data</li>');		
-				if(data){
-//					alert('Cool');
-//					$print.text('');
-					$("#content").load("http://localhost:8080/maven_Project/selectusertype.html");
-					
-//				$("#content").load("http://localhost:8080/story3/try1.html");
-				}
-				else
-//					alert('UserDoseNotExisthttp://localhost:8080/story3/login.html');
-					$print.text('User Does Not Exist!!!');
-//					$print.('<li>User Does Not Exist!!!</li>');
+		$.ajax({
+			type: 'POST',
+			url: 'rest/users/selecttype',
+			contentType: "application/json",
+			data: "admin",
+			success: function(data){
 				
-		
-		}
-//		error: function(){
-//			alert('error saving user');
-//		}
-	})
-});
+					if(data){
+						
+						var currentURL = "http://localhost:8080/maven_Project/selectusertype.html";
+						var newURL = "http://localhost:8080/maven_Project/try1.html";
+						
+						close_window(currentURL, newURL);
+						
+					}
+					else
+						alert('wrong');			
+			}
+		})
+	});
+	
+	
+	$('#user').on('click', function(){
 
-$('#admin').on('click', function(){
-//	var type = "admin";
-	
-//	$.ajax({
-//		type: 'GET',
-//		url: 'rest/users/selecttype',
-//		contentType: "json",
-//		success: function(data){			
-//			$.each(data, function(i, loginusertype){
-//				if(loginusertype == "admin"){
-//					$("#content").load("http://localhost:8080/story3/try1.html");
-//				}
-//		})
-//		},
-//		
-////		error: function(){
-////			alert('error loading users');
-////		}
-//		
-//	});
-	
-	$.ajax({
-		type: 'POST',
-		url: 'rest/users/selecttype',
-		contentType: "application/json",
-		data: "admin",
-		success: function(data){
-//			alert('success');
-			
-//				$("#content").load("http://localhost:8080/story3/try1.html");
-//				window.open('http://localhost:8080/story3/try1.html', '_blank');
-//				$print.append('<li>data</li>');		
-				if(data){
-//					alert('Cool');
-//					$print.text('');
-					$("#content").load("http://localhost:8080/maven_Project/try1.html");
-					
-//				$("#content").load("http://localhost:8080/story3/try1.html");
-				}
-				else
-					alert('wrong');
-//					$print.text('wrong!!!');
-//					$print.('<li>User Does Not Exist!!!</li>');
+				var currentURL = "http://localhost:8080/maven_Project/selectusertype.html";
+				var newURL = "http://localhost:8080/maven_Project/try3.html";
+//				var newURL ="http://localhost:8080/maven_Project/rest/basedata/getAll"
 				
+				close_window(currentURL, newURL);
 		
-		}
-//		error: function(){
-//			alert('error saving user');
-//		}
-	})
-});
+	});
 	
 });

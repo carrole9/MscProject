@@ -5,11 +5,10 @@ import java.util.Collection;
 import javax.ejb.Local;
 
 import com.ILoveLAMP.entities.Base_Data;
-
+import com.ILoveLAMP.entities.Error_Data;
 import com.ILoveLAMP.entities.Event_Cause;
 import com.ILoveLAMP.entities.Failure;
 import com.ILoveLAMP.entities.Operator;
-
 import com.ILoveLAMP.entities.User_Equipment;
 
 @Local
@@ -25,5 +24,6 @@ public interface Base_DataService {
 	public void addFailure(Collection<Failure> failures);
 	public void addEventCause(Collection<Event_Cause> events);
 	public void addBaseData(Collection<Base_Data> data);
+	public void addErrorData(Collection<Error_Data> data);
 }
 

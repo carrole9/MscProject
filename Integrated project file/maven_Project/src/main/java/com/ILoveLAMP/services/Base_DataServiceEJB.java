@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.ILoveLAMP.dao.Base_DataDAO;
 import com.ILoveLAMP.entities.Base_Data;
+import com.ILoveLAMP.entities.Error_Data;
 import com.ILoveLAMP.entities.Event_Cause;
 import com.ILoveLAMP.entities.Failure;
 import com.ILoveLAMP.entities.Operator;
@@ -63,6 +64,10 @@ public class Base_DataServiceEJB implements Base_DataService{
 	public void addBaseData(Collection<Base_Data> data) {
 		dao.addBaseData(data);
 		
+	}
+
+	public void addErrorData(Collection<Error_Data> data) {
+		dao.addErrorData(data);
 	}
 
 
