@@ -1,4 +1,5 @@
-body {background-color:#e6e6fa;}
+body {
+	background-color:#e6e6fa;}
 
 table, th, td {
     border: 1px solid black;
@@ -8,4 +9,25 @@ table, th, td {
 th, td {
     padding: 15px;
 }
+
+
+
+.fixed {
+  color:white;
+  background-color:#90ee90;
+  border-style: ridge;
+  position: fixed;
+  bottom:250px;
+  right: 200px;
+  width: 250px;
+  padding:5px;
+}
+
+		
+section {
+    float:right;
+    padding:0px;	 	 
+}
+
+
 

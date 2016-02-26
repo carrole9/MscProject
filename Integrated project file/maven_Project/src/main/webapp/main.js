@@ -25,29 +25,13 @@ $(function (){
 	 }
 	
 	function addUser(user) {
-		$users.append('<li> Id: '+user.id+' UserName: '+user.username+' Password: '+
-				user.password+' Usertype: '+user.usertype+'</li>');
+		var row = $("<tr><td>" + user.id
+				+ "</td><td>" + user.username 
+				+ "</td><td>" + user.password 
+				+ "</td><td>" + user.usertype			
+				+"</td></tr>");
+        $("#userData").append(row);
 	}
-	
-//	$.ajax({
-//		async:false,
-//		type: 'GET',
-//		url: 'rest/basedata/getAll',
-//		success: function(data){
-//
-//			$.each(data, function(i, users){
-//				
-//				$.each(users, function(i,user){
-//					$basedatas.append('<li> Id:'+user.dataId+ user.failure.failureId+'</li>');
-//				})
-//		})
-//		},
-//		
-//		error: function(){
-//			alert('error loading users');
-//		}
-//		
-//	});
 	
 	$.ajax({
 	async:false,
@@ -131,12 +115,12 @@ $(function (){
 			$.ajax({
 				
 				url: 'rest/users/excel',
-	//			success: function(){	
-	//				alert('success');
-	//			},
-	//			error: function(){
-	//				alert('error saving user');
-	//			}
+//				success: function(){	
+//					alert('success');
+//				},
+//				error: function(){
+//					alert('error saving user');
+//				}
 			})
 		});
 

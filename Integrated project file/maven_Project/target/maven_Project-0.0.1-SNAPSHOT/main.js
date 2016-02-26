@@ -17,6 +17,7 @@ $(function (){
 	var $usertype = $('#UserType');
 	var $loginusername = $('#LoginUserName');
 	var $loginpassword = $('#LoginPassword');
+	var $basedatas = $('#basedatas');
 	
 	function close_window(currentURL, newURL){
 	    var newWindow = window.open(newURL, '_self', ''); //open the new window
@@ -26,7 +27,73 @@ $(function (){
 	function addUser(user) {
 		$users.append('<li> Id: '+user.id+' UserName: '+user.username+' Password: '+
 				user.password+' Usertype: '+user.usertype+'</li>');
+		
+		
+		var row = $("<tr><td>" + user.id
+				+ "</td><td>" + user.username 
+				+ "</td><td>" + user.password 
+				+ "</td><td>" + user.usertype			
+				+"</td></tr>");
+        $("#userData").append(row);
 	}
+	
+//	$.ajax({
+//		async:false,
+//		type: 'GET',
+//		url: 'rest/basedata/getAll',
+//		success: function(data){
+//
+//			$.each(data, function(i, users){
+//				
+//				$.each(users, function(i,user){
+//					$basedatas.append('<li> Id:'+user.dataId+ user.failure.failureId+'</li>');
+//				})
+//		})
+//		},
+//		
+//		error: function(){
+//			alert('error loading users');
+//		}
+//		
+//	});
+	
+	$.ajax({
+	async:false,
+	type: 'GET',
+	url: 'rest/basedata/getAll',
+	success: function(data){
+
+		$.each(data, function(i, basedatas){
+			
+			$.each(basedatas, function(i,basedata){
+				var row = $("<tr><td>" + basedata.dataId
+						+ "</td><td>" + basedata.dateTime 
+						+ "</td><td>" + basedata.eventCause.eventId 
+						+ "</td><td>" + basedata.failure.failureId
+						+ "</td><td>" + basedata.userEquipment.userEquipmentId
+						+ "</td><td>" + basedata.operator.mcc
+						+ "</td><td>" + basedata.operator.mnc
+						+ "</td><td>" + basedata.cellId
+						+ "</td><td>" + basedata.duration
+						+ "</td><td>" + basedata.eventCause.causeCode
+						+ "</td><td>" + basedata.neVersion
+						+ "</td><td>" + basedata.imsi
+						+ "</td><td>" + basedata.hier3Id
+						+ "</td><td>" + basedata.hier32Id
+						+ "</td><td>" + basedata.hier321Id
+						+"</td></tr>");
+                $("#myData").append(row);
+			})
+	})
+	},
+	
+	error: function(){
+		alert('error loading users');
+	}
+	
+});
+	
+	
 	
 	$.ajax({
 		async:false,
@@ -72,12 +139,12 @@ $(function (){
 			$.ajax({
 				
 				url: 'rest/users/excel',
-	//			success: function(){	
-	//				alert('success');
-	//			},
-	//			error: function(){
-	//				alert('error saving user');
-	//			}
+				success: function(){	
+					alert('success');
+				},
+				error: function(){
+					alert('error saving user');
+				}
 			})
 		});
 
@@ -126,6 +193,17 @@ $(function (){
 						alert('wrong');			
 			}
 		})
+	});
+	
+	
+	$('#user').on('click', function(){
+
+				var currentURL = "http://localhost:8080/maven_Project/selectusertype.html";
+				var newURL = "http://localhost:8080/maven_Project/try3.html";
+//				var newURL ="http://localhost:8080/maven_Project/rest/basedata/getAll"
+				
+				close_window(currentURL, newURL);
+		
 	});
 	
 });

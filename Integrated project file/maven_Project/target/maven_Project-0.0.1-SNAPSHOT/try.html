@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+	<head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
 
@@ -100,26 +100,28 @@
 	</script>
 </head>
 
-<body>
+	<body>
 
-<h1>User Page</h1>
-<button onclick="putNewCD()">put</button>
-<p id="title">-----------------------title</p>
-<p id="artist"></p>
-<p id="artist"></p>
+	<h1>User Page</h1>
+	
+	<button onclick="putNewCD()">put</button>
+	
+	<p id="title">-----------------------title</p>
+	<p id="artist"></p>
+	<p id="artist"></p>
 
 
 
-<table id="userTable" class="table tablesorter tablesorter-default table-striped table-bordered" data-toggle="table" data-url="rest/users" data-height="800" data-response-handler="responseHandler">
-    <thead>
-    <tr>
-        <th data-field="id"></th>
-        <th data-field="username">Username</th>
-        <th data-field="password">Password</th>
-        <th data-field="usertype">Usertype</th>
-    </tr>
-    </thead>
-</table>
+	<table id="userTable" class="table tablesorter tablesorter-default table-striped table-bordered" data-toggle="table" data-url="rest/users" data-height="800" data-response-handler="responseHandler">
+	    <thead>
+	    <tr>
+	        <th data-field="id"></th>
+	        <th data-field="username">Username</th>
+	        <th data-field="password">Password</th>
+	        <th data-field="usertype">Usertype</th>
+	    </tr>
+	    </thead>
+	</table>
 
 <script>
 	$(document).ready(function(){
