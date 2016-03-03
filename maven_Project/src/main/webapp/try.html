@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+
+	<title>A table of data returned by an Ajax call - courtesy of Bootstrap Tables</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/syntax/shCore.css">
+	<link rel="stylesheet" type="text/css" href="resources/demo.css">
+	<link rel="stylesheet" href="media/css/bootstrap-table.css">
+	<style type="text/css" class="init">
+
+	</style>
+	<script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
+	<script type="text/javascript" language="javascript" src="resources/syntax/shCore.js"></script>
+	<script type="text/javascript" language="javascript" src="resources/demo.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="media/js/bootstrap-table.js"></script>
+	<script type="text/javascript" src="media/js/jquery.tablesorter.js"></script>
+	<script type="text/javascript" language="javascript" class="init"></script>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+	function User(username, password, usertype, id) {
+		this.username = username;
+		this.password = password;
+		this.usertype = usertype;	
+		this.id = id;
+	}
+
+	function putNewCD() {
+
+		var user = new User("Thomas", "123", "student","9");																																																																																																																
+		<!--document.getElementById("title").innerHTML=user.username+user.password+user.usertype+user.id;-->
+		$.ajax({
+		  type: 'PUT',
+		  url: 'rest/users',
+		  data: JSON.stringify(user),
+		  success: handlePost,
+		  contentType: 'application/json'
+	});
+	}
+
+	function handlePost() {
+		getAllCDsUsingJQuery();
+	}
+
+	var myData;
+	var request;
+
+	function getAllCDs() {
+		request = new XMLHttpRequest();
+		request.open("get", "rest/users", true);
+		request.onreadystatechange = handleResponse;
+		request.send();
+
+	}
+
+
+	function getAllCDsUsingJQuery() 
+		$.get("rest/users",
+				null,
+				handleResponseJQuery);
+
+	}
+
+	function handleResponseJQuery(myData) {
+		//myData = JSON.parse(data);
+				$("#username").text(myData.userCollection[myData.userCollection.length-1].username);
+				$("#password").text(myData.userCollection[myData.userCollection.length-1].password);
+				$("#usertype").text(myData.userCollection[myData.userCollection.length-1].usertype);
+		//	$("p").fadeOut(4000).fadeIn(4000);
+
+	}
+
+
+	function handleResponse() {
+
+		if (request.readyState == 4) {
+			myData = JSON.parse(request.responseText);
+			$("#username").text(myData.userCollection[0].username);
+			$("#password").text(myData.userCollection[0].password);
+			$("#usertype").text(myData.userCollection[0].usertype);
+			//$("p").fadeOut(4000).fadeIn(4000);
+		}
+
+
+
+	}
+
+	$(document).ready(function() {
+		postNewCD();
+
+	});
+
+	//window.onload = postNewCD;
+
+	</script>
+</head>
+
+	<body>
+
+	<h1>User Page</h1>
+	
+	<button onclick="putNewCD()">put</button>
+	
+	<p id="title">-----------------------title</p>
+	<p id="artist"></p>
+	<p id="artist"></p>
+
+
+
+	<table id="userTable" class="table tablesorter tablesorter-default table-striped table-bordered" data-toggle="table" data-url="rest/users" data-height="800" data-response-handler="responseHandler">
+	    <thead>
+	    <tr>
+	        <th data-field="id"></th>
+	        <th data-field="username">Username</th>
+	        <th data-field="password">Password</th>
+	        <th data-field="usertype">Usertype</th>
+	    </tr>
+	    </thead>
+	</table>
+
+<script>
+	$(document).ready(function(){
+		$(function(){
+			$("#userTable").tablesorter();
+		});
+	});
+	
+    // client side
+    function responseHandler(res) {
+        return res.userCollection;
+    }
+</script>
+</body>
+</html>

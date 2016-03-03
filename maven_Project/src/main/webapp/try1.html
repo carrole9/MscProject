@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>User Management</title>
+		<link rel="stylesheet" href="/maven_Project/user.css">		
+		<script src="/maven_Project/jquery.min.js"></script>
+		<script src="/maven_Project/main.js"></script>
+	</head>
+	
+	<body>
+	<button id="logout1"><b>Logout</b></button>
+		
+		<h1>User Management</h1>
+		
+		<div>
+		<h2>Users Table</h2>
+			<table id="userData" class="table header-fixed table-striped table-hover table-condensed table-bordered">	
+			
+				<tr>
+					<th>User ID</th>
+				    <th>User Name</th>
+				    <th>Password</th>
+				    <th>User Type</th>
+				</tr>
+				    
+			</table>		
+		</div>
+
+		<div class="fixed">
+			<h3>Create User</h3>
+			<b>
+			Id:
+			</b><br>
+			<input type="number" id="Id">
+			<br><b>
+			username:
+			</b><br>
+			<input type="text" id="UserName">
+			<br><b>
+			password:
+			</b><br>
+			<input type="text" id="Password">
+			<br><b>
+			usertype:
+			</b><br>
+			<input type="text" id="UserType">
+			<br><b>
+			<button id="add-user">add!</button>
+			<button id="load-excel-user">load excel users!</button>
+			</b><br>
+		</div>	
+		
+	</body>
+</html>
