@@ -25,7 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 		@NamedQuery(name = "Base_Data.getAll", query = "SELECT b FROM Base_Data b"),
 		@NamedQuery(name = "Base_Data.findById", query = "select bd from Base_Data bd where bd.dataId=:id"),
 		@NamedQuery(name = "Base_Data.findByTime", query = "select bd from Base_Data bd where bd.dateTime=:time"),
-
+		@NamedQuery(name = "Base_Data.IMSIandCallFailuresfindByTime", query = "select bd.imsi, bd.failure from Base_Data bd where bd.dateTime>=:firsttime and bd.dateTime<=:secondtime"),
+		@NamedQuery(name = "Base_Data.EventandCausecodeByIMSI", query = "select bd.eventCause from Base_Data bd where bd.imsi = :imsi"),
+		
 })
 @XmlRootElement
 public class Base_Data implements Serializable {
@@ -90,6 +92,11 @@ public class Base_Data implements Serializable {
 	private User_Equipment userEquipment;
 
 	public Base_Data() {
+	}
+	
+	public Base_Data(String imsi,Failure failure) {
+		this.imsi=imsi;
+		this.failure = failure;
 	}
 
 	public Base_Data(Integer dataId, Date dateTime, Integer cellId,

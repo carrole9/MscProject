@@ -119,6 +119,28 @@ public class JPABase_DataDAO implements Base_DataDAO{
 
 		return datas;
 	}
+	
+	//select bd from Base_Data bd where bd.dateTime=:time")
+	
+	@Override
+	public Collection<Base_Data> getIMSIandCallFailures(Date firsttime, Date secondtime) {
+		Query query = em.createNamedQuery("Base_Data.IMSIandCallFailuresfindByTime");
+		query.setParameter("firsttime", firsttime);
+		query.setParameter("secondtime", secondtime);
+		@SuppressWarnings("unchecked")
+		List<Base_Data> datas = query.getResultList();  
+
+		return datas;
+	}
+
+	
+	public Collection<Base_Data> getEventandCausecodeByIMSI(String imsi) {
+		Query query = em.createNamedQuery("Base_Data.EventandCausecodeByIMSI");
+		query.setParameter("imsi", imsi);
+		@SuppressWarnings("unchecked")
+		List<Base_Data> datas = query.getResultList();  
+		return datas;
+	}
 		
 	}
 

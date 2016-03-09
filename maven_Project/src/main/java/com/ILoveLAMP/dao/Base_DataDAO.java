@@ -31,5 +31,7 @@ public interface Base_DataDAO {
 	void addBaseData(Collection<Base_Data> data);
 	void addErrorData(Collection<Error_Data> data);
 	Collection<Base_Data> getDatabyTime(Date time);
+	Collection<Base_Data> getIMSIandCallFailures(Date firsttime, Date secondtime);
+	Collection<Base_Data> getEventandCausecodeByIMSI(String imsi);
 
 }
