@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name = "Base_Data.getAll", query = "SELECT b FROM Base_Data b"),
 	@NamedQuery(name = "Base_Data.findById", query = "select bd from Base_Data bd where bd.dataId=:id"),
 	@NamedQuery(name = "Base_Data.findByTime", query = "select bd from Base_Data bd where bd.dateTime=:time"),
-	@NamedQuery(name = "Base_Data.IMSIandCallFailuresfindByTime", query = "select bd.imsi from Base_Data bd where bd.dateTime>=:firsttime and bd.dateTime<=:secondtime"),
+	@NamedQuery(name = "Base_Data.IMSIandCallFailuresfindByTime", query = "select distinct bd.imsi from Base_Data bd where bd.dateTime>=:firsttime and bd.dateTime<=:secondtime"),
 	@NamedQuery(name = "Base_Data.EventandCausecodeByIMSI", query = "select distinct bd.eventCause from Base_Data bd where bd.imsi = :imsi"),
 	@NamedQuery(name = "Base_Data.FailurebyTimeandIMSI", query = "select count(bd.failure) from Base_Data bd where bd.dateTime>=:firsttime and bd.dateTime<=:secondtime and bd.imsi = :imsi"),			
 	@NamedQuery(name = "Base_Data.findByPeriod", query = "select count(bd) from Base_Data bd where (bd.dateTime between :startTime and :endTime)"),				
@@ -38,11 +38,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name = "Base_Data.findIMSIbyFailureID", query = "SELECT bd.imsi FROM Base_Data bd where bd.failure.failureId=:failId GROUP BY bd.imsi"),
 	@NamedQuery(name = "Base_Data.findTop10IMSIinDateRange", query = "SELECT bd.imsi, COUNT(bd.imsi) FROM Base_Data bd WHERE bd.dateTime BETWEEN :startDate AND :endDate GROUP BY bd.imsi"),
 	@NamedQuery(name = "Base_Data.getNoOfFailuresTotalDurationsForEachImsiByPeriod", query = "select bd.imsi, count(bd), sum(bd.duration) from Base_Data bd where (bd.dateTime BETWEEN :startTime AND :endTime) group by bd.imsi"),
-	@NamedQuery(name = "Base_Data.FailureCauseCodeAndOcurrences", query = "select distinct bd.failure.failureId,bd.eventCause.causeCode,bd.eventCause.eventId,count(bd)"
+	@NamedQuery(name = "Base_Data.FailureCauseCodeAndOcurrences", query = "select distinct bd.failure.failureId,bd.failure.description,bd.eventCause.causeCode,bd.eventCause.eventId,bd.eventCause.description,count(bd)"
 			+ "from Base_Data bd "
 			+ "where bd.userEquipment.model=:model "
 			+ "group by bd.failure.failureId,bd.eventCause.ecId"),
-	@NamedQuery(name = "Base_Data.UniqueCauseCodesForIMSI", query = "select distinct bd.failure.failureId, bd.eventCause.causeCode  from Base_Data bd where bd.imsi = :imsi"),
+	@NamedQuery(name = "Base_Data.UniqueCauseCodesForIMSI", query = "select distinct bd.failure.failureId,bd.failure.description, bd.eventCause.causeCode, bd.eventCause.description from Base_Data bd where bd.imsi = :imsi"),
 	
 	@NamedQuery(name = "Base_Data.Top10MarketOperatorCellIdCombo", query = "select bd.operator.mcc, bd.operator.operatorName,  bd.cellId from Base_Data bd where bd.dateTime BETWEEN :firsttime AND :secondtime GROUP BY bd.operator, bd.cellId ORDER BY bd.cellId")
 })

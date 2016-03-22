@@ -125,6 +125,8 @@ $(function() {
 									+ "</td><td>" + data[i][1]
 									+ "</td><td>" + data[i][2]
 									+ "</td><td>" + data[i][3]
+									+ "</td><td>" + data[i][4]
+									+ "</td><td>" + data[i][5]
 									+ "</td></tr>");
 						$("#myModelTable").append(row);
 					}

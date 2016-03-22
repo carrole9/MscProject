@@ -167,6 +167,39 @@ $(function() {
 		document.getElementById("myIMSIDisplay").style.visibility = "hidden";
 	});
 	
+	
+	$('#datetimepicker6').datetimepicker({
+		// useCurrent: false,
+		locale : 'en-gb'// Important! See issue #1075
+	});
+	$('#datetimepicker7').datetimepicker({
+		useCurrent : false,
+		locale : 'en-gb'// Important! See issue #1075
+	});
+	$("#datetimepicker6").on("dp.change", function(e) {
+		$('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+	});
+	$("#datetimepicker7").on("dp.change", function(e) {
+		$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+	});
+
+	$('#datetimepicker16').datetimepicker({
+		// useCurrent: false,
+		locale : 'en-gb'// Important! See issue #1075
+	});
+	$('#datetimepicker17').datetimepicker({
+		useCurrent : false,
+		locale : 'en-gb'// Important! See issue #1075
+	});
+	$("#datetimepicker16").on("dp.change", function(e) {
+		$('#datetimepicker17').data("DateTimePicker").minDate(e.date);
+	});
+	$("#datetimepicker17").on("dp.change", function(e) {
+		$('#datetimepicker16').data("DateTimePicker").maxDate(e.date);
+	});
+
+	
+	
 	$('#back').on('click', function(){
 		var option = window.sessionStorage.getItem("SEoption");
 		if(option < 4)

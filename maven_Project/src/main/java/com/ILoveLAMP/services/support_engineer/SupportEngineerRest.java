@@ -1,6 +1,9 @@
 package com.ILoveLAMP.services.support_engineer;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,14 +44,34 @@ public class SupportEngineerRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	//public Base_DataList getIMSIandFailurebyTime(String time1,String time2) throws IOException {
-	public Base_DataList getIMSIandFailurebyTime(String[] time) throws IOException {	
+	public Base_DataList getIMSIandFailurebyTime(String[] data) throws IOException {	
 		Date parsedDate1 = null;
 		Date parsedDate2 = null;
 		
-		String time1 = time[0];
-		String time2 = time[1];
+		String time1 = data[0];
+		String time2 = data[1];
 		time1 = time1.replace("\"", "");
 		time2 = time2.replace("\"", "");
+		
+		
+		time1 = time1.replace("\"", "");
+		time2 = time2.replace("\"", "");
+		
+		//String og = "01-11-2013 17:00";
+		String day=time1.substring(0,2);
+		String month=time1.substring(3,5);
+		String year=time1.substring(6,10);
+		String time=time1.substring(11,16)+":00";
+		time1=year+"-"+day+"-"+month+" "+time;
+		//System.out.println(time1);
+		
+		String day1=time2.substring(0,2);
+		String month1=time2.substring(3,5);
+		String year1=time2.substring(6,10);
+		String timea=time2.substring(11,16)+":00";
+		time2=year1+"-"+day1+"-"+month1+" "+timea;
+		
+		
 		
 		try {
 			parsedDate1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -70,24 +93,42 @@ public class SupportEngineerRest {
 	@Path("/findNoOfFailuresByPeriodAndModel/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Integer getNoOfFailuresByPeriodAndModel(String[] data) {
-		String startTime = data[0];
-		String endTime = data[1];
+	public Integer getNoOfFailuresByPeriodAndModel(String[] data) throws IOException {
+		String time1 = data[0];
+		String time2 = data[1];
 		String model = data[2];
-		startTime = startTime.replace("\"", "");
-		endTime = endTime.replace("\"", "");
+		time1 = time1.replace("\"", "");
+		time2 = time2.replace("\"", "");
 		model = model.replace("\"", "");
+		
+		
+		
+		//String og = "01-11-2013 17:00";
+		String day=time1.substring(0,2);
+		String month=time1.substring(3,5);
+		String year=time1.substring(6,10);
+		String time=time1.substring(11,16)+":00";
+		time1=year+"-"+day+"-"+month+" "+time;
+		//System.out.println(time1);
+		
+		String day1=time2.substring(0,2);
+		String month1=time2.substring(3,5);
+		String year1=time2.substring(6,10);
+		String timea=time2.substring(11,16)+":00";
+		time2=year1+"-"+day1+"-"+month1+" "+timea;
+		
 		
 		Date parsedStartTime = null;
 		Date parsedEndTime = null;
 		try {
 			parsedStartTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-					.parse(startTime);
+					.parse(time1);
 			parsedEndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-			.parse(endTime);
+			.parse(time2);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}	
+		}
+		
 		return service.getNoOfFailuresByPeriodAndModel(parsedStartTime, parsedEndTime, model);
 	}
 	
@@ -100,6 +141,8 @@ public class SupportEngineerRest {
 		Integer id = Integer.parseInt(data);
 		return service.getIMSIbyFailureId(id);
 	}
+	
+	
 
 
 }

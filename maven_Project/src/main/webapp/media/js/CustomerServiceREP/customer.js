@@ -59,6 +59,7 @@ $('#submitIMSI').on('click', function(){
 					$.each(basedatas, function(i,basedata){
 						var row = $("<tr><td>"  + basedata.causeCode
 								+"</td><td>" + basedata.eventId
+								+"</td><td>" + basedata.description
 								+"</td></tr>");
 								
 		                $("#myEventID").append(row);
@@ -127,6 +128,8 @@ $('#submitCauseCode').on('click', function(){
 					
 				 var row = $("<tr><td>" + data[i][0]
 					         +"</td><td>" + data[i][1]
+				 			+"</td><td>" + data[i][2]
+				 			+"</td><td>" + data[i][3]
 							+"</td></tr>");
 			
 				 $("#myCauseCode").append(row);
