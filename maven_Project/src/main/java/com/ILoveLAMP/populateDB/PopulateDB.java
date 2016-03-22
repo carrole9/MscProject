@@ -46,7 +46,7 @@ public class PopulateDB {
 	@PersistenceContext
 	EntityManager em;
 
-	private String path = "/home/user1/conygreJEE/solutions/JavaEE6Workspace/maven_Project/dataset.xls";
+	private String path = "/home/user1/Desktop/dataset.xls";
 	int composetkeyEventClause;
 	int composetkeyOperator;
 	
@@ -79,7 +79,7 @@ public class PopulateDB {
 
 		FileInputStream file = new FileInputStream(new File(path));
 		HSSFWorkbook workbook = new HSSFWorkbook(file);
-		HSSFSheet sheet = workbook.getSheet("Base Data");
+		HSSFSheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.iterator();
 		Row row = sheet.getRow(1);
 		int rowcount = 0;
@@ -287,7 +287,7 @@ public class PopulateDB {
 
 			FileInputStream file = new FileInputStream(new File(path));
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
-			HSSFSheet sheet = workbook.getSheet("UE Table");
+			HSSFSheet sheet = workbook.getSheetAt(3);
 			Iterator<Row> rowIterator = sheet.iterator();
 			Row row = sheet.getRow(1);
 			int rowcount = 0;
@@ -401,7 +401,7 @@ public class PopulateDB {
 
 			FileInputStream file = new FileInputStream(new File(path));
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
-			HSSFSheet sheet = workbook.getSheet("MCC - MNC Table");
+			HSSFSheet sheet = workbook.getSheetAt(4);
 			Iterator<Row> rowIterator = sheet.iterator();
 			Row row = sheet.getRow(1);
 			int rowcount = 0;
@@ -485,7 +485,7 @@ public class PopulateDB {
 
 			FileInputStream file = new FileInputStream(new File(path));
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
-			HSSFSheet sheet = workbook.getSheet("Failure Class Table");
+			HSSFSheet sheet = workbook.getSheetAt(2);
 			Iterator<Row> rowIterator = sheet.iterator();
 			Row row = sheet.getRow(1);
 			int rowcount = 0;
@@ -548,7 +548,7 @@ public class PopulateDB {
 
 			FileInputStream file = new FileInputStream(new File(path));
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
-			HSSFSheet sheet = workbook.getSheet("Event-Cause Table");
+			HSSFSheet sheet = workbook.getSheetAt(1);
 			Iterator<Row> rowIterator = sheet.iterator();
 			Row row = sheet.getRow(1);
 			int rowcount = 0;
