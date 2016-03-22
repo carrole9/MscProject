@@ -255,5 +255,11 @@ public class Base_DataServiceEJB implements Base_DataService{
 		public List<Object[]> top10MarketOperatorCellIDCombo(Date firsttime, Date secondtime) 		{
 			return dao.top10MarketOperatorCellIDCombo(firsttime, secondtime);
 		}
+
+		
+		public Collection<Base_Data> getAllIMSI() {
+			// TODO Auto-generated method stub
+			return dao.getAllIMSI();
+		}
 }
 

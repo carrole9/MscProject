@@ -24,6 +24,85 @@ function CUload(){
 //	}
 }
 
+function addDropDownFeatures1(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllIMSI',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("myIMSI");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+function addDropDownFeatures2(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllIMSI',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("FmyIMSI");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+function addDropDownFeatures3(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllIMSI',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("myIMSICauseCode");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+
 $(function (){
 
 	function close_window(currentURL, newURL){
@@ -36,6 +115,9 @@ $(function (){
 		window.sessionStorage.setItem("UserName", "");
 		window.location.replace("http://localhost:8080/maven_Project/");
 	});
+	
+	
+	
 	
 //User Story 4 CS
 $('#submitIMSI').on('click', function(){	

@@ -49,6 +49,7 @@ public interface Base_DataService {
 		// Base Data Service
 		public void addToBaseDatas(Base_Data data);
 		public Collection<Base_Data> getAllBaseDatas();
+		public Collection<Base_Data> getAllIMSI();
 		public Base_Data getDatabyID(int id);
 		public void removeBase_Data(Base_Data data);
 		

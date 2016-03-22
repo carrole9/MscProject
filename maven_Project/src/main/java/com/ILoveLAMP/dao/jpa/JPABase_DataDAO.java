@@ -424,6 +424,16 @@ public class JPABase_DataDAO implements Base_DataDAO{
 
 			return datas;
 		}
+
+
+		@Override
+		public Collection<Base_Data> getAllIMSI() {
+			Query query = em.createNamedQuery("Base_Data.getAllIMSI");
+			@SuppressWarnings("unchecked")
+			List<Base_Data> datas = query.getResultList();
+
+			return datas;
+		}
 }
 
 

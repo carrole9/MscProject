@@ -43,6 +43,14 @@ public class Rest {
 		datas.setBaseDataCollection(service.getAllBaseDatas());
 		return datas;
 	}
+	
+	@GET
+	@Path("/getAllIMSI")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Base_Data> getIMSI() {
+		return service.getAllIMSI();
+		
+	}
 
 	// http://localhost:8080/maven_Project/rest/basedata/findbyID/1
 	@GET

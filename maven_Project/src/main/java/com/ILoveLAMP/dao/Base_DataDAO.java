@@ -46,6 +46,7 @@ public interface Base_DataDAO {
 		void addUser(User user);
 		User getUserById(int id);
 		Collection<User> getAllUsers();
+		Collection<Base_Data> getAllIMSI();
 		void removeUser(User user);
 		
 		// Base Data DAO

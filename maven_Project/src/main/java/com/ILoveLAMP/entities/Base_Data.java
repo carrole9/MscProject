@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @NamedQueries({
 	@NamedQuery(name = "Base_Data.getAll", query = "SELECT b FROM Base_Data b"),
+	@NamedQuery(name = "Base_Data.getAllIMSI", query = "SELECT distinct b.imsi FROM Base_Data b"),
 	@NamedQuery(name = "Base_Data.findById", query = "select bd from Base_Data bd where bd.dataId=:id"),
 	@NamedQuery(name = "Base_Data.findByTime", query = "select bd from Base_Data bd where bd.dateTime=:time"),
 	@NamedQuery(name = "Base_Data.IMSIandCallFailuresfindByTime", query = "select distinct bd.imsi from Base_Data bd where bd.dateTime>=:firsttime and bd.dateTime<=:secondtime"),
