@@ -31,7 +31,6 @@ public class JPABase_DataDAO implements Base_DataDAO{
 	EntityManager em;
 
 	public void addUser_Equipment(Collection<User_Equipment> eq) {
-		Query query = em.createQuery("from User_Equipment");
 		
 		for(User_Equipment ue:eq){
 			em.merge(ue);
@@ -42,7 +41,6 @@ public class JPABase_DataDAO implements Base_DataDAO{
 
 	
 	public void addOperator(Collection<Operator> op) {
-    Query query = em.createQuery("from Operator");
 		
 		for(Operator operator:op){
 			em.merge(operator);
@@ -51,7 +49,6 @@ public class JPABase_DataDAO implements Base_DataDAO{
 	}
 
 	public void addFailure(Collection<Failure> failures) {
-    Query query = em.createQuery("from Failure");
 		
 		for(Failure fail:failures){
 			em.merge(fail);
@@ -61,7 +58,6 @@ public class JPABase_DataDAO implements Base_DataDAO{
 
 
 	public void addEventCause(Collection<Event_Cause> events) {
-		 Query query = em.createQuery("from Event_Cause");
 			
 			for(Event_Cause event:events){
 				em.merge(event);
@@ -70,11 +66,9 @@ public class JPABase_DataDAO implements Base_DataDAO{
 	}
 
 	public void addBaseData(Collection<Base_Data> data) {
-			 Query query = em.createQuery("from Base_Data");
 				
 				for(Base_Data basedata:data){
 					em.merge(basedata);
-					System.out.print(basedata);
 				}
 			
 		}
@@ -125,7 +119,6 @@ public class JPABase_DataDAO implements Base_DataDAO{
 		query.setParameter("firsttime", firsttime);
 		query.setParameter("secondtime", secondtime);
 		query.setParameter("imsi", imsi);
-		@SuppressWarnings("unchecked")
 		Long datas =  (Long) query.getSingleResult();  
 
 		return datas;
@@ -224,6 +217,7 @@ public class JPABase_DataDAO implements Base_DataDAO{
 		Query query = em.createNamedQuery("Base_Data.getNoOfFailuresTotalDurationsForEachImsiByPeriod");		
 		query.setParameter("startTime", startTime);
 		query.setParameter("endTime", endTime).getResultList();	
+		@SuppressWarnings("unchecked")
 		List<Object[]> base_Data = query.getResultList();
 		
 		if (base_Data.size() == 0)

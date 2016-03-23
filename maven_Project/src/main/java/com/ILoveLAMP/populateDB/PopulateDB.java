@@ -46,7 +46,7 @@ public class PopulateDB {
 	@PersistenceContext
 	EntityManager em;
 
-	private String path = "/home/user1/Desktop/dataset.xls";
+	private String path = "/home/user1/conygreJEE/solutions/JavaEE6Workspace/maven_Project/dataset1.xls";
 	int composetkeyEventClause;
 	int composetkeyOperator;
 	
@@ -113,6 +113,7 @@ public class PopulateDB {
 		SimpleDateFormat sdf;
 		Base_Data data;
 		Error_Data error;
+		boolean isError = false;
 
 		while (rowIterator.hasNext()) {
 			row = rowIterator.next();
@@ -159,36 +160,49 @@ public class PopulateDB {
 					if (count == 1) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						event = cell.getRichStringCellValue().getString();
+						
 						check = Integer.parseInt(event);
 					}
 					if (count == 2) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						failure = cell.getRichStringCellValue().getString();
-
-						if (failure.contains("(null)") || failure.length() > 2) {
-						} else {
+						
+						if (failure.contains("(null)")) 
+							isError = true;
+						else if(em.find(Failure.class, Integer.parseInt(failure))==null)
+							isError = true;
+						else 
 							failureId = Integer.parseInt(failure);
-						}
 					}
 					if (count == 3) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						ueType = cell.getRichStringCellValue().getString();
 
-						if (!(ueType.equals("null")
-								|| (ueType.equals("(null)")) || ueType
-									.isEmpty())) {
+						if (ueType.contains("(null)")) 
+							isError = true;
+						else if(em.find(User_Equipment.class, Integer.parseInt(ueType))==null)
+							isError=true;
+						else {
 							ueId = Integer.parseInt(ueType);
 						}
 					}
 
 					if (count == 4) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
-						market = cell.getRichStringCellValue().getString();
+						//market = cell.getRichStringCellValue().getString();
+						String tempd = cell.getRichStringCellValue().getString();
+						
+						if (!tempd.contains("(null)"))
+							market = tempd;
 					}
 
 					if (count == 5) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
-						operator = cell.getRichStringCellValue().getString();
+						//operator = cell.getRichStringCellValue().getString();
+						String tempd = cell.getRichStringCellValue().getString();
+						
+						if (!tempd.contains("(null)"))
+							operator = tempd;
 					}
 					if (count == 6) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
@@ -206,9 +220,7 @@ public class PopulateDB {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						causeCode = cell.getRichStringCellValue().getString();
 
-						if (!(causeCode.equals("(null)")
-								|| (causeCode.equals("null")) || causeCode
-									.isEmpty())) {
+						if (!causeCode.contains("(null)")) {
 							cause_code = causeCode;
 						}
 					}
@@ -216,7 +228,7 @@ public class PopulateDB {
 					if (count == 9) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						neVersion = cell.getRichStringCellValue().getString();
-						;
+						
 					}
 					if (count == 10) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
@@ -241,19 +253,31 @@ public class PopulateDB {
 				}
 			}
 			try {
-				temp = market + operator + "";
-				if (!temp.contains("null")) {
-					opId = Integer.parseInt(temp);
-				}
-
-				temp = event + cause_code + "";
-				if (!temp.contains("null")) {
-					ecId = Integer.parseInt(temp);
-				}
+				//if(!market.contains("(null)") && !operator.contains("(null)")){
+					temp = market + operator + "";
+					if (temp.contains("null"))
+						isError = true;
+					else if(em.find(Operator.class, Integer.parseInt(temp))==null)
+						isError = true;
+					else
+						opId = Integer.parseInt(temp);
+				//}
+				
+				//if(!event.contains("(null)") && !cause_code.contains("(null)")){
+					temp = event + cause_code + "";
+					if (temp.contains("null")) 
+						isError = true;
+					else if(em.find(Event_Cause.class, Integer.parseInt(temp))==null)
+						isError = true;
+					else
+						ecId = Integer.parseInt(temp);
+					
+				//}
 			} catch (NumberFormatException e) {
 
 			}
-			if (rowcount > 0 && check != 4099) {
+			
+			if (rowcount > 0 && !isError) {
 				data = new Base_Data(0, dayTime, cellId, duration, neVersion,
 						imsi, hier3Id, hier32Id, hier321Id, em.find(
 								Failure.class, failureId), em.find(
@@ -270,6 +294,7 @@ public class PopulateDB {
 				errorDataSets.add(error);
 			}
 			rowcount++;
+			isError = false;
 
 		}
 		file.close();
