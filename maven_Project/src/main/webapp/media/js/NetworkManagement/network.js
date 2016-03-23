@@ -15,6 +15,70 @@ function load(){
 		window.location.replace("http://localhost:8080/maven_Project/");
 	}
 }
+function ChangeNetworkModel(){	
+	
+	var jsonString = JSON.stringify($("#NetworkManufacturer").val());
+  
+    
+    document.getElementById("NetworkModel").options.length=0;
+    $.ajax({
+			async:false,
+			type: 'POST',
+			url: 'rest/basedata/getAllModels/',
+			contentType : "application/json",
+			data : jsonString,
+			
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("NetworkModel");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading models');
+			}
+		})
+ 
+   
+	}
+
+
+
+
+
+function addManufacturersDropDownFeaturesNetwork(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllManufacturers',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("NetworkManufacturer");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading Manufacturers');
+			}
+		})
+ 
+   
+	}
 
 $(function() {
 

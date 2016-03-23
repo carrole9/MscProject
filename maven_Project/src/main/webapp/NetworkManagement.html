@@ -36,7 +36,7 @@
 	<script src="media/js/collapse.js"></script>
 	<script src="media/js/bootstrap-datetimepicker.min.js"></script>
 </head>
-<body>
+<body onload ="addManufacturersDropDownFeaturesNetwork()">
 	<div class="container basedata">
 		<img title="Ericsson Logo" src="media/images/Ericsson.png"
 			id="ericsson" alt="logo" width="100px" />
@@ -206,12 +206,17 @@
 						<h3 class="title">Failure Event Id and Cause Code
 							combinations for a model of phone with a number of occurrences</h3>
 					</blockquote>
-					<label for="myModel">Select Model (select one):</label> <select
-						class="form-control" id="myModel">
-						<option>Dirland Miniphone</option>
-						<option>VEA3</option>
-						<option>9109 PA</option>
-					</select> <br>
+		<label class="control-label col-sm-2 " for="NetworkManufacturer">Select Phone Manufacturer:</label>
+        <select class="form-control" id="NetworkManufacturer"onchange="ChangeNetworkModel()">
+        
+       </select>
+       <br>
+       <label class="control-label col-sm-2 " for="NetworkModel">Select Phone Model:</label>
+        <select class="form-control" id="NetworkModel">
+        
+       </select>		
+				
+					 <br>
 					<button id="submitModel" title="Click to Continue"
 						class="submit btn btn-primary">Submit Model</button>
 					<hr>
