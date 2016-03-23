@@ -50,6 +50,9 @@ public interface Base_DataService {
 		public void addToBaseDatas(Base_Data data);
 		public Collection<Base_Data> getAllBaseDatas();
 		public Collection<Base_Data> getAllIMSI();
+		public Collection<Base_Data> getAllFailureID();
+		public Collection<Base_Data> getAllManufacturers();
+		public Collection<Base_Data> getAllModels(String model);
 		public Base_Data getDatabyID(int id);
 		public void removeBase_Data(Base_Data data);
 		

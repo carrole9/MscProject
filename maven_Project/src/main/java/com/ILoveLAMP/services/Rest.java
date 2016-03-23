@@ -9,7 +9,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -51,6 +53,32 @@ public class Rest {
 		return service.getAllIMSI();
 		
 	}
+	
+	@GET
+	@Path("/getAllFailureID")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Base_Data> getAllFailureID() {
+		return service.getAllFailureID();
+		
+	}
+	
+	@GET
+	@Path("/getAllManufacturers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Base_Data> getAllManufacturers() {
+		return service.getAllManufacturers();
+		
+	}
+	@POST
+	@Path("/getAllModels/")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<Base_Data> getAllModels(String model) {
+		model = model.replace("\"", "");
+		return service.getAllModels(model);
+		
+	}
+	
 
 	// http://localhost:8080/maven_Project/rest/basedata/findbyID/1
 	@GET

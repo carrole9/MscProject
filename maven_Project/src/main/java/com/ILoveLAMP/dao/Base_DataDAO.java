@@ -53,6 +53,9 @@ public interface Base_DataDAO {
 		void addBasicData(Base_Data data);
 		Base_Data getBaseDataById(int id);
 		Collection<Base_Data> getAllBaseDatas();
+		Collection<Base_Data> getAllFailureID();
+		Collection<Base_Data> getAllManufacturers(); 
+		Collection<Base_Data> getAllModels(String model);
 		void removeBase_Data(Base_Data data);
 		
 		// Error Data DAO

@@ -41,7 +41,7 @@
 		<script src="media/js/bootstrap-datetimepicker.min.js"></script>
 			
 	</head>
-	<body>
+	<body onload ="addDropDownFeatures3(),addManufacturersDropDownFeatures()">
 		<div class="container">
 		 <img title="Ericsson Logo" src="media/images/Ericsson.png" id="ericsson" alt="logo" width="100px" />
 			<h2>Support Engineer</h2>
@@ -133,8 +133,18 @@
 						<blockquote>
 							  <h3 class="title">"For a given model of phone, count the number of call failures it has had during a given time period"</h3>
 						</blockquote>
-						<label for="FmyModel">Model: </label>
-						<input type="text" id="FmyModel" title="Insert a model name to continue" 	placeholder="Ericsson">
+						<!--  <label for="FmyModel">Model: </label>
+						<input type="text" id="FmyModel" title="Insert a model name to continue" 	placeholder="Ericsson">-->
+						<label class="control-label col-sm-2 " for="myManufacturer">Select Phone Manufacturer:</label>
+        <select class="form-control" id="myManufacturer"onchange="ChangeModel()">
+        
+       </select>
+       <br>
+       <label class="control-label col-sm-2 " for="myPhoneModel">Select Phone Model:</label>
+        <select class="form-control" id="myPhoneModel">
+        
+       </select>
+						
 						<br>
 						<!--  <label for="FstartTime">Start Time: </label>
 						<input type="text" id="FstartTime" title="Insert a Timestamp to continue" 	placeholder="2013-01-11 17:15:00">
@@ -186,8 +196,10 @@
 						<blockquote>
 							  <h3 class="title">"For a given failure Cause Class, display the IMSI's that were affected"</h3>
 						</blockquote>
-						<label for="FmyFailID">Failure ID: </label>
-						<input type="text" id="FmyFailID" title="Insert a failure ID to continue" 	placeholder="1">
+						<!-- <label for="FmyFailID">Failure ID: </label>
+						//<input type="text" id="FmyFailID" title="Insert a failure ID to continue" 	placeholder="1">-->
+							<label class="control-label col-sm-2 " for="myFailure">Select Failure:</label>
+                         <select class="form-control" id="myFailure"></select>
 						<button id="suppSub3" title="Click to Continue" class="submit btn btn-primary">Submit</button>
 						<br>
 						<hr>

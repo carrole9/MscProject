@@ -261,5 +261,19 @@ public class Base_DataServiceEJB implements Base_DataService{
 			// TODO Auto-generated method stub
 			return dao.getAllIMSI();
 		}
+		public Collection<Base_Data> getAllFailureID() {
+			// TODO Auto-generated method stub
+			return dao.getAllFailureID();
+		}
+		
+		public Collection<Base_Data> getAllManufacturers() {
+			// TODO Auto-generated method stub
+			return dao.getAllManufacturers();
+		}
+		public Collection<Base_Data> getAllModels(String model) {
+			// TODO Auto-generated method stub
+			return dao.getAllModels(model);
+		}
+		
 }
 

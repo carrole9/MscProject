@@ -20,6 +20,124 @@ function SEload(){
 	}
 }
 
+function addDropDownFeatures3(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllFailureID',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("myFailure");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+
+function ChangeModel(){	
+	
+	var jsonString = JSON.stringify($("#myManufacturer").val());
+  
+    
+    document.getElementById("myPhoneModel").options.length=0;
+    $.ajax({
+			async:false,
+			type: 'POST',
+			url: 'rest/basedata/getAllModels/',
+			contentType : "application/json",
+			data : jsonString,
+			
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("myPhoneModel");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading models');
+			}
+		})
+ 
+   
+	}
+
+
+
+
+
+function addManufacturersDropDownFeatures(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllManufacturers',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("myManufacturer");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+function addModelDropDownFeatures(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllManufacturers',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("myManufacturer");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+
 
 $(function() {
 	

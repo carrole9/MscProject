@@ -46,7 +46,7 @@ public class PopulateDB {
 	@PersistenceContext
 	EntityManager em;
 
-	private String path = "/home/user1/conygreJEE/solutions/JavaEE6Workspace/maven_Project/dataset1.xls";
+	private String path = "/home/user1/git/MscProject/maven_Project/dataset1.xls";
 	int composetkeyEventClause;
 	int composetkeyOperator;
 	

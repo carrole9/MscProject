@@ -428,6 +428,33 @@ public class JPABase_DataDAO implements Base_DataDAO{
 
 			return datas;
 		}
+		
+		@Override
+		public Collection<Base_Data> getAllFailureID() {
+			Query query = em.createNamedQuery("Base_Data.getAllFailureID");
+			@SuppressWarnings("unchecked")
+			List<Base_Data> datas = query.getResultList();
+
+			return datas;
+		}
+		@Override
+		public Collection<Base_Data> getAllManufacturers() {
+			Query query = em.createNamedQuery("Base_Data.getAllManufacturers");
+			@SuppressWarnings("unchecked")
+			List<Base_Data> datas = query.getResultList();
+
+			return datas;
+		}
+		@Override
+		public Collection<Base_Data> getAllModels(String model) {
+			Query query = em.createNamedQuery("Base_Data.getAllModels");
+			query.setParameter("model", model);
+			
+			@SuppressWarnings("unchecked")
+			List<Base_Data> datas = query.getResultList();
+
+			return datas;
+		}
 }
 
 
