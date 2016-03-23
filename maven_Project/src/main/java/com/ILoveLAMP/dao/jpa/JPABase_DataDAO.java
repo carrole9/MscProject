@@ -414,7 +414,7 @@ public class JPABase_DataDAO implements Base_DataDAO{
 			query.setParameter("firsttime", firsttime);
 			query.setParameter("secondtime", secondtime);
 			@SuppressWarnings("unchecked")
-			List<Object[]> datas = query.getResultList();  
+			List<Object[]> datas = query.setMaxResults(10).getResultList();  
 
 			return datas;
 		}
