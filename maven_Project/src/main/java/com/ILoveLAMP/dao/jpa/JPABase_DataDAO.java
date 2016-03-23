@@ -455,7 +455,21 @@ public class JPABase_DataDAO implements Base_DataDAO{
 
 			return datas;
 		}
-}
+
+
+		@Override
+		public List<String> getIMSIbyIdfailure(String failId) {
+			Query query = em.createNamedQuery("Base_Data.getIMSIbyIdfailure");
+			query.setParameter("failId", failId);
+			@SuppressWarnings("unchecked")
+			List<String> datas = query.getResultList();
+
+			return datas;
+		}
+		}
+
+
+
 
 
 	

@@ -172,7 +172,7 @@ $(function() {
 	// user stroy 10
 	$('#submitModel').on('click',function() {
 
-		var jsonString = JSON.stringify($("#myModel").val());
+		var jsonString = JSON.stringify($("#NetworkModel").val());
 
 		$("#myModelTable tr:gt(0)").remove();
 		$.ajax({

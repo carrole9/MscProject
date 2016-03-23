@@ -32,7 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name = "Base_Data.findByTime", query = "select bd from Base_Data bd where bd.dateTime=:time"),
 	@NamedQuery(name = "Base_Data.IMSIandCallFailuresfindByTime", query = "select distinct bd.imsi from Base_Data bd where bd.dateTime>=:firsttime and bd.dateTime<=:secondtime"),
 	@NamedQuery(name = "Base_Data.EventandCausecodeByIMSI", query = "select distinct bd.eventCause from Base_Data bd where bd.imsi = :imsi"),
-	@NamedQuery(name = "Base_Data.FailurebyTimeandIMSI", query = "select count(bd.failure) from Base_Data bd where bd.dateTime>=:firsttime and bd.dateTime<=:secondtime and bd.imsi = :imsi"),			
+	@NamedQuery(name = "Base_Data.FailurebyTimeandIMSI", query = "select count(bd.failure) from Base_Data bd where bd.dateTime>=:firsttime and bd.dateTime<=:secondtime and bd.imsi = :imsi"),
+	
+	@NamedQuery(name = "Base_Data.getIMSIbyIdfailure", query = "select distinct bd.imsi from Base_Data bd where bd.failure.description = :failId"),			
+	
 	@NamedQuery(name = "Base_Data.findByPeriod", query = "select count(bd) from Base_Data bd where (bd.dateTime between :startTime and :endTime)"),				
 	@NamedQuery(name = "Base_Data.findByPeriodAndModel", query = "select count(bd) from Base_Data bd where (bd.userEquipment=:userEquipment) and (bd.dateTime between :startTime and :endTime)"),			
 	@NamedQuery(name = "Base_Data.findBaseDatasByPeriod", query ="select bd from Base_Data bd where (bd.dateTime between :startTime and :endTime)"),

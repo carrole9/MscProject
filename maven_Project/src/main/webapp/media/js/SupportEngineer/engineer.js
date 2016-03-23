@@ -203,7 +203,7 @@ $(function() {
 		var my_arr = [];
 		my_arr.push($("#FstartTime").val());
 		my_arr.push($("#FendTime").val());
-		my_arr.push($("#FmyModel").val());
+		my_arr.push($("#myPhoneModel").val());
 		var jsonString = JSON.stringify(my_arr);
 		//alert(jsonString);
 
@@ -231,7 +231,7 @@ $(function() {
 	});
 
 	$('#suppSub3').on('click', function() {
-		var value = ($("#FmyFailID").val());
+		var value = ($("#myFailure").val());
 		var no = 1;
 		$("#myIMSIDisplay tr:gt(0)").remove();
 		$.ajax({
@@ -241,6 +241,7 @@ $(function() {
 			contentType : "application/json",
 			data : value,
 			success : function(data) {
+				
 				if(data === undefined){
 					document.getElementById("myIMSIDisplay").style.visibility = "hidden";
 					alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");

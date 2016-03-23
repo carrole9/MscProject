@@ -86,8 +86,8 @@ public class Base_DataServiceEJB implements Base_DataService{
 			Date endTime, String model) {
 		return dao.getNoOfFailuresByPeriodAndModel(startTime, endTime, model);
 	}
-	public List<String> getIMSIbyFailureId(Integer failId) {
-		return dao.getIMSIbyId(failId);
+	public List<String> getIMSIbyFailureId(String failId) {
+		return dao.getIMSIbyIdfailure(failId);
 	}
 	
 	public List<Object[]> getTop10ImsisByDate(Date startDate, Date endDate) {

@@ -36,6 +36,7 @@ public interface Base_DataDAO {
 	Integer getNoOfFailuresByPeriodAndModel(Date startTime,
 			Date endTime, String model);
 	List<String> getIMSIbyId(Integer failId);
+	List<String> getIMSIbyIdfailure(String failId);
 	List<Object[]> getTop10ImsisByDate(Date startDate, Date endDate);
 	Integer getTotalDurationByPeriodAndImsi(Date startTime, Date endTime,
 			String imsi);

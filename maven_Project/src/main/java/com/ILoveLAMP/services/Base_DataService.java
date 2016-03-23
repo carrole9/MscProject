@@ -31,7 +31,7 @@ public interface Base_DataService {
 	Long getFailurebyTimeandIMSI(Date firsttime, Date secondtime, String imsi);
 	Collection<Base_Data> getEventandCausecodeByIMSI(String imsi);	
 	Integer getNoOfFailuresByPeriodAndModel(Date startTime,Date endTime,String model);
-	public List<String> getIMSIbyFailureId(Integer failId);
+	public List<String> getIMSIbyFailureId(String failId);
 	
 	public List<Object[]> getTop10ImsisByDate(Date startDate, Date endDate);
 	public Map<String, Integer> getAllTotalDurationByPeriodAndImsi(Date startTime, Date endTime);

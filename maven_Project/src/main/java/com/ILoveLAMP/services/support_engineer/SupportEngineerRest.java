@@ -138,8 +138,7 @@ public class SupportEngineerRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<String> getIMSIbyFailId(String data) {
-		Integer id = Integer.parseInt(data);
-		return service.getIMSIbyFailureId(id);
+		return service.getIMSIbyFailureId(data);
 	}
 	
 	
