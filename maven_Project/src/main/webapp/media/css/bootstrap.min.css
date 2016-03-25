@@ -2579,7 +2579,9 @@ caption {
 }
 
 th {
-	text-align: left
+	text-align: left;
+	color: white;
+	background-color: green;
 }
 
 .table {

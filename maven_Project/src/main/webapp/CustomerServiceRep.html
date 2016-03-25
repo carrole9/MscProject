@@ -10,6 +10,7 @@
 		var option = window.sessionStorage.getItem("SEoption");
 		//alert(document.getElementById("back").innerHTML);
 		
+		
 		if(type=="2"){
 			if(window.sessionStorage.getItem("greeting") == "true"){
 				alert("Welcome back "+window.sessionStorage.getItem("UserName"));
@@ -18,11 +19,11 @@
 		}else if(type=="1"){
 			window.location.replace("http://localhost:8080/maven_Project/Admin.html");
 		}else if(type=="3" && option=="2"){
-			document.getElementById("back").style.visibility = "visible";
+			document.getElementById("back").style.display = "block";
 		}else if(type=="3"){
 			window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
 		}else if(type=="4" && option=="5"){
-			document.getElementById("back").style.visibility = "visible";
+			document.getElementById("back").style.display = "block";
 		}else if(type=="4"){
 			window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
 		}else{
@@ -30,14 +31,27 @@
 		}
    	</script>   	
    	
-  	<link rel="stylesheet" href="media/css/bootstrap.min.css">
+  	<!-- Bootstrap stylesheet -->
+  	<link rel="stylesheet" href="media/css/bootstrap.min.css" type="text/css">
+  	<!-- bootstrap widget theme -->
+	<link id="css" href="media/css/theme.bootstrap.css" rel="stylesheet" type="text/css" />
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="media/js/jqueryNew.min.js"></script>
+	<!-- tablesorter plugin -->
+	<script src="media/js/jquery.tablesorter.js"></script>
+	<!-- tablesorter widget file - loaded after the plugin -->
+	<script src="media/js/jquery.tablesorter.widgets.js"></script>
+	<!-- pager plugin -->
+	<link rel="stylesheet" href="media/css/jquery.tablesorter.pager.css" type="text/css">
+	<script src="media/js/jquery.tablesorter.pager.js"></script>
+	<!-- Table sorter function -->
+	<script src="media/js/tableSorter.js"></script>
+	
+	
   	<link rel="stylesheet" href="media/css/Design.css">
    	<link rel="stylesheet" href="media/css/bootstrap-datetimepicker.css">
    	
-  	<script src="media/js/jquery.min.js"></script>
   	<script src="media/js/bootstrap.min.js"></script>
-  	<script src="/maven_Project/jquery.min.js"></script>
-<!--   	<script src="/maven_Project/main.js"></script> -->
   	<script src="media/js/CustomerServiceREP/customer.js"></script>
  	<script src="media/js/moment-with-locales.js"></script>
 	<script src="media/js/transition.js"></script>
@@ -87,7 +101,7 @@
 			<h3 class="title">Find Event ID and Cause Code for failures affecting an IMSI</h3>
 		</blockquote>
 		
-		<label class="control-label col-sm-2 " for="myIMSI">Select IMSI:</label>
+		<label class="control-label col-sm-1" for="myIMSI">Select IMSI:</label>
         <select class="form-control" id="myIMSI">
            <!--  <option>344930000000011</option>
             <option>310560000000012</option>
@@ -97,16 +111,44 @@
             <option>240210000000003</option>--> 
       </select>
       <br>
-      <button id="submitIMSI" title="Click to Continue" class="submit btn btn-primary">submit IMSI</button>	
+      <button id="submitIMSI" title="Click to Continue" class="submit btn btn-primary">Submit</button>	
 		</div>	
 		<hr>
 		<div class="table-responsive"> 
-		<table id="myEventID" class="table header-fixed table-striped table-hover table-condensed table-bordered" align="center">	
+		<table id="myEventID" class="tablesorter" align="center">	
+			<thead>
 			<tr>
 				<th>Cause Code</th>
 			    <th>Event ID</th>
 			    <th>Cause Code Description</th>
 			</tr>	
+			</thead>
+			<tfoot>
+				<tr>
+					<th>Cause Code</th>
+				    <th>Event ID</th>
+				    <th>Cause Code Description</th>
+				 </tr>
+				<tr>
+      <th  colspan="3" class="ts-pager form-horizontal">
+        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+        <select class="pagesize input-mini" title="Select page size">
+          <option selected="selected" value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+        </select>
+        <select class="pagenum input-mini" title="Select page number"></select>
+      </th>
+    </tr>
+					</tfoot>
+			<tbody>
+					
+			</tbody>
 		</table>
       <p></p>
       </div>
@@ -118,7 +160,7 @@
 		</blockquote>
 			<div>
 			
-    <div class='col-md-5'>
+    <div class='col-md-3'>
     <label for="x">Start Time :</label>
         <div class="form-group">
             <div class='input-group date' id='datetimepicker6'>
@@ -132,7 +174,7 @@
     </div>
   <div></div>
  
-    <div class='col-md-5'>
+    <div class='col-md-3'>
     <label for="y">End Time :</label>
         <div class="form-group">
             <div class='input-group date' id='datetimepicker7'>
@@ -146,7 +188,7 @@
 </div>
 <br><br><br><br>	
 			<div>
-			<label for="FmyIMSI">Select IMSI (select one):</label>
+			<label class="control-label col-sm-1" for="FmyIMSI">Select IMSI :</label>
             <select class="form-control" id="FmyIMSI">
          <!--  <option>344930000000011</option>
             <option>310560000000012</option>
@@ -164,7 +206,7 @@
 		</div>	
 		<hr>
 		<div class="table-responsive"> 
-		<table id="myFailureCount" class="table header-fixed table-striped table-hover table-condensed table-bordered" align="center">	
+		<table id="myFailureCount" class="count table header-fixed table-striped table-hover table-condensed table-bordered" align="center">	
 		
 			<tr>
 				<th>Number of Failures</th>
@@ -180,7 +222,7 @@
       <blockquote>
 			<h3 class="title">Unique Cause Codes associated with their call failures affecting an IMSI</h3>
 		</blockquote>	
-			<label for="myIMSICauseCode">Select IMSI (select one):</label>
+			<label class="control-label col-sm-1" for="myIMSICauseCode">Select IMSI :</label>
             <select class="form-control" id="myIMSICauseCode">
           <!--  <option>344930000000011</option>
             <option>310560000000012</option>
@@ -191,20 +233,45 @@
             
       </select>
       <br>
-      <button id="submitCauseCode" title="Click to Continue" class="submit btn btn-primary">submit IMSI</button>
+      <button id="submitCauseCode" title="Click to Continue" class="submit btn btn-primary">Submit</button>
 		</div>	
 		<hr>
 		<div class="table-responsive">
-		<table id="myCauseCode" class="table header-fixed table-striped table-hover table-condensed table-bordered" align="center">	
-		
+		<table id="myCauseCode"class="tablesorter" align="center">	
+			<thead>
 			<tr>
-				
 				<th>Failure ID</th>
 			    <th>Failure ID Description</th>
 			    <th>Cause Code</th>
 			    <th>Cause Code Description</th>
 			</tr>	
-			    
+			   </thead>
+			   <tfoot>
+			   	<tr>
+				<th>Failure ID</th>
+			    <th>Failure ID Description</th>
+			    <th>Cause Code</th>
+			    <th>Cause Code Description</th>
+			</tr>
+				<tr>
+      <th  colspan="4" class="ts-pager form-horizontal">
+        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+        <select class="pagesize input-mini" title="Select page size">
+          <option selected="selected" value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+        </select>
+        <select class="pagenum input-mini" title="Select page number"></select>
+      </th>
+    </tr>
+    </tfoot>
+    <tbody>
+    </tbody>
 		</table>
       <p></p>
       </div>

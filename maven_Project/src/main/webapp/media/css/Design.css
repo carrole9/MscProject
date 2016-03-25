@@ -13,11 +13,12 @@ body, html {
 .container {
 	background-color: white;
 	margin-top: 50px;
+	margin-bottom: 50px;
 	border-radius: 20px;
 }
 
 .basedata {
-	width: 85%;
+	width: 80%;
 }
 
 .form-control {
@@ -55,9 +56,7 @@ h2, h3 {
 	  margin-top: 5px;
 }
 
-th {
-	padding: 15px;
-	text-align: center;
+myFailureCount.th {
 	background-color: green;
 	color: white;
 }
@@ -69,6 +68,10 @@ tr {
 tr:HOVER {
 	background-color: orange;
 }
+tablesorter-header{
+	background-color: green;
+}
+
 
 /* .submit{ */
 /* 	border: none; */
@@ -91,3 +94,12 @@ tr:HOVER {
 	margin-left: 5%;
 	font-size: 15px;
 }
+
+.form-control {
+	width: auto;
+}
+
+.col-sm-1 {
+   margin-top: 5px;
+}
+

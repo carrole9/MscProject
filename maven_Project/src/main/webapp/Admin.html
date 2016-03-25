@@ -5,7 +5,7 @@
   	<title>Admin.html</title>
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-  		<script type="text/javascript">
+  	<script type="text/javascript">
 		var type = window.sessionStorage.getItem("type");
 		var option = window.sessionStorage.getItem("SEoption");
 		
@@ -24,20 +24,33 @@
 			window.location.replace("http://localhost:8080/maven_Project/");
 		}
    	</script>
-  	<link rel="stylesheet" href="media/css/bootstrap.min.css">
-  	<link rel="stylesheet" href="media/css/Design.css">
-   	<link rel="stylesheet" href="media/css/bootstrap-datetimepicker.css">
-   
-  	<script src="media/js/jquery.min.js"></script>
+  
+  	<!-- Bootstrap stylesheet -->
+  	<link rel="stylesheet" href="media/css/bootstrap.min.css" type="text/css">
+  	<!-- bootstrap widget theme -->
+	<link id="css" href="media/css/theme.bootstrap.css" rel="stylesheet" type="text/css" />
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="media/js/jqueryNew.min.js"></script>
+	<!-- tablesorter plugin -->
+	<script src="media/js/jquery.tablesorter.js"></script>
+	<!-- tablesorter widget file - loaded after the plugin -->
+	<script src="media/js/jquery.tablesorter.widgets.js"></script>
+	<!-- pager plugin -->
+	<link rel="stylesheet" href="media/css/jquery.tablesorter.pager.css" type="text/css">
+	<script src="media/js/jquery.tablesorter.pager.js"></script>
+	<!-- Table sorter function -->
+	<script src="media/js/tableSorter.js"></script>
+	
+  	<link rel="stylesheet" href="media/css/Design.css" type="text/css">
+  	<link rel="stylesheet" href="media/css/bootstrap-datetimepicker.css" type="text/css">
+
   	<script src="media/js/bootstrap.min.js"></script>
-  	<script src="/maven_Project/jquery.min.js"></script>
-<!--   	<script src="/maven_Project/main.js"></script> -->
-  	<script src="media/js/Admin/Admin.js"></script>
  	<script src="media/js/moment-with-locales.js"></script>
 	<script src="media/js/transition.js"></script>
 	<script src="media/js/collapse.js"></script>
 	<script src="media/js/bootstrap-datetimepicker.min.js"></script>
-	
+	<script src="media/js/Admin/Admin.js"></script>
+
 </head>
 <body>
 	<div class="container basedata">
@@ -83,24 +96,64 @@
 				<hr>
 			 </div>	
 			<div class="table-responsive"> 
-				<table id="myData" class="table header-fixed table-striped table-hover table-condensed table-bordered" align="center">	
-					<tr>
-						<th>Data ID</th>
-					    <th>Date / Time</th>
-					    <th>Event Id</th>
-					    <th>Failure Class</th>
-					    <th>UE Type</th>
-					    <th>Market</th>
-					    <th>Operator</th>
-					    <th>Cell Id</th>
-					    <th>Duration</th>
-					    <th>Cause Code</th>
-					    <th>NE Version</th>
-					    <th>IMSI</th>
-					    <th>HIER3_ID</th>
-					    <th>HIER32_ID</th>
-					    <th>HIER321_ID</th>
-					</tr>	    
+				<table id="myData" class="tablesorter" align="center">	
+					<thead>
+						<tr>
+							<th>Data ID</th>
+						    <th>Date / Time</th>
+						    <th>Event Id</th>
+						    <th>Failure Class</th>
+						    <th>UE Type</th>
+						    <th>Market</th>
+						    <th>Operator</th>
+						    <th>Cell Id</th>
+						    <th>Duration</th>
+						    <th>Cause Code</th>
+						    <th>NE Version</th>
+						    <th>IMSI</th>
+						    <th>HIER3_ID</th>
+						    <th>HIER32_ID</th>
+						    <th>HIER321_ID</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>Data ID</th>
+						    <th >Date / Time</th>
+						    <th>Event Id</th>
+						    <th>Failure Class</th>
+						    <th>UE Type</th>
+						    <th>Market</th>
+						    <th>Operator</th>
+						    <th>Cell Id</th>
+						    <th>Duration</th>
+						    <th>Cause Code</th>
+						    <th>NE Version</th>
+						    <th>IMSI</th>
+						    <th>HIER3_ID</th>
+						    <th>HIER32_ID</th>
+						    <th>HIER321_ID</th>
+						</tr>
+						<tr>
+      <th  colspan="15" class="ts-pager form-horizontal">
+        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+        <select class="pagesize input-mini" title="Select page size">
+          <option selected="selected" value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+        </select>
+        <select class="pagenum input-mini" title="Select page number"></select>
+      </th>
+    </tr>
+					</tfoot>
+					<tbody>
+					
+					</tbody>
 				</table>
 				<p></p>
 	      	</div>
@@ -121,7 +174,7 @@
 	   			 <div class="form-group">
 	      			<label class="control-label col-sm-2" for="password">Password:</label>
 	      			<div class="col-sm-10">          
-	       				 <input type="text" class="form-control" id="password" placeholder="Enter password">
+	       				 <input type="password" class="form-control" id="password" placeholder="Enter password">
 	      			</div>
 	   			 </div>
 	    
@@ -140,13 +193,45 @@
 				</b><hr>
 		</div>	
 		<div class="table-responsive"> 
-			<table id="userData" class="table header-fixed table-striped table-hover table-condensed table-bordered" align="center">	
+			<table class="tablesorter" id="userData" align="center">	
+				<thead>
 				<tr>
 					<th>User ID</th>
 					<th>User Name</th>
 					<th>Password</th>
 					<th>User Type</th>
 				</tr>
+			</thead>
+			<tfoot>
+			<tr>
+					<th>User ID</th>
+					<th>User Name</th>
+					<th>Password</th>
+					<th>User Type</th>
+				</tr>
+				<tr>
+      <th colspan="7" class="ts-pager form-horizontal">
+        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+        <select class="pagesize input-mini" title="Select page size">
+          <option selected="selected" value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+        </select>
+        <select class="pagenum input-mini" title="Select page number"></select>
+      </th>
+    </tr>
+			</tfoot>
+			<tbody>
+			
+			</tbody>
+			
+			
+			
 			</table>
 			<p></p>
 		</div>

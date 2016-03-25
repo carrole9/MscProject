@@ -100,7 +100,7 @@ $(function() {
 			my_arr.push($("#TopTenEnd").val());
 			var jsonString = JSON.stringify(my_arr);
 
-			$("#myIMSICountTable tr:gt(0)").remove();
+			//$("#myIMSICountTable tr:gt(0)").remove();
 			$.ajax({
 					async : false,
 					type : 'POST',
@@ -109,20 +109,24 @@ $(function() {
 					data : jsonString,
 
 					success : function(data) {
+						$(".odd").remove();
+						$(".even").remove();
+						document.getElementById("myIMSICountTable").style.display = "table";
 						if(data === undefined){
 							alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 						}
 						else{
-								document.getElementById("myIMSICountTable").style.visibility = "visible";
+								//document.getElementById("myIMSICountTable").style.visibility = "visible";
 								for (i = 0; i < data.length; i++) {
 									var row = $("<tr><td>" + data[i][0]
 												+ "</td><td>" + data[i][1]
 												+ "</td></tr>");
 
-									$("#myIMSICountTable").append(row);
+									$("#myIMSICountTable tbody").append(row);
 
 								}
 						}
+						$("#myIMSICountTable").trigger('update');
 					},
 					error : function() {
 						alert('ERROR \nPlease check input & try again.');
@@ -138,7 +142,7 @@ $(function() {
 			my_arr.push($("#NoOfFailureAndTotalDurationEnd").val());
 			var jsonString = JSON.stringify(my_arr);
 
-			$("#myNoOfFailureAndTotalDurationTable tr:gt(0)").remove();
+			//$("#myNoOfFailureAndTotalDurationTable tr:gt(0)").remove();
 			$.ajax({
 					async : false,
 					type : 'POST',
@@ -146,11 +150,14 @@ $(function() {
 					contentType : "application/json",
 					data : jsonString,
 					success : function(data) {
+						$(".odd").remove();
+						$(".even").remove();
+						document.getElementById("myNoOfFailureAndTotalDurationTable").style.display = "table";
 						if(data === undefined){
 							alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 						}
 						else {	
-							document.getElementById("myNoOfFailureAndTotalDurationTable").style.visibility = "visible";
+							//document.getElementById("myNoOfFailureAndTotalDurationTable").style.visibility = "visible";
 							for (i = 0; i < data.length; i++) {
 
 								var row = $("<tr><td>" + data[i][0]
@@ -158,10 +165,11 @@ $(function() {
 											+ "</td><td>" + data[i][2]
 											+ "</td></tr>");
 
-								$("#myNoOfFailureAndTotalDurationTable").append(row);
+								$("#myNoOfFailureAndTotalDurationTable tbody").append(row);
 
 							}
 						}
+						$("#myNoOfFailureAndTotalDurationTable").trigger('update'); 
 					},
 					error : function() {
 						alert('ERROR \nPlease check input & try again.');
@@ -174,7 +182,7 @@ $(function() {
 
 		var jsonString = JSON.stringify($("#NetworkModel").val());
 
-		$("#myModelTable tr:gt(0)").remove();
+		//$("#myModelTable tr:gt(0)").remove();
 		$.ajax({
 				async : false,
 				type : 'POST',
@@ -183,7 +191,10 @@ $(function() {
 				data : jsonString,
 
 				success : function(data) {
-					document.getElementById("myModelTable").style.visibility = "visible";
+					$(".odd").remove();
+					$(".even").remove();
+					document.getElementById("myModelTable").style.display = "table";
+					//document.getElementById("myModelTable").style.visibility = "visible";
 					for (i = 0; i < data.length; i++) {
 						var row = $("<tr><td>" + data[i][0]
 									+ "</td><td>" + data[i][1]
@@ -192,8 +203,9 @@ $(function() {
 									+ "</td><td>" + data[i][4]
 									+ "</td><td>" + data[i][5]
 									+ "</td></tr>");
-						$("#myModelTable").append(row);
+						$("#myModelTable tbody").append(row);
 					}
+					$("#myModelTable").trigger('update'); 
 				},
 				error : function() {
 						alert('error');
@@ -208,7 +220,7 @@ $(function() {
 		my_arr.push($("#EndMarketTime").val());
 		var jsonString = JSON.stringify(my_arr);
 
-		$("#myMarketTable tr:gt(0)").remove();
+		//$("#myMarketTable tr:gt(0)").remove();
 		$.ajax({
 			async : false,
 			type : 'POST',
@@ -216,19 +228,24 @@ $(function() {
 			contentType : "application/json",
 			data : jsonString,
 			success : function(data) {
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("myMarketTable").style.display = "table";
 				if(data ==""){
 					alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 				}
 				else {	
-					document.getElementById("myMarketTable").style.visibility = "visible";
+					//document.getElementById("myMarketTable").style.visibility = "visible";
 					for (i = 0; i < data.length; i++) {
 						var row = $("<tr><td>" + data[i][0]
 									+ "</td><td>" + data[i][1]
 									+ "</td><td>" + data[i][2]
+									+ "</td><td>" + data[i][3]
 									+ "</td></tr>");
-						$("#myMarketTable").append(row);
+						$("#myMarketTable tbody").append(row);
 					}
 				}
+				$("#myMarketTable").trigger('update'); 
 			},
 			error : function() {
 				alert('ERROR \nPlease check input & try again.');
@@ -282,20 +299,42 @@ $(function() {
 	});
 
 	$('#semenu1').on('click',function() {
-		$("#myNoOfFailureAndTotalDurationTable tr:gt(0)").remove();
-		document.getElementById("myNoOfFailureAndTotalDurationTable").style.visibility = "hidden";
+		document.getElementById("NoOfFailureAndTotalDurationStart").value = "";
+		document.getElementById("NoOfFailureAndTotalDurationEnd").value = "";
+		$(".odd").remove();
+		$(".even").remove();
+		document.getElementById("myNoOfFailureAndTotalDurationTable").style.display = "none";
+		$("#myNoOfFailureAndTotalDurationTable").trigger('update');
+//		$("#myNoOfFailureAndTotalDurationTable tr:gt(0)").remove();
+//		document.getElementById("myNoOfFailureAndTotalDurationTable").style.visibility = "hidden";
 	});
 	$('#semenu2').on('click',function() {
-		$("#myIMSICountTable tr:gt(0)").remove();
-		document.getElementById("myIMSICountTable").style.visibility = "hidden";
+		document.getElementById("TopTenStart").value = "";
+		document.getElementById("TopTenEnd").value = "";
+		$(".odd").remove();
+		$(".even").remove();
+		document.getElementById("myIMSICountTable").style.display = "none";
+		$("#myIMSICountTable").trigger('update');
+//		$("#myIMSICountTable tr:gt(0)").remove();
+//		document.getElementById("myIMSICountTable").style.visibility = "hidden";
 	});
 	$('#semenu3').on('click', function() {
-		$("#myModelTable tr:gt(0)").remove();
-		document.getElementById("myModelTable").style.visibility = "hidden";
+		$(".odd").remove();
+		$(".even").remove();
+		document.getElementById("myModelTable").style.display = "none";
+		$("#myModelTable").trigger('update');
+//		$("#myModelTable tr:gt(0)").remove();
+//		document.getElementById("myModelTable").style.visibility = "hidden";
 	});
 	$('#semenu4').on('click', function() {
-		$("#myMarketTable tr:gt(0)").remove();
-		document.getElementById("myMarketTable").style.visibility = "hidden";
+		document.getElementById("StartMarketTime").value = "";
+		document.getElementById("EndMarketTime").value = "";
+		$(".odd").remove();
+		$(".even").remove();
+		document.getElementById("myMarketTable").style.display = "none";
+		$("#myMarketTable").trigger('update');
+//		$("#myMarketTable tr:gt(0)").remove();
+//		document.getElementById("myMarketTable").style.visibility = "hidden";
 	});
 
 	$('#logout').on('click', function(){

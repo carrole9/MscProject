@@ -164,7 +164,7 @@ $(function() {
 			var jsonString = JSON.stringify(my_arr);
 			//alert(jsonString);
 	
-			$("#myIMSI tr:gt(0)").remove();
+			
 			$.ajax({
 				async : false,
 				type : 'POST',
@@ -173,8 +173,10 @@ $(function() {
 				data : jsonString,
 				success : function(data) {
 					//alert(data);
-					
-					
+					//$("#myIMSI tr:gt(0)").remove();
+					$(".odd").remove();
+					$(".even").remove();
+					document.getElementById("myIMSI").style.display = "table";
 					$.each(data, function(i, basedatas) {
 						if(basedatas=="")
 							alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
@@ -183,13 +185,14 @@ $(function() {
 								//alert(basedata.imsi);
 								//var row = $("<tr><td>" + basedata + "</td></tr>");
 								var row = $("<tr><td class='active'>"+ +no+"</td><td class='info'>"+basedata+"</td></tr>");
-								$("#myIMSI").append(row);
+								$("#myIMSI tbody").append(row);
 								no+=1;
 							})
-							document.getElementById("myIMSI").style.visibility = "visible";
+							//document.getElementById("myIMSI").style.visibility = "visible";
 						}
 							
 					})
+					$("#myIMSI").trigger('update'); 
 				},
 				error : function() {
 					alert('ERROR \nPlease check input & try again.');
@@ -219,7 +222,7 @@ $(function() {
 					alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 				}
 				else{
-					document.getElementById("myFailureCount").style.visibility = "visible";
+					document.getElementById("myFailureCount").style.display = "table";
 					var row = $("<tr><td>" + data + "</td></tr>");
 					$("#myFailureCount").append(row);
 				}
@@ -233,7 +236,7 @@ $(function() {
 	$('#suppSub3').on('click', function() {
 		var value = ($("#myFailure").val());
 		var no = 1;
-		$("#myIMSIDisplay tr:gt(0)").remove();
+		document.getElementById("myIMSIDisplay").style.display = "none";
 		$.ajax({
 			async : false,
 			type : 'POST',
@@ -241,25 +244,25 @@ $(function() {
 			contentType : "application/json",
 			data : value,
 			success : function(data) {
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("myIMSIDisplay").style.display = "table";
 				
-				if(data === undefined){
-					document.getElementById("myIMSIDisplay").style.visibility = "hidden";
-					alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
-				}
-				else{
 					$.each(data, function(i, string) {
 						if(string === undefined || data === undefined)
-							document.getElementById("myIMSIDisplay").style.visibility = "hidden";
+							document.getElementById("myIMSIDisplay").style.display = "none";
+//							document.getElementById("myIMSIDisplay").style.visibility = "hidden";
 						else{
-							document.getElementById("myIMSIDisplay").style.visibility = "visible";
+//							$("#myIMSIDisplay tr:gt(0)").remove();
+//							document.getElementById("myIMSIDisplay").style.visibility = "visible";
 							//var row = $("<tr><td>" + string + "</td></tr>");
+							
 							var row = $("<tr><td class='active'>"+ +no+"</td><td class='info'>"+string+"</td></tr>");
-							$("#myIMSIDisplay").append(row);
+							$("#myIMSIDisplay tbody").append(row);
 							no+=1;
 						}
 					})
-				}
-				
+				$("#myIMSIDisplay").trigger('update');
 			},
 			error : function() {
 				alert('ERROR\nPlease check the INPUT & try again...');
@@ -270,20 +273,28 @@ $(function() {
 	$('#semenu1').on('click', function() {
 		document.getElementById("mySTime").value = "";
 		document.getElementById("myETime").value = "";
-		$("#myIMSI tr:gt(0)").remove();
-		document.getElementById("myIMSI").style.visibility = "hidden";
+		$(".odd").remove();
+		$(".even").remove();
+		document.getElementById("myIMSI").style.display = "none";
+		$("#myIMSIDisplay").trigger('update');
+//		$("#myIMSI tr:gt(0)").remove();
+//		document.getElementById("myIMSI").style.visibility = "hidden";
 	});
 	$('#semenu2').on('click', function() {
-		document.getElementById("FmyModel").value = "";
+		//document.getElementById("FmyModel").value = "";
 		document.getElementById("FstartTime").value = "";
 		document.getElementById("FendTime").value = "";
 		$("#myFailureCount tr:gt(0)").remove();
-		document.getElementById("myFailureCount").style.visibility = "hidden";
+		document.getElementById("myFailureCount").style.display = "none";
+		$("#myIMSIDisplay").trigger('update');
 	});
 	$('#semenu3').on('click', function() {
-		document.getElementById("FmyFailID").value = "";
-		$("#myIMSIDisplay tr:gt(0)").remove();
-		document.getElementById("myIMSIDisplay").style.visibility = "hidden";
+		$(".odd").remove();
+		$(".even").remove();
+		document.getElementById("myIMSIDisplay").style.display = "none";
+		$("#myIMSIDisplay").trigger('update');
+//		$("#myIMSIDisplay tr:gt(0)").remove();
+//		document.getElementById("myIMSIDisplay").style.visibility = "hidden";
 	});
 	
 	

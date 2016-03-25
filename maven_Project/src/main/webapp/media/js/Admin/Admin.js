@@ -52,18 +52,18 @@ $(function (){
 				+ "</td><td>" + user.password 
 				+ "</td><td>" + user.usertype			
 				+"</td></tr>");
-        $("#userData").append(row);        
+		$("#userData tbody").append(row);         
 	}
-	
-	function addmyDataIMSI(newUser) {
-		alert(newUser[1].imsi);    
-		for(var i =0;i < newUser.length-1;i++)
-		{
-		  var item = newUser[i];
-		  alert(item.imsi);
-		}
-		alert(newUser);  
-	}
+//	
+//	function addmyDataIMSI(newUser) {
+//		alert(newUser[1].imsi);    
+//		for(var i =0;i < newUser.length-1;i++)
+//		{
+//		  var item = newUser[i];
+//		  alert(item.imsi);
+//		}
+//		alert(newUser);  
+//	}
 	
 	$('#ViewData').on('click', function(){
 		$.ajax({
@@ -71,8 +71,11 @@ $(function (){
 			type: 'GET',
 			url: 'rest/basedata/getAllBaseData',
 			success: function(data){
-				$("#myData tr:gt(0)").remove();
-				document.getElementById("myData").style.visibility = "visible";
+				//$("#myData tr:gt(0)").remove();
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("myData").style.display = "table";
+				//document.getElementById("myData").style.visibility = "visible";
 				$.each(data, function(i, basedatas){
 					$.each(basedatas, function(i,basedata){
 						var row = $("<tr><td>" + basedata.dataId
@@ -91,9 +94,10 @@ $(function (){
 								+ "</td><td>" + basedata.hier32Id
 								+ "</td><td>" + basedata.hier321Id
 								+"</td></tr>");
-		                $("#myData").append(row);
+						$("#myData tbody").append(row);
 					})
 			})
+			$("#myData").trigger('update'); 
 		},
 			error: function(){
 				alert('error loading users');
@@ -125,43 +129,31 @@ $(function (){
 			type: 'GET',
 			url: 'rest/users',
 			success: function(data){
-				$("#userData tr:gt(0)").remove();
-				document.getElementById("userData").style.visibility = "visible";
+				//$("#userData tr:gt(0)").remove();
+				//document.getElementById("userData").style.visibility = "visible";
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("userData").style.display = "table";
 				$.each(data, function(i, users){
 						$.each(users, function(i,user){
 							addUser(user);
 						})
 				})
+				$("#userData").trigger('update'); 
 			},
 			error: function(){
 				alert('error loading users');
 			}
 		})
 	});
-		
-	function viewUsers(){
-			$.ajax({
-				async:false,
-				type: 'GET',
-				url: 'rest/users',
-				success: function(data){
-					$("#userData tr:gt(0)").remove();
-					document.getElementById("userData").style.visibility = "visible";
-					$.each(data, function(i, users){
-							$.each(users, function(i,user){
-								addUser(user);
-							})
-					})
-				},
-				error: function(){
-					alert('error loading users');
-				}
-			})
-	};
-		
+
 		$('#add-user').on('click', function(){	
-			if($("#username").val()=="" || $("#password").val()==""){
-				alert("Please check input & try again.");
+			if($("#username").val()==""){
+				window.window.alert('Please enter a username');
+				document.getElementById('username').focus();
+			}else if($("#password").val()==""){
+				window.window.alert('Please enter a password');
+				document.getElementById('password').focus();
 			}
 			else{
 				
@@ -207,36 +199,24 @@ $(function (){
 				})
 			}
 		});
-		
-		
-	$('#load-excel-user').on('click', function(){
-	
-	});
-
-	$('#datetimepicker6').datetimepicker({
-	    //useCurrent: false, 
-	    locale:'en-gb'//Important! See issue #1075
-	});
-	$('#datetimepicker7').datetimepicker({
-	    useCurrent: false, 
-	    locale:'en-gb'//Important! See issue #1075
-	});
-	$("#datetimepicker6").on("dp.change", function (e) {
-	    $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-	});
-	$("#datetimepicker7").on("dp.change", function (e) {
-	    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-	});
 	
 	$('#semenu1').on('click', function() {
-		$("#myData tr:gt(0)").remove();
-		document.getElementById("myData").style.visibility = "hidden";
+//		$("#myData tr:gt(0)").remove();
+//		document.getElementById("myData").style.visibility = "hidden";
+		$(".odd").remove();
+		$(".even").remove();
+		document.getElementById("myData").style.display = "none";
+		$("#myData").trigger('update');
 	});
 	$('#semenu2').on('click', function() {
 		document.getElementById("username").value = "";
 		document.getElementById("password").value = "";
-		$("#userData tr:gt(0)").remove();
-		document.getElementById("userData").style.visibility = "hidden";
+		$(".odd").remove();
+		$(".even").remove();
+		document.getElementById("userData").style.display = "none";
+		$("#userData").trigger('update');
+//		$("#userData tr:gt(0)").remove();
+//		document.getElementById("userData").style.visibility = "hidden";
 	});
 	$('#logout').on('click', function(){
 		window.sessionStorage.setItem("SEoption","0");

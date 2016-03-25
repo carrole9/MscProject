@@ -1,27 +1,27 @@
 function CUload(){
-	document.getElementById("back").style.visibility = "hidden";
-//	var type = window.sessionStorage.getItem("type");
-//	var option = window.sessionStorage.getItem("SEoption");
-//	//alert(document.getElementById("back").innerHTML);
-//	
-//	if(type=="2"){
-//		if(window.sessionStorage.getItem("greeting") == "true"){
-//			alert("Welcome back "+window.sessionStorage.getItem("UserName"));
-//			window.sessionStorage.setItem("greeting", "false");
-//		}
-//	}else if(type=="1"){
-//		window.location.replace("http://localhost:8080/maven_Project/Admin.html");
-//	}else if(type=="3" && option=="2"){
-//		document.getElementById("back").style.visibility = "visible";
-//	}else if(type=="3"){
-//		window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
-//	}else if(type=="4" && option=="5"){
-//		document.getElementById("back").style.visibility = "visible";
-//	}else if(type=="4"){
-//		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
-//	}else{
-//		window.location.replace("http://localhost:8080/maven_Project/");
-//	}
+	document.getElementById("back").style.display = "none";
+	var type = window.sessionStorage.getItem("type");
+	var option = window.sessionStorage.getItem("SEoption");
+	//alert(document.getElementById("back").innerHTML);
+	
+	if(type=="2"){
+		if(window.sessionStorage.getItem("greeting") == "true"){
+			alert("Welcome back "+window.sessionStorage.getItem("UserName"));
+			window.sessionStorage.setItem("greeting", "false");
+		}
+	}else if(type=="1"){
+		window.location.replace("http://localhost:8080/maven_Project/Admin.html");
+	}else if(type=="3" && option=="2"){
+		document.getElementById("back").style.display = "block";
+	}else if(type=="3"){
+		window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
+	}else if(type=="4" && option=="5"){
+		document.getElementById("back").style.display = "block";
+	}else if(type=="4"){
+		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
+	}else{
+		window.location.replace("http://localhost:8080/maven_Project/");
+	}
 }
 
 function addDropDownFeatures1(){	
@@ -125,7 +125,7 @@ $('#submitIMSI').on('click', function(){
      var jsonString = JSON.stringify($("#myIMSI").val());
     // alert(jsonString);
   
-     $("#myEventID tr:gt(0)").remove();
+    // $("#myEventID tr:gt(0)").remove();
      $.ajax({
     	async:false, 
 			type: 'POST',
@@ -134,8 +134,10 @@ $('#submitIMSI').on('click', function(){
 			data: jsonString,
 			success: function(data){
 				//alert(data.length);
-				document.getElementById("myEventID").style.visibility = "visible";
-				
+				//document.getElementById("myEventID").style.visibility = "visible";
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("myEventID").style.display = "table";
 				$.each(data, function(i, basedatas){
 					
 					$.each(basedatas, function(i,basedata){
@@ -144,11 +146,11 @@ $('#submitIMSI').on('click', function(){
 								+"</td><td>" + basedata.description
 								+"</td></tr>");
 								
-		                $("#myEventID").append(row);
+		                $("#myEventID tbody").append(row);
 					})
 			})
 				
-			
+			$("#myEventID").trigger('update');
 	        
 			},
 			error: function(){
@@ -167,7 +169,7 @@ $('#submitFailureCount').on('click', function(){
 	my_arr.push($("#FmyIMSI").val());
     var jsonString = JSON.stringify(my_arr);
     // alert(jsonString);
-    $("#myFailureCount tr:gt(0)").remove();
+    
     
      $.ajax({
     	async:false, 
@@ -179,7 +181,8 @@ $('#submitFailureCount').on('click', function(){
 				if(data=="0")
 					alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 				else{
-					document.getElementById("myFailureCount").style.visibility = "visible";
+					$("#myFailureCount tr:gt(0)").remove();
+					document.getElementById("myFailureCount").style.display="table";
 					var row = $("<tr><td>"  + data +"</td></tr>");
 			
 					$("#myFailureCount").append(row);
@@ -195,7 +198,7 @@ $('#submitCauseCode').on('click', function(){
 
 	 var jsonString = JSON.stringify($("#myIMSICauseCode").val());
 	 
-    $("#myCauseCode tr:gt(0)").remove();
+   
     
      $.ajax({
     	async:false, 
@@ -205,7 +208,11 @@ $('#submitCauseCode').on('click', function(){
 			data: jsonString,
 			success: function(data){
 				//alert(data.length);
-				document.getElementById("myCauseCode").style.visibility = "visible";
+//				 $("#myCauseCode tr:gt(0)").remove();
+//				document.getElementById("myCauseCode").style.visibility = "visible";
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("myCauseCode").style.display = "table";
 				for(i =0; i<data.length; i++){
 					
 				 var row = $("<tr><td>" + data[i][0]
@@ -214,9 +221,10 @@ $('#submitCauseCode').on('click', function(){
 				 			+"</td><td>" + data[i][3]
 							+"</td></tr>");
 			
-				 $("#myCauseCode").append(row);
+				 $("#myCauseCode tbody").append(row);
 					
 				}
+				$("#myCauseCode").trigger('update'); 
 			},
 			error: function(){
 				alert('error');
@@ -240,16 +248,26 @@ $("#datetimepicker7").on("dp.change", function (e) {
 });
 
 $('#semenu1').on('click', function() {
-	$("#myEventID tr:gt(0)").remove();
-	document.getElementById("myEventID").style.visibility = "hidden";
+//	$("#myEventID tr:gt(0)").remove();
+//	document.getElementById("myEventID").style.visibility = "hidden";
+	$(".odd").remove();
+	$(".even").remove();
+	document.getElementById("myEventID").style.display = "none";
+	$("#myEventID").trigger('update');
 });
 $('#semenu2').on('click', function() {
 	$("#myFailureCount tr:gt(0)").remove();
-	document.getElementById("myFailureCount").style.visibility = "hidden";
+	document.getElementById("x").value = "";
+	document.getElementById("y").value = "";
+	document.getElementById("myFailureCount").style.display = "none";
 });
 $('#semenu3').on('click', function() {
-	$("#myCauseCode tr:gt(0)").remove();
-	document.getElementById("myCauseCode").style.visibility = "hidden";
+//	$("#myCauseCode tr:gt(0)").remove();
+//	document.getElementById("myCauseCode").style.visibility = "hidden";
+	$(".odd").remove();
+	$(".even").remove();
+	document.getElementById("myCauseCode").style.display = "none";
+	$("#myCauseCode").trigger('update');
 });
 
 $('#back').on('click', function(){
