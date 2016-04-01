@@ -1,11 +1,20 @@
 package com.ILoveLAMP.populateDB;
 
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.FileSystems;
+import java.nio.file.Paths;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +23,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -46,17 +56,94 @@ public class PopulateDB {
 	@PersistenceContext
 	EntityManager em;
 
-	private String path = "/home/user1/git/MscProject/maven_Project/dataset1.xls";
+	private String path = "/home/user1/Desktop/Data/dataset.xls";
+	
+
+
 	int composetkeyEventClause;
 	int composetkeyOperator;
 	
 	public PopulateDB() {
 	}
+	
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+		try {
+			populateDB();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@GET
+	@Path("/checkData")
+	@Produces(MediaType.APPLICATION_XML)
+	@Asynchronous
+		public  void watch() throws ParseException{
+			
+			try {
+				WatchService watcher = FileSystems.getDefault().newWatchService();
+				java.nio.file.Path dir = Paths.get("/home/user1/Desktop/Data");
+				dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
+				
+				System.out.println("Watch Service registered for dir: " + dir.getFileName());
+				
+				while (true) {
+					WatchKey key;
+					
+					try {
+						key = watcher.take();
+					} catch (InterruptedException ex) {
+						return;
+					}
+					
+					for (WatchEvent<?> event : key.pollEvents()) {
+						WatchEvent.Kind<?> kind = event.kind();
+						
+						@SuppressWarnings("unchecked")
+						WatchEvent<java.nio.file.Path> ev = (WatchEvent<java.nio.file.Path>) event;
+						java.nio.file.Path fileName = ev.context();
+						
+						System.out.println(kind.name() + ": " + fileName);
+						System.out.print(kind.name());
+						if(kind.name().equals("ENTRY_CREATE")){
+							System.out.println("new data to add to db "+dir+"/"+fileName);
+							String file=""+dir+"/"+fileName;
+							System.out.println(file);
+						//	populateDB(file);
+						}
+						
+						if (kind == ENTRY_MODIFY) {
+							System.out.println("My source file has changed!!!");
+							String file=""+dir+"/"+fileName;
+							System.out.println(file);
+							setPath(file); 
+						}
+					}
+					
+					boolean valid = key.reset();
+					if (!valid) {
+						break;
+					}
+				}
+				
+			} catch (IOException ex) {
+				System.err.println(ex);
+			}
+		}
+	
+	
 
 	// http://localhost:8080/maven_Project/rest/database/populateDB
-	@GET
-	@Path("/populateDB")
-	@Produces(MediaType.APPLICATION_XML)
+	
 	public String populateDB() throws IOException, ParseException {
 		long start = System.currentTimeMillis();
 
