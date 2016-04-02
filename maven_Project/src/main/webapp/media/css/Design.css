@@ -21,6 +21,10 @@ body, html {
 	width: 80%;
 }
 
+#pagination {
+	float: right;
+}
+
 .form-control {
 	width: 50%;
 }
@@ -72,6 +76,9 @@ tablesorter-header{
 	background-color: green;
 }
 
+td {
+	color: blue;
+}
 
 /* .submit{ */
 /* 	border: none; */
@@ -84,6 +91,10 @@ tablesorter-header{
 
 .submit:hover {
 	background-color: orange;
+}
+
+.submit {
+	margin-left: 12px;
 }
 
 .message{
@@ -99,7 +110,29 @@ tablesorter-header{
 	width: auto;
 }
 
-.col-sm-1 {
+.col-sm-2 {
    margin-top: 5px;
+   width: auto;
 }
 
+.last, .next, .prev, .first {
+	margin-right: 5px;
+}
+
+.last:hover {
+	background-color: greenyellow;
+}
+.next:hover {
+	background-color: greenyellow;
+}
+.prev:hover {
+	background-color: greenyellow;
+}
+.first:hover {
+	background-color: greenyellow;
+}
+
+.tablesorter-pager .pagedisplay{
+	margin-right: 3px;
+	margin-left: 3px;
+}

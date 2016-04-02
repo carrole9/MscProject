@@ -71,31 +71,35 @@ $(function (){
 			type: 'GET',
 			url: 'rest/basedata/getAllErrorData',
 			success: function(data){
-				//$("#myData tr:gt(0)").remove();
-				$(".odd").remove();
-				$(".even").remove();
-				document.getElementById("myData").style.display = "table";
-				//document.getElementById("myData").style.visibility = "visible";
-
-				$.each(data, function(i, basedata){
-						var row = $("<tr><td>" + basedata.dataId
-								+ "</td><td>" + basedata.dateTime 
-								+ "</td><td>" + basedata.eventId 
-								+ "</td><td>" + basedata.failureId
-								+ "</td><td>" + basedata.ueType
-								+ "</td><td>" + basedata.market
-								+ "</td><td>" + basedata.operator
-								+ "</td><td>" + basedata.cellId
-								+ "</td><td>" + basedata.duration
-								+ "</td><td>" + basedata.cause_Code
-								+ "</td><td>" + basedata.neVersion
-								+ "</td><td>" + basedata.imsi
-								+ "</td><td>" + basedata.hier3_Id
-								+ "</td><td>" + basedata.hier32_Id
-								+ "</td><td>" + basedata.hier321_Id
-								+"</td></tr>");
-						$("#myData tbody").append(row);
-			})
+				if(data.length == 0)
+					window.alert("No Error data in DataBase");
+				else{
+					//$("#myData tr:gt(0)").remove();
+					$(".odd").remove();
+					$(".even").remove();
+					document.getElementById("myData").style.display = "table";
+					//document.getElementById("myData").style.visibility = "visible";
+	
+					$.each(data, function(i, basedata){
+							var row = $("<tr><td>" + basedata.dataId
+									+ "</td><td>" + basedata.dateTime 
+									+ "</td><td>" + basedata.eventId 
+									+ "</td><td>" + basedata.failureId
+									+ "</td><td>" + basedata.ueType
+									+ "</td><td>" + basedata.market
+									+ "</td><td>" + basedata.operator
+									+ "</td><td>" + basedata.cellId
+									+ "</td><td>" + basedata.duration
+									+ "</td><td>" + basedata.cause_Code
+									+ "</td><td>" + basedata.neVersion
+									+ "</td><td>" + basedata.imsi
+									+ "</td><td>" + basedata.hier3_Id
+									+ "</td><td>" + basedata.hier32_Id
+									+ "</td><td>" + basedata.hier321_Id
+									+"</td></tr>");
+							$("#myData tbody").append(row);
+					})
+				}
 			$("#myData").trigger('update'); 
 		},
 			error: function(){

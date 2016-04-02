@@ -15,10 +15,11 @@ function load(){
 		window.location.replace("http://localhost:8080/maven_Project/");
 	}
 }
+
 function ChangeNetworkModel(){	
-	
+	document.getElementById("myModelTable").style.display = "none";
 	var jsonString = JSON.stringify($("#NetworkManufacturer").val());
-  
+	
     
     document.getElementById("NetworkModel").options.length=0;
     $.ajax({
@@ -94,7 +95,13 @@ $(function() {
 	
 	// user story 12 NM
 	$('#submitTopTen').on('click',function() {
-
+		if($("#TopTenStart").val()==""){
+			document.getElementById('TopTenStart').focus();
+			window.alert('Please pick a Start Date');
+		}else if($("#TopTenEnd").val()==""){
+			document.getElementById('TopTenEnd').focus();
+			window.alert('Please pick a End Date');
+		}else{
 			var my_arr = [];
 			my_arr.push($("#TopTenStart").val());
 			my_arr.push($("#TopTenEnd").val());
@@ -109,14 +116,14 @@ $(function() {
 					data : jsonString,
 
 					success : function(data) {
-						$(".odd").remove();
-						$(".even").remove();
-						document.getElementById("myIMSICountTable").style.display = "table";
+						
 						if(data === undefined){
 							alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 						}
 						else{
-								//document.getElementById("myIMSICountTable").style.visibility = "visible";
+							$(".odd").remove();
+							$(".even").remove();
+							document.getElementById("myIMSICountTable").style.display = "table";
 								for (i = 0; i < data.length; i++) {
 									var row = $("<tr><td>" + data[i][0]
 												+ "</td><td>" + data[i][1]
@@ -132,11 +139,18 @@ $(function() {
 						alert('ERROR \nPlease check input & try again.');
 					}
 			})
+		}
 	});
 
 	// userstory 9
 	$('#submitNoOfFailureAndTotalDuration').on('click',function() {
-
+		if($("#NoOfFailureAndTotalDurationStart").val()==""){
+			document.getElementById('NoOfFailureAndTotalDurationStart').focus();
+			window.alert('Please pick a Start Date');
+		}else if($("#NoOfFailureAndTotalDurationEnd").val()==""){
+			document.getElementById('NoOfFailureAndTotalDurationEnd').focus();
+			window.alert('Please pick a End Date');
+		}else{
 			var my_arr = [];
 			my_arr.push($("#NoOfFailureAndTotalDurationStart").val());
 			my_arr.push($("#NoOfFailureAndTotalDurationEnd").val());
@@ -150,14 +164,14 @@ $(function() {
 					contentType : "application/json",
 					data : jsonString,
 					success : function(data) {
-						$(".odd").remove();
-						$(".even").remove();
-						document.getElementById("myNoOfFailureAndTotalDurationTable").style.display = "table";
+						
 						if(data === undefined){
 							alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 						}
 						else {	
-							//document.getElementById("myNoOfFailureAndTotalDurationTable").style.visibility = "visible";
+							$(".odd").remove();
+							$(".even").remove();
+							document.getElementById("myNoOfFailureAndTotalDurationTable").style.display = "table";
 							for (i = 0; i < data.length; i++) {
 
 								var row = $("<tr><td>" + data[i][0]
@@ -175,6 +189,7 @@ $(function() {
 						alert('ERROR \nPlease check input & try again.');
 					}
 			})
+		}
 	});
 
 	// user stroy 10
@@ -214,43 +229,51 @@ $(function() {
 	});
 
 	$('#submitMarket').on('click',function() {
-		var my_arr = [];
-		
-		my_arr.push($("#StartMarketTime").val());
-		my_arr.push($("#EndMarketTime").val());
-		var jsonString = JSON.stringify(my_arr);
-
-		//$("#myMarketTable tr:gt(0)").remove();
-		$.ajax({
-			async : false,
-			type : 'POST',
-			url : 'rest/NetworkManagementEngineer/findTop10MarketOperatorCellCombo/',
-			contentType : "application/json",
-			data : jsonString,
-			success : function(data) {
-				$(".odd").remove();
-				$(".even").remove();
-				document.getElementById("myMarketTable").style.display = "table";
-				if(data ==""){
-					alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
-				}
-				else {	
-					//document.getElementById("myMarketTable").style.visibility = "visible";
-					for (i = 0; i < data.length; i++) {
-						var row = $("<tr><td>" + data[i][0]
-									+ "</td><td>" + data[i][1]
-									+ "</td><td>" + data[i][2]
-									+ "</td><td>" + data[i][3]
-									+ "</td></tr>");
-						$("#myMarketTable tbody").append(row);
+		if($("#StartMarketTime").val()==""){
+			document.getElementById('StartMarketTime').focus();
+			window.alert('Please pick a Start Date');
+		}else if($("#EndMarketTime").val()==""){
+			document.getElementById('EndMarketTime').focus();
+			window.alert('Please pick a End Date');
+		}else{
+			var my_arr = [];
+			
+			my_arr.push($("#StartMarketTime").val());
+			my_arr.push($("#EndMarketTime").val());
+			var jsonString = JSON.stringify(my_arr);
+	
+			//$("#myMarketTable tr:gt(0)").remove();
+			$.ajax({
+				async : false,
+				type : 'POST',
+				url : 'rest/NetworkManagementEngineer/findTop10MarketOperatorCellCombo/',
+				contentType : "application/json",
+				data : jsonString,
+				success : function(data) {
+					
+					if(data ==""){
+						alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 					}
+					else {	
+						$(".odd").remove();
+						$(".even").remove();
+						document.getElementById("myMarketTable").style.display = "table";
+						for (i = 0; i < data.length; i++) {
+							var row = $("<tr><td>" + data[i][0]
+										+ "</td><td>" + data[i][1]
+										+ "</td><td>" + data[i][2]
+										+ "</td><td>" + data[i][3]
+										+ "</td></tr>");
+							$("#myMarketTable tbody").append(row);
+						}
+					}
+					$("#myMarketTable").trigger('update'); 
+				},
+				error : function() {
+					alert('ERROR \nPlease check input & try again.');
 				}
-				$("#myMarketTable").trigger('update'); 
-			},
-			error : function() {
-				alert('ERROR \nPlease check input & try again.');
-			}
-		})
+			})
+		}
 	});
 
 	$('#datetimepicker6').datetimepicker({

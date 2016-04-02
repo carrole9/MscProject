@@ -27,10 +27,13 @@
   
   	<!-- Bootstrap stylesheet -->
   	<link rel="stylesheet" href="media/css/bootstrap.min.css" type="text/css">
+  	
   	<!-- bootstrap widget theme -->
 	<link id="css" href="media/css/theme.bootstrap.css" rel="stylesheet" type="text/css" />
+
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="media/js/jqueryNew.min.js"></script>
+	
 	<!-- tablesorter plugin -->
 	<script src="media/js/jquery.tablesorter.js"></script>
 	<!-- tablesorter widget file - loaded after the plugin -->
@@ -40,10 +43,10 @@
 	<script src="media/js/jquery.tablesorter.pager.js"></script>
 	<!-- Table sorter function -->
 	<script src="media/js/tableSorter.js"></script>
-	
-  	<link rel="stylesheet" href="media/css/Design.css" type="text/css">
-  	<link rel="stylesheet" href="media/css/bootstrap-datetimepicker.css" type="text/css">
 
+	<link rel="stylesheet" href="media/css/Design.css" type="text/css">
+  	<link rel="stylesheet" href="media/css/bootstrap-datetimepicker.css" type="text/css">
+	
   	<script src="media/js/bootstrap.min.js"></script>
  	<script src="media/js/moment-with-locales.js"></script>
 	<script src="media/js/transition.js"></script>
@@ -51,6 +54,7 @@
 	<script src="media/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="media/js/Admin/Admin.js"></script>
 
+	
 </head>
 <body>
 	<div class="container basedata">
@@ -99,8 +103,8 @@
 				<table id="myData" class="tablesorter" align="center">	
 					<thead>
 						<tr>
-							<th>Data ID</th>
-						    <th>Date / Time</th>
+							<th>ID</th>
+						    <th>Date</th>
 						    <th>Event Id</th>
 						    <th>Failure Class</th>
 						    <th>UE Type</th>
@@ -118,8 +122,8 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<th>Data ID</th>
-						    <th >Date / Time</th>
+							<th>ID</th>
+						    <th>Date</th>
 						    <th>Event Id</th>
 						    <th>Failure Class</th>
 						    <th>UE Type</th>
@@ -134,23 +138,37 @@
 						    <th>HIER32_ID</th>
 						    <th>HIER321_ID</th>
 						</tr>
-						<tr>
-      <th  colspan="15" class="ts-pager form-horizontal">
-        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
-        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
-        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
-        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
-        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
-        <select class="pagesize input-mini" title="Select page size">
-          <option selected="selected" value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-        </select>
-        <select class="pagenum input-mini" title="Select page number"></select>
-      </th>
-    </tr>
-					</tfoot>
+							<tr>
+								<th colspan="15" class="ts-pager form-horizontal">
+									<span>Show    </span>
+									<select class="pagesize input-mini" title="Select page size">
+										<option selected="selected" value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+									</select> 
+									<span>    Entries</span> 
+									 <div id="pagination">
+										<button type="button" class="btn first">
+											<span>First</span>
+											<i class="icon-step-backward glyphicon glyphicon-step-backward"></i>
+										</button>
+										<button type="button" class="btn prev">
+											<span>Prev</span>
+											<i class="icon-arrow-left glyphicon glyphicon-backward"></i>
+										</button> <span class="pagedisplay"></span>
+										<button type="button" class="btn next">
+											<span>Next</span>
+											<i class="icon-arrow-right glyphicon glyphicon-forward"></i>
+										</button>
+										<button type="button" class="btn last">
+											<span>Last</span>
+											<i class="icon-step-forward glyphicon glyphicon-step-forward"></i>
+										</button> 
+									</div>
+								</th>
+							</tr>
+						</tfoot>
 					<tbody>
 					
 					</tbody>
@@ -179,7 +197,7 @@
 	   			 </div>
 	    
 	   <!--   <label for="myIMSI">Select User Type (select one):</label> -->
-	     		<label class="control-label col-sm-2 " for="usertype">Select User Type:</label>
+	     		<label class="control-label col-sm-2" for="usertype">Select User Type:</label>
 	            <select class="form-control" id="usertype" >
 	            <option>System Administrator</option>
 	            <option>Customer Service Rep</option>
@@ -209,23 +227,35 @@
 					<th>Password</th>
 					<th>User Type</th>
 				</tr>
-				<tr>
-      <th colspan="7" class="ts-pager form-horizontal">
-        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
-        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
-        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
-        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
-        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
-        <select class="pagesize input-mini" title="Select page size">
-          <option selected="selected" value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-        </select>
-        <select class="pagenum input-mini" title="Select page number"></select>
-      </th>
-    </tr>
-			</tfoot>
+							<tr>
+								<th colspan="7" class="ts-pager form-horizontal"><span>Show
+								</span> <select class="pagesize input-mini" title="Select page size">
+										<option selected="selected" value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+								</select> <span> Entries</span>
+									<div id="pagination">
+										<button type="button" class="btn first">
+											<span>First</span> <i
+												class="icon-step-backward glyphicon glyphicon-step-backward"></i>
+										</button>
+										<button type="button" class="btn prev">
+											<span>Prev</span> <i
+												class="icon-arrow-left glyphicon glyphicon-backward"></i>
+										</button>
+										<span class="pagedisplay"></span>
+										<button type="button" class="btn next">
+											<span>Next</span> <i
+												class="icon-arrow-right glyphicon glyphicon-forward"></i>
+										</button>
+										<button type="button" class="btn last">
+											<span>Last</span> <i
+												class="icon-step-forward glyphicon glyphicon-step-forward"></i>
+										</button>
+									</div></th>
+							</tr>
+						</tfoot>
 			<tbody>
 			
 			</tbody>

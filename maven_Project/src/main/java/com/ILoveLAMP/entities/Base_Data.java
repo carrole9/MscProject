@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name = "Base_Data.getIMSIbyIdfailure", query = "select distinct bd.imsi from Base_Data bd where bd.failure.description = :failId"),			
 	
 	@NamedQuery(name = "Base_Data.findByPeriod", query = "select count(bd) from Base_Data bd where (bd.dateTime between :startTime and :endTime)"),				
-	@NamedQuery(name = "Base_Data.findByPeriodAndModel", query = "select count(bd) from Base_Data bd where (bd.userEquipment=:userEquipment) and (bd.dateTime between :startTime and :endTime)"),			
+	@NamedQuery(name = "Base_Data.findByPeriodAndModel", query = "select count(bd) from Base_Data bd where (bd.userEquipment.model=:model) and (bd.dateTime between :startTime and :endTime)"),			
 	@NamedQuery(name = "Base_Data.findBaseDatasByPeriod", query ="select bd from Base_Data bd where (bd.dateTime between :startTime and :endTime)"),
 	@NamedQuery(name = "Base_Data.findImsiByPeriod", query ="select bd.imsi from Base_Data bd where (bd.dateTime between :startTime and :endTime) group by bd.imsi"),
 	@NamedQuery(name = "Base_Data.countNoOfFailuresByPeriodAndImsi", query ="select count(bd) from Base_Data bd where (bd.imsi =:imsi) and (bd.dateTime between :startTime and :endTime)"),

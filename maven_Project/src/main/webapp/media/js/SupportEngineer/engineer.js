@@ -20,6 +20,16 @@ function SEload(){
 	}
 }
 
+function clearMenu(){
+	document.getElementById("mySTime").value = "";
+	document.getElementById("myETime").value = "";
+	document.getElementById("myIMSI").style.display = "none";
+	document.getElementById("FstartTime").value = "";
+	document.getElementById("FendTime").value = "";
+	document.getElementById("myFailureCount").style.display = "none";
+	document.getElementById("myIMSIDisplay").style.display = "none";
+}
+
 function addDropDownFeatures3(){	
 
     $.ajax({
@@ -48,9 +58,13 @@ function addDropDownFeatures3(){
 	}
 
 function ChangeModel(){	
-	
+	document.getElementById("FstartTime").value = "";
+	document.getElementById("FendTime").value = "";
+	$("#myFailureCount tr:gt(0)").remove();
+	document.getElementById("myFailureCount").style.display = "none";
+	$("#myIMSIDisplay").trigger('update');
 	var jsonString = JSON.stringify($("#myManufacturer").val());
-  
+	
     
     document.getElementById("myPhoneModel").options.length=0;
     $.ajax({
@@ -62,6 +76,7 @@ function ChangeModel(){
 			
 			success: function(data){
 			//alert(data);
+				
 			             for(i=0;i<data.length;i++){
 						 var x = document.getElementById("myPhoneModel");
 						// var y = document.getElementById("FmyIMSI");
@@ -153,18 +168,21 @@ $(function() {
 	});
 	
 	$('#suppSub1').on('click', function() {
-		//alert("hi");
-		var no = 1;
-		var my_arr = [];
-		my_arr.push($("#mySTime").val());
-		my_arr.push($("#myETime").val());
-		if($("#myETime").val()=="" || $("#myETime").val()=="")
-			alert("Please Check input & try again");
-		else{
-			var jsonString = JSON.stringify(my_arr);
-			//alert(jsonString);
-	
+		
+		if($("#mySTime").val()==""){
+			document.getElementById('mySTime').focus();
+			window.alert('Please pick a Start Date');
+		}else if($("#myETime").val()==""){
+			document.getElementById('myETime').focus();
+			window.alert('Please pick a End Date');
+		}else{
 			
+			var no = 1;
+			var my_arr = [];
+			my_arr.push($("#mySTime").val());
+			my_arr.push($("#myETime").val());
+			var jsonString = JSON.stringify(my_arr);
+
 			$.ajax({
 				async : false,
 				type : 'POST',
@@ -172,15 +190,14 @@ $(function() {
 				contentType : "application/json",
 				data : jsonString,
 				success : function(data) {
-					//alert(data);
-					//$("#myIMSI tr:gt(0)").remove();
-					$(".odd").remove();
-					$(".even").remove();
-					document.getElementById("myIMSI").style.display = "table";
 					$.each(data, function(i, basedatas) {
 						if(basedatas=="")
 							alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 						else{
+							$(".odd").remove();
+							$(".even").remove();
+							document.getElementById("myIMSI").style.display = "table";
+							
 							$.each(basedatas, function(i, basedata) {
 								//alert(basedata.imsi);
 								//var row = $("<tr><td>" + basedata + "</td></tr>");
@@ -202,35 +219,42 @@ $(function() {
 	});
 
 	$('#suppSub2').on('click', function() {
-		//alert("hi");
-		var my_arr = [];
-		my_arr.push($("#FstartTime").val());
-		my_arr.push($("#FendTime").val());
-		my_arr.push($("#myPhoneModel").val());
-		var jsonString = JSON.stringify(my_arr);
-		//alert(jsonString);
-
-		$("#myFailureCount tr:gt(0)").remove();
-		$.ajax({
-			async : false,
-			type : 'POST',
-			url : 'rest/supportEngineer/findNoOfFailuresByPeriodAndModel/',
-			contentType : "application/json",
-			data : jsonString,
-			success : function(data) {
-				if(data=="0"){
-					alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
+		if($("#FstartTime").val()==""){
+			document.getElementById('FstartTime').focus();
+			window.alert('Please pick a Start Date');
+		}else if($("#FendTime").val()==""){
+			document.getElementById('FendTime').focus();
+			window.alert('Please pick a End Date');
+		}else{
+			var my_arr = [];
+			my_arr.push($("#FstartTime").val());
+			my_arr.push($("#FendTime").val());
+			my_arr.push($("#myPhoneModel").val());
+			var jsonString = JSON.stringify(my_arr);
+			//alert(jsonString);
+	
+			$("#myFailureCount tr:gt(0)").remove();
+			$.ajax({
+				async : false,
+				type : 'POST',
+				url : 'rest/supportEngineer/findNoOfFailuresByPeriodAndModel/',
+				contentType : "application/json",
+				data : jsonString,
+				success : function(data) {
+					if(data=="0"){
+						alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
+					}
+					else{
+						document.getElementById("myFailureCount").style.display = "table";
+						var row = $("<tr><td>" + data + "</td></tr>");
+						$("#myFailureCount").append(row);
+					}
+				},
+				error : function() {
+					alert('ERROR \nPlease check input & try again.');
 				}
-				else{
-					document.getElementById("myFailureCount").style.display = "table";
-					var row = $("<tr><td>" + data + "</td></tr>");
-					$("#myFailureCount").append(row);
-				}
-			},
-			error : function() {
-				alert('ERROR \nPlease check input & try again.');
-			}
-		})
+			})
+		}
 	});
 
 	$('#suppSub3').on('click', function() {
@@ -269,6 +293,8 @@ $(function() {
 			}
 		})
 	});
+	
+	
 
 	$('#semenu1').on('click', function() {
 		document.getElementById("mySTime").value = "";

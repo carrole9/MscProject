@@ -1,5 +1,5 @@
 function CUload(){
-	document.getElementById("back").style.display = "none";
+	document.getElementById("goback").style.display = "none";
 	var type = window.sessionStorage.getItem("type");
 	var option = window.sessionStorage.getItem("SEoption");
 	//alert(document.getElementById("back").innerHTML);
@@ -12,16 +12,24 @@ function CUload(){
 	}else if(type=="1"){
 		window.location.replace("http://localhost:8080/maven_Project/Admin.html");
 	}else if(type=="3" && option=="2"){
-		document.getElementById("back").style.display = "block";
+		document.getElementById("goback").style.display = "block";
 	}else if(type=="3"){
 		window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
 	}else if(type=="4" && option=="5"){
-		document.getElementById("back").style.display = "block";
+		document.getElementById("goback").style.display = "block";
 	}else if(type=="4"){
 		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
 	}else{
 		window.location.replace("http://localhost:8080/maven_Project/");
 	}
+}
+
+function clearMenu(){
+	document.getElementById("myEventID").style.display = "none";
+	document.getElementById("x").value = "";
+	document.getElementById("y").value = "";
+	document.getElementById("myFailureCount").style.display = "none";
+	document.getElementById("myCauseCode").style.display = "none";
 }
 
 function addDropDownFeatures1(){	
@@ -161,38 +169,46 @@ $('#submitIMSI').on('click', function(){
 
 
 //user story 5 CS
-$('#submitFailureCount').on('click', function(){	
+$('#submitFailureCount').on('click', function(){
+	if($("#x").val()==""){
+		document.getElementById('x').focus();
+		window.alert('Please pick a Start Date');
+	}else if($("#y").val()==""){
+		document.getElementById('y').focus();
+		window.alert('Please pick a End Date');
+	}else{
 
-	var my_arr = [];
-	my_arr.push($("#x").val());
-	my_arr.push($("#y").val());
-	my_arr.push($("#FmyIMSI").val());
-    var jsonString = JSON.stringify(my_arr);
-    // alert(jsonString);
-    
-    
-     $.ajax({
-    	async:false, 
-			type: 'POST',
-			url: 'rest/customer/findFailurebyTimeandIMSI/',
-			contentType: "application/json",
-			data: jsonString,
-			success: function(data){
-				if(data=="0")
-					alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
-				else{
-					$("#myFailureCount tr:gt(0)").remove();
-					document.getElementById("myFailureCount").style.display="table";
-					var row = $("<tr><td>"  + data +"</td></tr>");
-			
-					$("#myFailureCount").append(row);
+		var my_arr = [];
+		my_arr.push($("#x").val());
+		my_arr.push($("#y").val());
+		my_arr.push($("#FmyIMSI").val());
+	    var jsonString = JSON.stringify(my_arr);
+	    // alert(jsonString);
+	    
+	    
+	     $.ajax({
+	    	async:false, 
+				type: 'POST',
+				url: 'rest/customer/findFailurebyTimeandIMSI/',
+				contentType: "application/json",
+				data: jsonString,
+				success: function(data){
+					if(data=="0")
+						alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
+					else{
+						$("#myFailureCount tr:gt(0)").remove();
+						document.getElementById("myFailureCount").style.display="table";
+						var row = $("<tr><td>"  + data +"</td></tr>");
+				
+						$("#myFailureCount").append(row);
+					}
+				},
+				error: function(){
+					alert('ERROR \nPlease check input & try again.');
 				}
-			},
-			error: function(){
-				alert('ERROR \nPlease check input & try again.');
-			}
-		})
-	});
+			})
+	}
+});
 
 $('#submitCauseCode').on('click', function(){	
 
@@ -247,6 +263,8 @@ $("#datetimepicker7").on("dp.change", function (e) {
     $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
 });
 
+
+
 $('#semenu1').on('click', function() {
 //	$("#myEventID tr:gt(0)").remove();
 //	document.getElementById("myEventID").style.visibility = "hidden";
@@ -270,7 +288,7 @@ $('#semenu3').on('click', function() {
 	$("#myCauseCode").trigger('update');
 });
 
-$('#back').on('click', function(){
+$('#goback').on('click', function(){
 	var option = window.sessionStorage.getItem("SEoption");
 	if(option=="2"){
 		window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
@@ -280,6 +298,5 @@ $('#back').on('click', function(){
 	}else
 		window.history.back();
 });
-
 
 });

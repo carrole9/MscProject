@@ -66,7 +66,7 @@
   <h2>Customer Service Rep</h2>
   <br><br>
   <ul class="nav nav-pills">
-    <li><a id="back" data-toggle="pill" href="">Go Back</a></li>
+    <li><a id="goback" data-toggle="pill" href="">Go Back</a></li>
     <li class="active" title="Home"><a data-toggle="pill" href="#home">Home</a></li>
     <li title="Display, for a given affected IMSI, the Event ID and Cause Code for any / all failures affecting that IMSI ">
     <a id="semenu1" data-toggle="pill" href="#menu1">Display Event ID & Cause Code</a></li>
@@ -101,14 +101,8 @@
 			<h3 class="title">Find Event ID and Cause Code for failures affecting an IMSI</h3>
 		</blockquote>
 		
-		<label class="control-label col-sm-1" for="myIMSI">Select IMSI:</label>
-        <select class="form-control" id="myIMSI">
-           <!--  <option>344930000000011</option>
-            <option>310560000000012</option>
-            <option>240210000000013</option>
-            <option>344930000000001</option>
-            <option>310560000000002</option>
-            <option>240210000000003</option>--> 
+		<label class="control-label col-sm-2" for="myIMSI">Select IMSI:</label>
+        <select class="form-control" id="myIMSI" onchange="clearMenu()">
       </select>
       <br>
       <button id="submitIMSI" title="Click to Continue" class="submit btn btn-primary">Submit</button>	
@@ -131,18 +125,32 @@
 				 </tr>
 				<tr>
       <th  colspan="3" class="ts-pager form-horizontal">
-        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
-        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
-        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
-        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
-        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
-        <select class="pagesize input-mini" title="Select page size">
-          <option selected="selected" value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-        </select>
-        <select class="pagenum input-mini" title="Select page number"></select>
+        <span>Show    </span>
+									<select class="pagesize input-mini" title="Select page size">
+										<option selected="selected" value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+									</select> 
+									<span>    Entries</span> 
+									 <div id="pagination">
+										<button type="button" class="btn first">
+											<span>First</span>
+											<i class="icon-step-backward glyphicon glyphicon-step-backward"></i>
+										</button>
+										<button type="button" class="btn prev">
+											<span>Prev</span>
+											<i class="icon-arrow-left glyphicon glyphicon-backward"></i>
+										</button> <span class="pagedisplay"></span>
+										<button type="button" class="btn next">
+											<span>Next</span>
+											<i class="icon-arrow-right glyphicon glyphicon-forward"></i>
+										</button>
+										<button type="button" class="btn last">
+											<span>Last</span>
+											<i class="icon-step-forward glyphicon glyphicon-step-forward"></i>
+										</button> 
+									</div>
       </th>
     </tr>
 					</tfoot>
@@ -158,6 +166,11 @@
       <blockquote>
 			<h3 class="title">Count for a given IMSI the number of failures during a given time period</h3>
 		</blockquote>
+		<div>
+			<label class="control-label col-sm-2" for="FmyIMSI">Select IMSI :</label>
+            <select class="form-control" id="FmyIMSI" onchange="clearMenu()">
+			</select>
+			<br>
 			<div>
 			
     <div class='col-md-3'>
@@ -185,24 +198,12 @@
             </div>
         </div>
     </div>
-</div>
-<br><br><br><br>	
-			<div>
-			<label class="control-label col-sm-1" for="FmyIMSI">Select IMSI :</label>
-            <select class="form-control" id="FmyIMSI">
-         <!--  <option>344930000000011</option>
-            <option>310560000000012</option>
-            <option>240210000000013</option>
-            <option>344930000000001</option>
-            <option>310560000000002</option>
-            <option>240210000000003</option>-->   
-			</select>
-			
-			
+</div><br><br><br>
+		<div>
 			<br><b>
 			<button id="submitFailureCount" title="Click to Continue" class="submit btn btn-primary">Submit</button>
 			</b><br>
-			
+		</div>	
 		</div>	
 		<hr>
 		<div class="table-responsive"> 
@@ -222,14 +223,8 @@
       <blockquote>
 			<h3 class="title">Unique Cause Codes associated with their call failures affecting an IMSI</h3>
 		</blockquote>	
-			<label class="control-label col-sm-1" for="myIMSICauseCode">Select IMSI :</label>
-            <select class="form-control" id="myIMSICauseCode">
-          <!--  <option>344930000000011</option>
-            <option>310560000000012</option>
-            <option>240210000000013</option>
-            <option>344930000000001</option>
-            <option>310560000000002</option>
-            <option>240210000000003</option>--> 
+			<label class="control-label col-sm-2" for="myIMSICauseCode">Select IMSI :</label>
+            <select class="form-control" id="myIMSICauseCode" onchange="clearMenu()">
             
       </select>
       <br>
@@ -255,18 +250,32 @@
 			</tr>
 				<tr>
       <th  colspan="4" class="ts-pager form-horizontal">
-        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
-        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
-        <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
-        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
-        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
-        <select class="pagesize input-mini" title="Select page size">
-          <option selected="selected" value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-        </select>
-        <select class="pagenum input-mini" title="Select page number"></select>
+        <span>Show    </span>
+									<select class="pagesize input-mini" title="Select page size">
+										<option selected="selected" value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+									</select> 
+									<span>    Entries</span> 
+									 <div id="pagination">
+										<button type="button" class="btn first">
+											<span>First</span>
+											<i class="icon-step-backward glyphicon glyphicon-step-backward"></i>
+										</button>
+										<button type="button" class="btn prev">
+											<span>Prev</span>
+											<i class="icon-arrow-left glyphicon glyphicon-backward"></i>
+										</button> <span class="pagedisplay"></span>
+										<button type="button" class="btn next">
+											<span>Next</span>
+											<i class="icon-arrow-right glyphicon glyphicon-forward"></i>
+										</button>
+										<button type="button" class="btn last">
+											<span>Last</span>
+											<i class="icon-step-forward glyphicon glyphicon-step-forward"></i>
+										</button> 
+									</div>
       </th>
     </tr>
     </tfoot>

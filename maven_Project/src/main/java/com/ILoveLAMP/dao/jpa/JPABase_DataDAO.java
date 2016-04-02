@@ -133,7 +133,7 @@ public class JPABase_DataDAO implements Base_DataDAO{
 		Query query = em.createNamedQuery("Base_Data.findByPeriodAndModel");
 		query.setParameter("startTime", startTime);
 		query.setParameter("endTime", endTime);
-		query.setParameter("userEquipment", getUserEquipmentByModel(model));
+		query.setParameter("model", model);
 		number = (Number)query.getSingleResult();
 		return number.intValue();
 	}
