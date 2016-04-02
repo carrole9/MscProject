@@ -57,7 +57,7 @@ public class PopulateDB {
 	// http://localhost:8080/maven_Project/rest/database/populateDB
 	@GET
 	@Path("/populateDB")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String populateDB() throws IOException, ParseException {
 		long start = System.currentTimeMillis();
 
@@ -71,7 +71,7 @@ public class PopulateDB {
 		System.out.println("Execution time = " + (finish - start)
 				+ " milliseconds");
 
-		return "{Data Successfully Loaded}";
+		return "Success";
 	}
 	
 	public void addBase() throws IOException, ParseException {
@@ -109,7 +109,6 @@ public class PopulateDB {
 		String durationId;
 		String causeCode;
 		Cell cell;
-		int check;
 		String temp;
 		SimpleDateFormat sdf;
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -133,7 +132,6 @@ public class PopulateDB {
 			failureId = 0;
 			opId = 0;
 			ecId = 0;
-			check = 0;
 			market = null;
 			operator = null;
 			dayTime = null;
@@ -163,7 +161,7 @@ public class PopulateDB {
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						event = cell.getRichStringCellValue().getString();
 						
-						check = Integer.parseInt(event);
+						Integer.parseInt(event);
 					}
 					if (count == 2) {
 						cell.setCellType(Cell.CELL_TYPE_STRING);

@@ -116,11 +116,15 @@ $(function (){
 			url: 'rest/database/populateDB',
 			success: function(){
 				alert('data is loaded');
-				$('#ViewData').click();
 			},
-			error: function(){
-				alert('Data is successfully loaded');
-				//$('#ViewData').click();
+			error: function(xhr, status, error){
+				if(status == "error"){
+					var errorMessage = xhr.responseText;
+					var arr = errorMessage.split("org.jboss.resteasy.spi.UnhandledException:");
+					window.alert("************************ ERROR ************************ \n" + arr[1].split("org")[0]);
+				}else{
+					window.alert('Data is successfully loaded');
+				}
 			}
 		})
 		
