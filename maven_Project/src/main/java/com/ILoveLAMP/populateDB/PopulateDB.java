@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class PopulateDB {
 	@PersistenceContext
 	EntityManager em;
 
-	private String path = "/home/user1/git/MscProjectNew/maven_Project/dataset1.xls";
+	private String path = "/home/shanu/git/MscProject/maven_Project/dataset1.xls";
 	int composetkeyEventClause;
 	int composetkeyOperator;
 	
@@ -111,6 +112,7 @@ public class PopulateDB {
 		int check;
 		String temp;
 		SimpleDateFormat sdf;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Base_Data data;
 		Error_Data error;
 		boolean isError = false;
@@ -287,7 +289,8 @@ public class PopulateDB {
 
 				baseDataSets.add(data);
 			} else if (rowcount > 0) {
-				error = new Error_Data(0, dateTime.toString(), event, failure,
+				
+				error = new Error_Data(0, df.format(dayTime), event, failure,
 						ueType, market, operator, cell_Id, durationId,
 						causeCode, neVersion, imsi, hier3Id, hier32Id,
 						hier321Id);

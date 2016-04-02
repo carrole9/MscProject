@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.ILoveLAMP.entities.Base_Data;
 import com.ILoveLAMP.entities.Base_DataList;
+import com.ILoveLAMP.entities.Error_Data;
 
 @Path("/basedata")
 @Stateless
@@ -44,6 +45,14 @@ public class Rest {
 		Base_DataList datas = new Base_DataList();
 		datas.setBaseDataCollection(service.getAllBaseDatas());
 		return datas;
+	}
+	
+	// http://localhost:8080/maven_Project/rest/basedata/getAllErrorData
+	@GET
+	@Path("/getAllErrorData")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Error_Data> getError_Datas() {
+		return service.getAllErrorDatas();
 	}
 	
 	@GET

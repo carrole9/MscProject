@@ -69,33 +69,32 @@ $(function (){
 		$.ajax({
 			async:false,
 			type: 'GET',
-			url: 'rest/basedata/getAllBaseData',
+			url: 'rest/basedata/getAllErrorData',
 			success: function(data){
 				//$("#myData tr:gt(0)").remove();
 				$(".odd").remove();
 				$(".even").remove();
 				document.getElementById("myData").style.display = "table";
 				//document.getElementById("myData").style.visibility = "visible";
-				$.each(data, function(i, basedatas){
-					$.each(basedatas, function(i,basedata){
+
+				$.each(data, function(i, basedata){
 						var row = $("<tr><td>" + basedata.dataId
 								+ "</td><td>" + basedata.dateTime 
-								+ "</td><td>" + basedata.eventCause.eventId 
-								+ "</td><td>" + basedata.failure.failureId
-								+ "</td><td>" + basedata.userEquipment.userEquipmentId
-								+ "</td><td>" + basedata.operator.mcc
-								+ "</td><td>" + basedata.operator.mnc
+								+ "</td><td>" + basedata.eventId 
+								+ "</td><td>" + basedata.failureId
+								+ "</td><td>" + basedata.ueType
+								+ "</td><td>" + basedata.market
+								+ "</td><td>" + basedata.operator
 								+ "</td><td>" + basedata.cellId
 								+ "</td><td>" + basedata.duration
-								+ "</td><td>" + basedata.eventCause.causeCode
+								+ "</td><td>" + basedata.cause_Code
 								+ "</td><td>" + basedata.neVersion
 								+ "</td><td>" + basedata.imsi
-								+ "</td><td>" + basedata.hier3Id
-								+ "</td><td>" + basedata.hier32Id
-								+ "</td><td>" + basedata.hier321Id
+								+ "</td><td>" + basedata.hier3_Id
+								+ "</td><td>" + basedata.hier32_Id
+								+ "</td><td>" + basedata.hier321_Id
 								+"</td></tr>");
 						$("#myData tbody").append(row);
-					})
 			})
 			$("#myData").trigger('update'); 
 		},
@@ -117,7 +116,7 @@ $(function (){
 			},
 			error: function(){
 				alert('Data is successfully loaded');
-				$('#ViewData').click();
+				//$('#ViewData').click();
 			}
 		})
 		
