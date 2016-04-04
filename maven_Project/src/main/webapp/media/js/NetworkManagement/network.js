@@ -103,6 +103,8 @@ $(function() {
 			window.alert('Please pick a End Date');
 		}else{
 			var my_arr = [];
+			var names = new Array();
+			var numbers = new Array();
 			my_arr.push($("#TopTenStart").val());
 			my_arr.push($("#TopTenEnd").val());
 			var jsonString = JSON.stringify(my_arr);
@@ -125,13 +127,24 @@ $(function() {
 							$(".even").remove();
 							document.getElementById("myIMSICountTable").style.display = "table";
 								for (i = 0; i < data.length; i++) {
+									
 									var row = $("<tr><td>" + data[i][0]
 												+ "</td><td>" + data[i][1]
 												+ "</td></tr>");
-
+									names[i] = data[i][0];
+									numbers[i] = data[i][1];
+									
 									$("#myIMSICountTable tbody").append(row);
 
 								}
+							var start = $("#TopTenStart").val();
+							var end = $("#TopTenEnd").val();
+							var subTitle = "Between "+ start +" and "+ end;
+							var title = "Top 10 IMSI with Failures";
+							var xTitle = "IMSI's";
+							var yTitle = " Failures";
+							Top10IMSI(names, numbers, title, subTitle, xTitle, yTitle);
+							document.getElementById("Top10IMSI").style.display = "block";
 						}
 						$("#myIMSICountTable").trigger('update');
 					},
@@ -345,6 +358,7 @@ $(function() {
 		$(".odd").remove();
 		$(".even").remove();
 		document.getElementById("myModelTable").style.display = "none";
+		document.getElementById("Top10IMSI").style.display = "none";
 		$("#myModelTable").trigger('update');
 //		$("#myModelTable tr:gt(0)").remove();
 //		document.getElementById("myModelTable").style.visibility = "hidden";

@@ -47,6 +47,10 @@
 	<script src="media/js/transition.js"></script>
 	<script src="media/js/collapse.js"></script>
 	<script src="media/js/bootstrap-datetimepicker.min.js"></script>
+	
+	<script src="media/js/graph/highcharts.js"></script>
+	<script src="media/js/graph/exporting.js"></script>
+	<script src="media/js/graph/graphMaker.js"></script>
 </head>
 <body onload ="addManufacturersDropDownFeaturesNetwork(),ChangeNetworkModel()">
 	<div class="container basedata">
@@ -250,7 +254,8 @@
 						</tbody>
 					</table>
 					<p></p>
-				</div>
+				</div><hr id="top10IMSI">
+				<div id="Top10IMSI" style="width:auto; height:auto;"></div>
 			</div>
 			<div id="menu3" class="tab-pane fade">
 				<div class="fixed">
