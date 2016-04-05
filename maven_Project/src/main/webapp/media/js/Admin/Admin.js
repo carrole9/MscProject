@@ -18,6 +18,16 @@ function load(){
 	}
 }
 
+function KickOffFolderLisner(){
+	
+	$.ajax({
+		async:false,
+		type: 'GET',
+		url: 'rest/database/checkData',
+		
+});
+}
+
 var User = function(id, username, password, usertype) {
 		    this.id = id;
 		    this.username = username;
@@ -54,6 +64,8 @@ $(function (){
 				+"</td></tr>");
 		$("#userData tbody").append(row);         
 	}
+	
+
 //	
 //	function addmyDataIMSI(newUser) {
 //		alert(newUser[1].imsi);    
@@ -122,6 +134,8 @@ $(function (){
 		})
 		
 	});
+	
+
 	
 	$('#view-users').on('click', function(){
 		$.ajax({
