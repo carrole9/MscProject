@@ -51,7 +51,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 			+ "group by bd.failure.failureId,bd.eventCause.ecId"),
 	@NamedQuery(name = "Base_Data.UniqueCauseCodesForIMSI", query = "select distinct bd.failure.failureId,bd.failure.description, bd.eventCause.causeCode, bd.eventCause.description from Base_Data bd where bd.imsi = :imsi"),
 	
-	@NamedQuery(name = "Base_Data.Top10MarketOperatorCellIdCombo", query = "select bd.operator.mcc, bd.operator.country, bd.operator.operatorName,  bd.cellId from Base_Data bd where bd.dateTime BETWEEN :firsttime AND :secondtime GROUP BY bd.operator, bd.cellId ORDER BY bd.cellId")
+//	@NamedQuery(name = "Base_Data.Top10MarketOperatorCellIdCombo", query = "select bd.operator.mcc, bd.operator.country, bd.operator.operatorName,  bd.cellId, count(bd)"
+//			+ "from Base_Data bd where bd.dateTime BETWEEN :firsttime AND :secondtime GROUP BY bd.operator.mcc, bd.operator.operatorName, bd.cellId ORDER BY count(bd)"),
+	
+	
+	
+	@NamedQuery(name = "Base_Data.Top10MarketOperatorCellIdCombo", query = "select bd.operator.mcc, bd.operator.country, bd.operator.operatorName,  bd.cellId, count(bd)"
+			+ "from Base_Data bd where bd.dateTime BETWEEN :firsttime AND :secondtime GROUP BY bd.operator.mcc, bd.operator.operatorName, bd.cellId ORDER BY bd.operator.mcc, bd.operator.operatorName, bd.cellId")
 })
 @XmlRootElement
 public class Base_Data implements Serializable {
@@ -59,7 +65,7 @@ public class Base_Data implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// add an attribute specifying a column for the id property
-	// add attributes to ensure that the id column is automantically generated
+	// add attributes to ensure that the id column is automatically generated
 
 	@Id
 	// signifies the primary key

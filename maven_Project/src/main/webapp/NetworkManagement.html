@@ -37,6 +37,9 @@
 	<script src="media/js/jquery.tablesorter.pager.js"></script>
 	<!-- Table sorter function -->
 	<script src="media/js/tableSorter.js"></script>
+	<!-- highchart piechart function -->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	
   	<link rel="stylesheet" href="media/css/Design.css">
    	<link rel="stylesheet" href="media/css/bootstrap-datetimepicker.css">
@@ -254,7 +257,7 @@
         <select class="form-control" id="NetworkModel">
         
        </select>		
-				
+				 
 					 <br>
 					<button id="submitModel" title="Click to Continue"
 						class="submit btn btn-primary">Submit Model</button>
@@ -313,9 +316,9 @@
 							with call failures during a time period</h3>
 					</blockquote>
 					<div>
-						
+
 						<div class='col-md-3'>
-						<label for="StartMarketTime">Start Time :</label>
+							<label for="StartMarketTime">Start Time :</label>
 							<div class="form-group">
 								<div class='input-group date' id='datetimepicker26'>
 									<input type='text' class="form-control" id='StartMarketTime' />
@@ -325,12 +328,12 @@
 								</div>
 							</div>
 						</div>
-						</div>
-						<div></div>
-						<div>
-						
+					</div>
+					<div></div>
+					<div>
+
 						<div class='col-md-3'>
-						<label for="EndMarketTime">End Time :</label>
+							<label for="EndMarketTime">End Time :</label>
 							<div class="form-group">
 								<div class='input-group date' id='datetimepicker27'>
 									<input type='text' class="form-control" id='EndMarketTime' />
@@ -341,7 +344,10 @@
 							</div>
 						</div>
 					</div>
-					<br><br><br><br>
+					<br>
+					<br>
+					<br>
+					<br>
 					<button id="submitMarket" title="Click to Continue"
 						class="submit btn btn-primary">Submit</button>
 					<hr>
@@ -349,18 +355,25 @@
 				<div class="table-responsive">
 					<table id="myMarketTable" class="tablesorter" align="center">
 						<thead>
-						<tr>
-							<th>Market</th>
-							<th>Country</th>
-							<th>Operator</th>
-							<th>Cell ID</th>
-						</tr>
+							<tr>
+								<th>Market</th>
+								<th>Country</th>
+								<th>Operator</th>
+								<th>Cell ID</th>
+								<th>Failure Times</th>
+							</tr>
 						</thead>
 						<tbody>
 						</tbody>
 					</table>
 					<p></p>
 				</div>
+				<!-- Graphing -->
+				<hr>
+				<div id="graphContainer"
+					style="min-width: 600px; height: 800px; max-width: 1200px; margin: 0 auto">
+				</div>
+
 			</div>
 		</div>
 	</div>
