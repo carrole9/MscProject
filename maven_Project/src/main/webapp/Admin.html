@@ -13,6 +13,7 @@
 			if(window.sessionStorage.getItem("greeting") == "true"){
 				alert("Welcome back "+window.sessionStorage.getItem("UserName"));
 				window.sessionStorage.setItem("greeting", "false");
+				
 			}
 		}else if(type=="2"){
 			window.location.replace("http://localhost:8080/maven_Project/CustomerServiceRep.html");
@@ -21,7 +22,9 @@
 		}else if(type=="4"){
 			window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
 		}else{
+			
 			window.location.replace("http://localhost:8080/maven_Project/");
+
 		}
    	</script>
   
@@ -52,7 +55,7 @@
 	<script src="media/js/Admin/Admin.js"></script>
 
 </head>
-<body onload="KickOffFolderLisner()">
+<body>
 	<div class="container basedata">
 	<img title="Ericsson Logo" src="media/images/Ericsson.png" id="ericsson" alt="logo" width="100px" />
 	  <h2>System Admin</h2>
@@ -89,8 +92,7 @@
 		      <div class="fixed">
 		      	<blockquote>
 					<h3 class="title">Import Data to DataBase</h3>
-				</blockquote>
-				
+				<input type="file" id="AdminFile">
 		      	<button id="ImportData" title="Import Data from Excel" class="btn btn-warning">Import data</button>
 		       	<button id="ViewData" title="View data from DataBase" class="btn btn-success">View data</button>
 				<hr>

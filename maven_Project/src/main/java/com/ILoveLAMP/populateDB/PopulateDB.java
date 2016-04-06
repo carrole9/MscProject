@@ -22,13 +22,20 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.concurrent.Future;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -57,8 +64,6 @@ public class PopulateDB {
 	EntityManager em;
 
 	private String path = "/home/user1/Desktop/Data/dataset.xls";
-	
-
 
 	int composetkeyEventClause;
 	int composetkeyOperator;
@@ -81,13 +86,41 @@ public class PopulateDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
-	@GET
-	@Path("/checkData")
-	@Produces(MediaType.APPLICATION_XML)
+	/**
+	 * @return
+	 */
+
+	
+	@POST
+	@Path("/AdminAddData")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+		public String adminAddData(String path){
+		System.out.println(path);
+		path = path.replace("\"", "");
+		System.out.println(path);
+		this.path = path;
+		try {
+			populateDB();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "Success";
+	}
+	
+	
+	
 	@Asynchronous
-		public  void watch() throws ParseException{
+	public void watch() throws ParseException{
+			
+			System.out.println("Watcher started");
 			
 			try {
 				WatchService watcher = FileSystems.getDefault().newWatchService();
@@ -96,13 +129,15 @@ public class PopulateDB {
 				
 				System.out.println("Watch Service registered for dir: " + dir.getFileName());
 				
+				
+				
 				while (true) {
 					WatchKey key;
 					
 					try {
 						key = watcher.take();
 					} catch (InterruptedException ex) {
-						return;
+						break;
 					}
 					
 					for (WatchEvent<?> event : key.pollEvents()) {
@@ -133,14 +168,27 @@ public class PopulateDB {
 					if (!valid) {
 						break;
 					}
-				}
+				} 
+				System.out.println("Service stoped being watched");
+				//watcher.close();
 				
 			} catch (IOException ex) {
 				System.err.println(ex);
 			}
-		}
+			
+			
+	    		
+		    	   File afile =new File(getPath());
+		    		
+		    	   if(afile.renameTo(new File("/home/user1/Desktop/ImportedData/" + afile.getName()))){
+		    		System.out.println("File is moved successful!");
+		    	   }else{
+		    		System.out.println("File is failed to move!");
+		    	   }
+			
+		
 	
-	
+	}
 
 	// http://localhost:8080/maven_Project/rest/database/populateDB
 	

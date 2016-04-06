@@ -12,6 +12,15 @@ function load(){
 		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
 	}
 }
+function KickOffFolderLisner(){
+	
+	$.ajax({
+		async:false,
+		type: 'GET',
+		url: 'rest/database/checkData',
+		
+});
+}
 
 
 $(function() {

@@ -18,15 +18,6 @@ function load(){
 	}
 }
 
-function KickOffFolderLisner(){
-	
-	$.ajax({
-		async:false,
-		type: 'GET',
-		url: 'rest/database/checkData',
-		
-});
-}
 
 var User = function(id, username, password, usertype) {
 		    this.id = id;
@@ -119,10 +110,19 @@ $(function (){
 	
 	
 	$('#ImportData').on('click', function(){
+		//var jsonString = JSON.stringify($("#AdminFile").val());
+		 var x = document.getElementById("AdminFile").files[0].name;
+		    var y = "/home/user1/Desktop/Data/"+x;
+		    alert(y);
+		  var jsonString = JSON.stringify(y);
+		    
+		alert(jsonString)
 		$.ajax({
 			async:false,
-			type: 'GET',
-			url: 'rest/database/populateDB',
+			type: 'POST',
+			url: 'rest/database/AdminAddData',
+			contentType: "application/json",
+			data: jsonString,
 			success: function(){
 				alert('data is loaded');
 				$('#ViewData').click();
@@ -237,6 +237,12 @@ $(function (){
 		window.sessionStorage.setItem("type","0");
 		window.sessionStorage.setItem("UserName", "");
 		window.location.replace("http://localhost:8080/maven_Project/");
+		alert("Logging out")
+		
+		
+		
+		
+		
 	});
 	
 });
