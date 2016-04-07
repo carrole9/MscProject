@@ -18,6 +18,7 @@ function load(){
 	}
 }
 
+
 var User = function(id, username, password, usertype) {
 		    this.id = id;
 		    this.username = username;
@@ -54,6 +55,8 @@ $(function (){
 				+"</td></tr>");
 		$("#userData tbody").append(row);         
 	}
+	
+
 //	
 //	function addmyDataIMSI(newUser) {
 //		alert(newUser[1].imsi);    
@@ -69,37 +72,34 @@ $(function (){
 		$.ajax({
 			async:false,
 			type: 'GET',
-			url: 'rest/basedata/getAllErrorData',
+			url: 'rest/basedata/getAllBaseData',
 			success: function(data){
-				if(data.length == 0)
-					window.alert("No Error data in DataBase");
-				else{
-					//$("#myData tr:gt(0)").remove();
-					$(".odd").remove();
-					$(".even").remove();
-					document.getElementById("myData").style.display = "table";
-					//document.getElementById("myData").style.visibility = "visible";
-	
-					$.each(data, function(i, basedata){
-							var row = $("<tr><td>" + basedata.dataId
-									+ "</td><td>" + basedata.dateTime 
-									+ "</td><td>" + basedata.eventId 
-									+ "</td><td>" + basedata.failureId
-									+ "</td><td>" + basedata.ueType
-									+ "</td><td>" + basedata.market
-									+ "</td><td>" + basedata.operator
-									+ "</td><td>" + basedata.cellId
-									+ "</td><td>" + basedata.duration
-									+ "</td><td>" + basedata.cause_Code
-									+ "</td><td>" + basedata.neVersion
-									+ "</td><td>" + basedata.imsi
-									+ "</td><td>" + basedata.hier3_Id
-									+ "</td><td>" + basedata.hier32_Id
-									+ "</td><td>" + basedata.hier321_Id
-									+"</td></tr>");
-							$("#myData tbody").append(row);
+				//$("#myData tr:gt(0)").remove();
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("myData").style.display = "table";
+				//document.getElementById("myData").style.visibility = "visible";
+				$.each(data, function(i, basedatas){
+					$.each(basedatas, function(i,basedata){
+						var row = $("<tr><td>" + basedata.dataId
+								+ "</td><td>" + basedata.dateTime 
+								+ "</td><td>" + basedata.eventCause.eventId 
+								+ "</td><td>" + basedata.failure.failureId
+								+ "</td><td>" + basedata.userEquipment.userEquipmentId
+								+ "</td><td>" + basedata.operator.mcc
+								+ "</td><td>" + basedata.operator.mnc
+								+ "</td><td>" + basedata.cellId
+								+ "</td><td>" + basedata.duration
+								+ "</td><td>" + basedata.eventCause.causeCode
+								+ "</td><td>" + basedata.neVersion
+								+ "</td><td>" + basedata.imsi
+								+ "</td><td>" + basedata.hier3Id
+								+ "</td><td>" + basedata.hier32Id
+								+ "</td><td>" + basedata.hier321Id
+								+"</td></tr>");
+						$("#myData tbody").append(row);
 					})
-				}
+			})
 			$("#myData").trigger('update'); 
 		},
 			error: function(){
@@ -110,25 +110,32 @@ $(function (){
 	
 	
 	$('#ImportData').on('click', function(){
+		//var jsonString = JSON.stringify($("#AdminFile").val());
+		 var x = document.getElementById("AdminFile").files[0].name;
+		    var y = "/home/user1/Desktop/Data/"+x;
+		    alert(y);
+		  var jsonString = JSON.stringify(y);
+		    
+		alert(jsonString)
 		$.ajax({
 			async:false,
-			type: 'GET',
-			url: 'rest/database/populateDB',
+			type: 'POST',
+			url: 'rest/database/AdminAddData',
+			contentType: "application/json",
+			data: jsonString,
 			success: function(){
 				alert('data is loaded');
+				$('#ViewData').click();
 			},
-			error: function(xhr, status, error){
-				if(status == "error"){
-					var errorMessage = xhr.responseText;
-					var arr = errorMessage.split("org.jboss.resteasy.spi.UnhandledException:");
-					window.alert("************************ ERROR ************************ \n" + arr[1].split("org")[0]);
-				}else{
-					window.alert('Data is successfully loaded');
-				}
+			error: function(){
+				alert('Data is successfully loaded');
+				$('#ViewData').click();
 			}
 		})
 		
 	});
+	
+
 	
 	$('#view-users').on('click', function(){
 		$.ajax({
@@ -230,6 +237,12 @@ $(function (){
 		window.sessionStorage.setItem("type","0");
 		window.sessionStorage.setItem("UserName", "");
 		window.location.replace("http://localhost:8080/maven_Project/");
+		alert("Logging out")
+		
+		
+		
+		
+		
 	});
 	
 });
