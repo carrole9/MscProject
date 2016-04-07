@@ -31,16 +31,29 @@ function addDropDownFeatures1(){
 			type: 'GET',
 			url: 'rest/basedata/getAllIMSI',
 			success: function(data){
-			//alert(data);
+						var str;
+					     var months = new Array();
 			             for(i=0;i<data.length;i++){
-						 var x = document.getElementById("myIMSI");
+						// var x = document.getElementById("myIMSI");
 						// var y = document.getElementById("FmyIMSI");
-					     var option = document.createElement("option");
-						    option.text = data[i];
-						    x.add(option);
+					   // var option = document.createElement("option");
+					   // option.text= data[i];
+					    // option.text= ""+data[i];
+						//    option.text = data[i];
+						//   x.add(option);
 						  // y.add(option);
 						   // alert(data[i])
+			            	 month.push(data[i])
 			             }
+			           alert(month.length);
+			             for (var i=0; i < month.length;++i){
+			             str += '<option value="'+month[i]+'" />'; // Storing options in variable
+			             }
+			             var my_list=document.getElementById("myIMSI");
+			             my_list.innerHTML = str;
+			             alert()
+			             
+			             
 			   
 		},
 			error: function(){

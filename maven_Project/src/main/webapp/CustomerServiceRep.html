@@ -29,7 +29,11 @@
 		}else{
 			window.location.replace("http://localhost:8080/maven_Project/");
 		}
-   	</script>   	
+
+   	</script>  
+   
+
+					
    	
   	<!-- Bootstrap stylesheet -->
   	<link rel="stylesheet" href="media/css/bootstrap.min.css" type="text/css">
@@ -101,15 +105,28 @@
 			<h3 class="title">Find Event ID and Cause Code for failures affecting an IMSI</h3>
 		</blockquote>
 		
-		<label class="control-label col-sm-1" for="myIMSI">Select IMSI:</label>
-        <select class="form-control" id="myIMSI">
-           <!--  <option>344930000000011</option>
-            <option>310560000000012</option>
-            <option>240210000000013</option>
-            <option>344930000000001</option>
-            <option>310560000000002</option>
-            <option>240210000000003</option>--> 
-      </select>
+	<!--  	<label class="control-label col-sm-1" for="myIMSI">Select IMSI :</label>
+            <select class="form-control" id="myIMSI" >
+      <form action="demo_form.asp" method="get">
+   
+          
+   </select>-->
+  
+
+
+
+
+<form action="demo_form.asp" method="get"  >
+  <input list="myIMSI" name="myIMSI">
+
+  <datalist id="myIMSI">
+  </datalist>
+   
+  
+  
+</form>
+    
+    
       <br>
       <button id="submitIMSI" title="Click to Continue" class="submit btn btn-primary">Submit</button>	
 		</div>	

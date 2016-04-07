@@ -64,6 +64,7 @@ public class PopulateDB {
 	EntityManager em;
 
 	private String path = "/home/user1/Desktop/Data/dataset.xls";
+	private String file ="";
 
 	int composetkeyEventClause;
 	int composetkeyOperator;
@@ -88,10 +89,15 @@ public class PopulateDB {
 		}
 		
 	}
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
 	
-	/**
-	 * @return
-	 */
+	
 
 	
 	@POST
@@ -101,6 +107,7 @@ public class PopulateDB {
 		public String adminAddData(String path){
 		System.out.println(path);
 		path = path.replace("\"", "");
+		setFile(path);
 		System.out.println(path);
 		this.path = path;
 		try {
@@ -122,13 +129,21 @@ public class PopulateDB {
 			
 			System.out.println("Watcher started");
 			
-			try {
-				WatchService watcher = FileSystems.getDefault().newWatchService();
+			try(WatchService watcher = FileSystems.getDefault().newWatchService()){
 				java.nio.file.Path dir = Paths.get("/home/user1/Desktop/Data");
 				dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
 				
-				System.out.println("Watch Service registered for dir: " + dir.getFileName());
+				Runtime.getRuntime().addShutdownHook(new Thread(){
+					public void run(){
+					try{
+						watcher.close();}
+					catch(IOException e){
+						System.out.print("It ain't working");
+					}
+					}});
 				
+				System.out.println("Watch Service registered for dir: " + dir.getFileName());
+				setFile(""+dir.getFileName());
 				
 				
 				while (true) {
@@ -169,26 +184,37 @@ public class PopulateDB {
 						break;
 					}
 				} 
-				System.out.println("Service stoped being watched");
-				//watcher.close();
+				
 				
 			} catch (IOException ex) {
 				System.err.println(ex);
 			}
 			
 			
-	    		
-		    	   File afile =new File(getPath());
-		    		
-		    	   if(afile.renameTo(new File("/home/user1/Desktop/ImportedData/" + afile.getName()))){
-		    		System.out.println("File is moved successful!");
-		    	   }else{
-		    		System.out.println("File is failed to move!");
-		    	   }
 			
 		
 	
 	}
+	
+	 public void doMove() {
+		 	System.out.println("Moving");
+	        // File (or Directory) to be moved
+	        File file = new File(getFile());
+
+	        // Destination directory
+	        File dir = new File("/home/user1/Desktop/Data/");
+
+	        // Move file to a new directory
+	        boolean success = file.renameTo(new File(dir, file.getName()));
+
+	        if (success) {
+	            System.out.println("File was successfully moved.\n");
+	        } else {
+	            System.out.println("File was not successfully moved.\n");
+	        }
+
+
+	    }
 
 	// http://localhost:8080/maven_Project/rest/database/populateDB
 	
@@ -204,7 +230,7 @@ public class PopulateDB {
 		long finish = System.currentTimeMillis();
 		System.out.println("Execution time = " + (finish - start)
 				+ " milliseconds");
-
+		//doMove();
 		return "{Data Successfully Loaded}";
 	}
 	
