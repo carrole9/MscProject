@@ -28,6 +28,11 @@ function clearMenu(){
 	document.getElementById("FendTime").value = "";
 	document.getElementById("myFailureCount").style.display = "none";
 	document.getElementById("myIMSIDisplay").style.display = "none";
+	document.getElementById("myEventID").style.display = "none";
+	document.getElementById("x").value = "";
+	document.getElementById("y").value = "";
+	document.getElementById("myFailureCount1").style.display = "none";
+	document.getElementById("myCauseCode").style.display = "none";
 }
 
 function addDropDownFeatures3(){	
@@ -95,10 +100,6 @@ function ChangeModel(){
  
    
 	}
-
-
-
-
 
 function addManufacturersDropDownFeatures(){	
 
@@ -356,11 +357,263 @@ $(function() {
 
 	
 	
-	$('#back').on('click', function(){
-		var option = window.sessionStorage.getItem("SEoption");
-		if(option < 4)
-			window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
-		else
-			window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
+	
+});
+
+function addDropDownFeatures1(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllIMSI',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x1 = document.getElementById("myIMSI1");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x1.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+function addDropDownFeatures2(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllIMSI',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("FmyIMSI");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+function addDropDownFeatures4(){	
+
+    $.ajax({
+			async:false,
+			type: 'GET',
+			url: 'rest/basedata/getAllIMSI',
+			success: function(data){
+			//alert(data);
+			             for(i=0;i<data.length;i++){
+						 var x = document.getElementById("myIMSICauseCode");
+						// var y = document.getElementById("FmyIMSI");
+					     var option = document.createElement("option");
+						    option.text = data[i];
+						    x.add(option);
+						  // y.add(option);
+						   // alert(data[i])
+			             }
+			   
+		},
+			error: function(){
+				alert('error loading users');
+			}
+		})
+ 
+   
+	}
+
+$(function (){
+
+	function close_window(currentURL, newURL){
+	    var newWindow = window.open(newURL, '_self', ''); //open the new window
+	    window.close(currentURL); //close the current window
+	}
+	$('#logout').on('click', function(){
+		window.sessionStorage.setItem("SEoption","0");
+		window.sessionStorage.setItem("type","0");
+		window.sessionStorage.setItem("UserName", "");
+		window.location.replace("http://localhost:8080/maven_Project/");
 	});
+	
+	
+	
+	
+//User Story 4 CS
+$('#submitIMSI').on('click', function(){	
+
+     var jsonString = JSON.stringify($("#myIMSI1").val());
+    // alert(jsonString);
+  
+    // $("#myEventID tr:gt(0)").remove();
+     $.ajax({
+    	async:false, 
+			type: 'POST',
+			url: 'rest/customer/findEventandCausecodeByIMSI/',
+			contentType: "application/json",
+			data: jsonString,
+			success: function(data){
+				//alert(data.length);
+				//document.getElementById("myEventID").style.visibility = "visible";
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("myEventID").style.display = "table";
+				$.each(data, function(i, basedatas){
+					
+					$.each(basedatas, function(i,basedata){
+						var row = $("<tr><td>"  + basedata.causeCode
+								+"</td><td>" + basedata.eventId
+								+"</td><td>" + basedata.description
+								+"</td></tr>");
+								
+		                $("#myEventID tbody").append(row);
+					})
+			})
+				
+			$("#myEventID").trigger('update');
+	        
+			},
+			error: function(){
+				alert('error');
+			}
+		})
+	});
+
+
+//user story 5 CS
+$('#submitFailureCount').on('click', function(){
+	if($("#x").val()==""){
+		document.getElementById('x').focus();
+		window.alert('Please pick a Start Date');
+	}else if($("#y").val()==""){
+		document.getElementById('y').focus();
+		window.alert('Please pick a End Date');
+	}else{
+
+		var my_arr = [];
+		my_arr.push($("#x").val());
+		my_arr.push($("#y").val());
+		my_arr.push($("#FmyIMSI").val());
+	    var jsonString = JSON.stringify(my_arr);
+	    // alert(jsonString);
+	    
+	    
+	     $.ajax({
+	    	async:false, 
+				type: 'POST',
+				url: 'rest/customer/findFailurebyTimeandIMSI/',
+				contentType: "application/json",
+				data: jsonString,
+				success: function(data){
+					if(data=="0")
+						alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
+					else{
+						$("#myFailureCount1 tr:gt(0)").remove();
+						document.getElementById("myFailureCount1").style.display="table";
+						var row = $("<tr><td>"  + data +"</td></tr>");
+				
+						$("#myFailureCount1").append(row);
+					}
+				},
+				error: function(){
+					alert('ERROR \nPlease check input & try again.');
+				}
+			})
+	}
+});
+
+$('#submitCauseCode').on('click', function(){	
+
+	 var jsonString = JSON.stringify($("#myIMSICauseCode").val());
+	 
+   
+    
+     $.ajax({
+    	async:false, 
+			type: 'POST',
+			url: 'rest/customer/findUniqueCauseCodebyImsi/',
+			contentType: "application/json",
+			data: jsonString,
+			success: function(data){
+				//alert(data.length);
+//				 $("#myCauseCode tr:gt(0)").remove();
+//				document.getElementById("myCauseCode").style.visibility = "visible";
+				$(".odd").remove();
+				$(".even").remove();
+				document.getElementById("myCauseCode").style.display = "table";
+				for(i =0; i<data.length; i++){
+					
+				 var row = $("<tr><td>" + data[i][0]
+					         +"</td><td>" + data[i][1]
+				 			+"</td><td>" + data[i][2]
+				 			+"</td><td>" + data[i][3]
+							+"</td></tr>");
+			
+				 $("#myCauseCode tbody").append(row);
+					
+				}
+				$("#myCauseCode").trigger('update'); 
+			},
+			error: function(){
+				alert('error');
+			}
+		})
+	});
+
+$('#datetimepicker26').datetimepicker({
+    //useCurrent: false, 
+    locale:'en-gb'//Important! See issue #1075
+});
+$('#datetimepicker27').datetimepicker({
+    useCurrent: false, 
+    locale:'en-gb'//Important! See issue #1075
+});
+$("#datetimepicker26").on("dp.change", function (e) {
+    $('#datetimepicker27').data("DateTimePicker").minDate(e.date);
+});
+$("#datetimepicker27").on("dp.change", function (e) {
+    $('#datetimepicker26').data("DateTimePicker").maxDate(e.date);
+});
+
+
+
+$('#semenu4').on('click', function() {
+//	$("#myEventID tr:gt(0)").remove();
+//	document.getElementById("myEventID").style.visibility = "hidden";
+	$(".odd").remove();
+	$(".even").remove();
+	document.getElementById("myEventID").style.display = "none";
+	$("#myEventID").trigger('update');
+});
+$('#semenu5').on('click', function() {
+	$("#myFailureCount1 tr:gt(0)").remove();
+	document.getElementById("x").value = "";
+	document.getElementById("y").value = "";
+	document.getElementById("myFailureCount1").style.display = "none";
+});
+$('#semenu6').on('click', function() {
+//	$("#myCauseCode tr:gt(0)").remove();
+//	document.getElementById("myCauseCode").style.visibility = "hidden";
+	$(".odd").remove();
+	$(".even").remove();
+	document.getElementById("myCauseCode").style.display = "none";
+	$("#myCauseCode").trigger('update');
+});
+
 });

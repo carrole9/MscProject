@@ -1,3 +1,48 @@
+function graph(dataArrayFinal,startTime, endTime) {
+
+	$('#graphContainer')
+			.highcharts(
+					{
+						chart : {
+							plotBackgroundColor : null,
+							plotBorderWidth : null,
+							plotShadow : false,
+							type : 'pie'
+						},
+						title : {
+							text : 'Top 10 Market/Operator/Cell ID combinations with call failures'
+						},
+						subtitle: {
+			                text: 'Between '+startTime+' and ' +endTime
+			            },
+						tooltip : {
+							pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
+						},
+						plotOptions : {
+							pie : {
+								allowPointSelect : true,
+								cursor : 'pointer',
+								dataLabels : {
+									enabled : true,
+									format : '<b>{point.name}</b>: {point.y}, {point.percentage:.1f} %',
+									style : {
+										color : (Highcharts.theme && Highcharts.theme.contrastTextColor)
+												|| 'black'
+									}
+								}
+							}
+						},
+						 credits: {
+				                enabled: false
+				            },
+						series : [ {
+							name : 'Percentage',
+							colorByPoint : true,
+							data : dataArrayFinal
+						} ]
+					});
+
+}
 function load(){
 	var type = window.sessionStorage.getItem("type");
 	var option = window.sessionStorage.getItem("SEoption");
@@ -143,8 +188,9 @@ $(function() {
 							var title = "Top 10 IMSI with Failures";
 							var xTitle = "IMSI's";
 							var yTitle = " Failures";
-							Top10IMSI(names, numbers, title, subTitle, xTitle, yTitle);
 							document.getElementById("Top10IMSI").style.display = "block";
+							Top10IMSI(names, numbers, title, subTitle, xTitle, yTitle);
+							
 						}
 						$("#myIMSICountTable").trigger('update');
 					},
@@ -242,99 +288,145 @@ $(function() {
 	});
 
 	$('#submitMarket').on('click',function() {
-		if($("#StartMarketTime").val()==""){
-			document.getElementById('StartMarketTime').focus();
-			window.alert('Please pick a Start Date');
-		}else if($("#EndMarketTime").val()==""){
-			document.getElementById('EndMarketTime').focus();
-			window.alert('Please pick a End Date');
-		}else{
-			var my_arr = [];
-			
-			my_arr.push($("#StartMarketTime").val());
-			my_arr.push($("#EndMarketTime").val());
-			var jsonString = JSON.stringify(my_arr);
-	
-			//$("#myMarketTable tr:gt(0)").remove();
-			$.ajax({
-				async : false,
-				type : 'POST',
-				url : 'rest/NetworkManagementEngineer/findTop10MarketOperatorCellCombo/',
-				contentType : "application/json",
-				data : jsonString,
-				success : function(data) {
-					
-					if(data ==""){
-						alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
-					}
-					else {	
+		var my_arr = [];
+
+		my_arr.push($("#StartMarketTime").val());
+		my_arr.push($("#EndMarketTime").val());
+		var jsonString = JSON.stringify(my_arr);
+		var NoOfAllFailures = 0;
+		var NoOfTop10Failures = 0;
+		var NoOfOtherFailures = 0;
+
+		// $("#myMarketTable tr:gt(0)").remove();
+		$
+				.ajax({
+					async : false,
+					type : 'POST',
+					url : 'rest/NetworkManagementEngineer/findTop10MarketOperatorCellCombo/',
+					contentType : "application/json",
+					data : jsonString,
+					success : function(data) {
 						$(".odd").remove();
 						$(".even").remove();
-						document.getElementById("myMarketTable").style.display = "table";
-						for (i = 0; i < data.length; i++) {
-							var row = $("<tr><td>" + data[i][0]
-										+ "</td><td>" + data[i][1]
-										+ "</td><td>" + data[i][2]
-										+ "</td><td>" + data[i][3]
+						document
+								.getElementById("myMarketTable").style.display = "table";
+						if (data == "") {
+							alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
+						} else {
+							var name = [];
+							var value = [];
+							var dataArrayFinal = [];
+
+							// document.getElementById("myMarketTable").style.visibility
+							// = "visible";
+							for (i = 0; i < data.length; i++) {
+
+//								name[i] = data[i][1] + " / "
+//										+ data[i][2] + " / "
+//										+ data[i][3];
+//								value[i] = data[i][4];
+								//						
+								//
+								// for(j=0;j<name.length;j++) {
+								// var temp = new
+								// Array(name[j],data[j]);
+								// dataArrayFinal[j] = temp;
+								// }
+
+								// var a = data[i][0];
+								// alert(a);
+							if(i<10){
+								
+								name[i] = data[i][1] + " / "
+										+ data[i][2] + " / "
+										+ data[i][3];
+								value[i] = data[i][4];
+								
+								var row = $("<tr><td>"
+										+ data[i][0]
+										+ "</td><td>"
+										+ data[i][1]
+										+ "</td><td>"
+										+ data[i][2]
+										+ "</td><td>"
+										+ data[i][3]
+										+ "</td><td>"
+										+ data[i][4]
 										+ "</td></tr>");
-							$("#myMarketTable tbody").append(row);
+								$("#myMarketTable tbody")
+										.append(row);
+							
+								NoOfTop10Failures = NoOfTop10Failures + data[i][4];
+							}
+								NoOfAllFailures = NoOfAllFailures + data[i][4];	
+							}
+							
+								NoOfOtherFailures = NoOfAllFailures - NoOfTop10Failures;
+								name[name.length] = "Others"
+								value[value.length] = NoOfOtherFailures;
+
+							for (j = 0; j < name.length; j++) {
+								var temp = new Array(name[j],
+										value[j]);
+								dataArrayFinal[j] = temp;
+							}
+							document.getElementById("graphContainer").style.display = "block";
+							graph(dataArrayFinal,$("#StartMarketTime").val(),$("#EndMarketTime").val());
 						}
+						$("#myMarketTable").trigger('update');
+					},
+					error : function() {
+						alert('ERROR \nPlease check input & try again.');
 					}
-					$("#myMarketTable").trigger('update'); 
-				},
-				error : function() {
-					alert('ERROR \nPlease check input & try again.');
-				}
-			})
-		}
+				})
 	});
 
-	$('#datetimepicker6').datetimepicker({
+	$('#datetimepicker46').datetimepicker({
 		// useCurrent: false,
 		locale : 'en-gb'// Important! See issue #1075
 	});
-	$('#datetimepicker7').datetimepicker({
+	$('#datetimepicker47').datetimepicker({
 		useCurrent : false,
 		locale : 'en-gb'// Important! See issue #1075
 	});
-	$("#datetimepicker6").on("dp.change", function(e) {
-		$('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+	$("#datetimepicker46").on("dp.change", function(e) {
+		$('#datetimepicker47').data("DateTimePicker").minDate(e.date);
 	});
-	$("#datetimepicker7").on("dp.change", function(e) {
-		$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+	$("#datetimepicker47").on("dp.change", function(e) {
+		$('#datetimepicker46').data("DateTimePicker").maxDate(e.date);
 	});
 
-	$('#datetimepicker16').datetimepicker({
+	$('#datetimepicker36').datetimepicker({
 		// useCurrent: false,
 		locale : 'en-gb'// Important! See issue #1075
 	});
-	$('#datetimepicker17').datetimepicker({
+	$('#datetimepicker37').datetimepicker({
 		useCurrent : false,
 		locale : 'en-gb'// Important! See issue #1075
 	});
-	$("#datetimepicker16").on("dp.change", function(e) {
-		$('#datetimepicker17').data("DateTimePicker").minDate(e.date);
+	$("#datetimepicker36").on("dp.change", function(e) {
+		$('#datetimepicker37').data("DateTimePicker").minDate(e.date);
 	});
-	$("#datetimepicker17").on("dp.change", function(e) {
-		$('#datetimepicker16').data("DateTimePicker").maxDate(e.date);
+	$("#datetimepicker37").on("dp.change", function(e) {
+		$('#datetimepicker36').data("DateTimePicker").maxDate(e.date);
 	});
 
-	$('#datetimepicker26').datetimepicker({
+	$('#datetimepicker56').datetimepicker({
 		// useCurrent: false,
 		locale : 'en-gb'// Important! See issue #1075
 	});
-	$('#datetimepicker27').datetimepicker({
+	$('#datetimepicker57').datetimepicker({
 		useCurrent : false,
 		locale : 'en-gb'// Important! See issue #1075
 	});
-	$("#datetimepicker26").on("dp.change", function(e) {
-		$('#datetimepicker27').data("DateTimePicker").minDate(e.date);
+	$("#datetimepicker56").on("dp.change", function(e) {
+		$('#datetimepicker57').data("DateTimePicker").minDate(e.date);
 	});
-	$("#datetimepicker27").on("dp.change", function(e) {
-		$('#datetimepicker26').data("DateTimePicker").maxDate(e.date);
+	$("#datetimepicker57").on("dp.change", function(e) {
+		$('#datetimepicker56').data("DateTimePicker").maxDate(e.date);
 	});
 
-	$('#semenu1').on('click',function() {
+	$('#semenu7').on('click',function() {
 		document.getElementById("NoOfFailureAndTotalDurationStart").value = "";
 		document.getElementById("NoOfFailureAndTotalDurationEnd").value = "";
 		$(".odd").remove();
@@ -344,32 +436,34 @@ $(function() {
 //		$("#myNoOfFailureAndTotalDurationTable tr:gt(0)").remove();
 //		document.getElementById("myNoOfFailureAndTotalDurationTable").style.visibility = "hidden";
 	});
-	$('#semenu2').on('click',function() {
+	$('#semenu8').on('click',function() {
 		document.getElementById("TopTenStart").value = "";
 		document.getElementById("TopTenEnd").value = "";
 		$(".odd").remove();
 		$(".even").remove();
 		document.getElementById("myIMSICountTable").style.display = "none";
 		$("#myIMSICountTable").trigger('update');
+		document.getElementById("Top10IMSI").style.display = "none";
 //		$("#myIMSICountTable tr:gt(0)").remove();
 //		document.getElementById("myIMSICountTable").style.visibility = "hidden";
 	});
-	$('#semenu3').on('click', function() {
+	$('#semenu9').on('click', function() {
 		$(".odd").remove();
 		$(".even").remove();
 		document.getElementById("myModelTable").style.display = "none";
-		document.getElementById("Top10IMSI").style.display = "none";
+		
 		$("#myModelTable").trigger('update');
 //		$("#myModelTable tr:gt(0)").remove();
 //		document.getElementById("myModelTable").style.visibility = "hidden";
 	});
-	$('#semenu4').on('click', function() {
+	$('#semenu10').on('click', function() {
 		document.getElementById("StartMarketTime").value = "";
 		document.getElementById("EndMarketTime").value = "";
 		$(".odd").remove();
 		$(".even").remove();
 		document.getElementById("myMarketTable").style.display = "none";
 		$("#myMarketTable").trigger('update');
+		document.getElementById("graphContainer").style.display = "none";
 //		$("#myMarketTable tr:gt(0)").remove();
 //		document.getElementById("myMarketTable").style.visibility = "hidden";
 	});
@@ -379,9 +473,5 @@ $(function() {
 		window.sessionStorage.setItem("type","0");
 		window.sessionStorage.setItem("UserName", "");
 		window.location.replace("http://localhost:8080/maven_Project/");
-	});
-	
-	$('#back').on('click', function(){
-		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
 	});
 });

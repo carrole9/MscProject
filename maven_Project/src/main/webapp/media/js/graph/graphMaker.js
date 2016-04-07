@@ -38,7 +38,7 @@ function Top10IMSI(names, numbers, graphTitle, subTitle, xTitle, yTitle) {
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.y:.1f}%'
+//                        format: '{point.y:.1f}%'
                     }
                 }
             },

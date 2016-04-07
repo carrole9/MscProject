@@ -414,7 +414,15 @@ public class JPABase_DataDAO implements Base_DataDAO{
 			query.setParameter("firsttime", firsttime);
 			query.setParameter("secondtime", secondtime);
 			@SuppressWarnings("unchecked")
-			List<Object[]> datas = query.setMaxResults(10).getResultList();  
+			List<Object[]> datas = query.getResultList(); 
+			int size = datas.size();
+			
+			Collections.sort(datas, new Comparator<Object[]>() {
+                @Override
+                public int compare(Object[] object1, Object[] object2) {
+                        return ((Long) object2[4]).compareTo( (Long) object1[4]);
+                }
+			});
 
 			return datas;
 		}
