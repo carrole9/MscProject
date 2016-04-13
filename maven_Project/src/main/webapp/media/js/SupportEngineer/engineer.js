@@ -45,7 +45,7 @@ function addDropDownFeatures3(){
 			//alert(data);
 			             for(i=0;i<data.length;i++){
 						 var x = document.getElementById("myFailure");
-						// var y = document.getElementById("FmyIMSI");
+						 // var y = document.getElementById("FmyIMSI");
 					     var option = document.createElement("option");
 						    option.text = data[i];
 						    x.add(option);
@@ -207,6 +207,7 @@ $(function() {
 								//var row = $("<tr><td>" + basedata + "</td></tr>");
 //								var row = $("<tr><td class='active'>"+ +no+"</td><td class='info'>"+basedata+"</td></tr>");
 //								$("#myIMSI tbody").append(row);
+								var i = i+1;
 								markup.push("<tr>");
 								markup.push("<td>"+ i +"</td>");
 								markup.push("<td>"+ basedata + "</td>");
@@ -280,21 +281,23 @@ $(function() {
 				$(".odd").remove();
 				$(".even").remove();
 				document.getElementById("myIMSIDisplay").style.display = "table";
-				
+					markup = [];
 					$.each(data, function(i, string) {
 						if(string === undefined || data === undefined)
 							document.getElementById("myIMSIDisplay").style.display = "none";
 //							document.getElementById("myIMSIDisplay").style.visibility = "hidden";
 						else{
-//							$("#myIMSIDisplay tr:gt(0)").remove();
-//							document.getElementById("myIMSIDisplay").style.visibility = "visible";
-							//var row = $("<tr><td>" + string + "</td></tr>");
-							
-							var row = $("<tr><td class='active'>"+ +no+"</td><td class='info'>"+string+"</td></tr>");
-							$("#myIMSIDisplay tbody").append(row);
-							no+=1;
+							var i = i+1;
+//							var row = $("<tr><td class='active'>"+ +no+"</td><td class='info'>"+string+"</td></tr>");
+//							$("#myIMSIDisplay tbody").append(row);						
+							markup.push("<tr>");
+							markup.push("<td>"+ i +"</td>");
+							markup.push("<td>"+ string + "</td>");
+							markup.push("</tr>");
 						}
 					})
+					$("#myIMSIDisplay").append(markup.join(""));
+					
 				$("#myIMSIDisplay").trigger('update');
 			},
 			error : function() {

@@ -81,28 +81,48 @@ $(function (){
 					$(".odd").remove();
 					$(".even").remove();
 					document.getElementById("myData").style.display = "table";
+					markup = [];
 					//document.getElementById("myData").style.visibility = "visible";
 	
 					$.each(data, function(i, basedata){
-							var row = $("<tr><td>" + basedata.dataId
-									+ "</td><td>" + basedata.dateTime 
-									+ "</td><td>" + basedata.eventId 
-									+ "</td><td>" + basedata.failureId
-									+ "</td><td>" + basedata.ueType
-									+ "</td><td>" + basedata.market
-									+ "</td><td>" + basedata.operator
-									+ "</td><td>" + basedata.cellId
-									+ "</td><td>" + basedata.duration
-									+ "</td><td>" + basedata.cause_Code
-									+ "</td><td>" + basedata.neVersion
-									+ "</td><td>" + basedata.imsi
-									+ "</td><td>" + basedata.hier3_Id
-									+ "</td><td>" + basedata.hier32_Id
-									+ "</td><td>" + basedata.hier321_Id
-									+"</td></tr>");
-							$("#myData tbody").append(row);
+//							var row = $("<tr><td>" + basedata.dataId
+//									+ "</td><td>" + basedata.dateTime 
+//									+ "</td><td>" + basedata.eventId 
+//									+ "</td><td>" + basedata.failureId
+//									+ "</td><td>" + basedata.ueType
+//									+ "</td><td>" + basedata.market
+//									+ "</td><td>" + basedata.operator
+//									+ "</td><td>" + basedata.cellId
+//									+ "</td><td>" + basedata.duration
+//									+ "</td><td>" + basedata.cause_Code
+//									+ "</td><td>" + basedata.neVersion
+//									+ "</td><td>" + basedata.imsi
+//									+ "</td><td>" + basedata.hier3_Id
+//									+ "</td><td>" + basedata.hier32_Id
+//									+ "</td><td>" + basedata.hier321_Id
+//									+"</td></tr>");
+//							$("#myData tbody").append(row);
+							
+							markup.push("<tr>");
+							markup.push("<td>"+ basedata.dataId +"</td>");
+							markup.push("<td>"+ basedata.dateTime +"</td>");
+							markup.push("<td>"+ basedata.eventId +"</td>");
+							markup.push("<td>"+ basedata.failureId +"</td>");
+							markup.push("<td>"+ basedata.ueType +"</td>");
+							markup.push("<td>"+ basedata.market +"</td>");
+							markup.push("<td>"+ basedata.operator +"</td>");
+							markup.push("<td>"+ basedata.cellId +"</td>");
+							markup.push("<td>"+ basedata.duration +"</td>");
+							markup.push("<td>"+ basedata.cause_Code +"</td>");
+							markup.push("<td>"+ basedata.neVersion +"</td>");
+							markup.push("<td>"+ basedata.imsi +"</td>");
+							markup.push("<td>"+ basedata.hier3_Id +"</td>");
+							markup.push("<td>"+ basedata.hier32_Id +"</td>");
+							markup.push("<td>"+ basedata.hier321_Id +"</td>");
+							markup.push("</tr>");
 					})
 				}
+				$("#myData tbody").append(markup.join(""));
 			$("#myData").trigger('update'); 
 		},
 			error: function(){

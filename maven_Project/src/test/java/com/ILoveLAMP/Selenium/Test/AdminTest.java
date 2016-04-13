@@ -27,15 +27,38 @@ public class AdminTest {
 
   @Test
   public void testAdmin() throws Exception {
-    driver.get(baseUrl);
+	// start from login page
+    driver.get(baseUrl);   
+    // login with correct username and password
     driver.findElement(By.id("inputEmail")).clear();
     driver.findElement(By.id("inputEmail")).sendKeys("Yang");
     driver.findElement(By.id("inputPassword")).clear();
     driver.findElement(By.id("inputPassword")).sendKeys("1234");
     driver.findElement(By.id("login")).click();
     assertEquals("Welcome back Yang", closeAlertAndGetItsText());
-    driver.get(baseUrl + "Admin.html");
+    
+    // in the admin page check if all the elements present
+    // Home button
+    assertTrue(driver.findElement(By.xpath("html/body/div[1]/ul/li[1]/a")).isDisplayed());
+    // import button
+    assertTrue(driver.findElement(By.xpath(".//*[@id='semenu1']")).isDisplayed());
+    // add user button
+    assertTrue(driver.findElement(By.xpath(".//*[@id='semenu2']")).isDisplayed());
+    // logout button
+    assertTrue(driver.findElement(By.xpath(".//*[@id='logout']")).isDisplayed());
+
+    
+    // check if all element present in import data page
     driver.findElement(By.id("semenu1")).click();
+    Thread.sleep(500);
+    // file path selection
+    assertTrue(driver.findElement(By.xpath(".//*[@id='AdminFile']")).isDisplayed());
+//    // import data button
+    assertTrue(driver.findElement(By.xpath(".//*[@id='ImportData']")).isDisplayed());
+//    // view data button
+    assertTrue(driver.findElement(By.xpath(".//*[@id='ViewData']")).isDisplayed());
+    
+    
     driver.findElement(By.id("ViewData")).click();
     driver.findElement(By.id("semenu2")).click();
     driver.findElement(By.id("view-users")).click();
@@ -48,10 +71,10 @@ public class AdminTest {
     assertEquals("The Entered username has been taken! \nPlease try " +
 			"different username.", closeAlertAndGetItsText());
     driver.findElement(By.id("view-users")).click();
-    boolean staus = driver.findElement(By.xpath(".//*[@id='menu2']/div[2]")).isDisplayed();
-//    assertTrue(staus);    
+    boolean status = driver.findElement(By.xpath(".//*[@id='menu2']/div[2]")).isDisplayed();
+    assertTrue(status);    
     driver.findElement(By.id("logout")).click();
-    driver.get(baseUrl + "/maven_Project/");
+    assertEquals("Logging out", closeAlertAndGetItsText()); 
   }
 
   @After

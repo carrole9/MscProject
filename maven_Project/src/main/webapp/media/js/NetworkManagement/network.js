@@ -171,17 +171,26 @@ $(function() {
 							$(".odd").remove();
 							$(".even").remove();
 							document.getElementById("myIMSICountTable").style.display = "table";
-								for (i = 0; i < data.length; i++) {
+							markup = [];	
+							for (i = 0; i < data.length; i++) {
 									
-									var row = $("<tr><td>" + data[i][0]
-												+ "</td><td>" + data[i][1]
-												+ "</td></tr>");
+//									var row = $("<tr><td>" + data[i][0]
+//												+ "</td><td>" + data[i][1]
+//												+ "</td></tr>");
+									
+									markup.push("<tr>");
+									markup.push("<td>"+ data[i][0] +"</td>");
+									markup.push("<td>"+ data[i][1] + "</td>");
+									markup.push("</tr>");
+									
+									
 									names[i] = data[i][0];
 									numbers[i] = data[i][1];
 									
-									$("#myIMSICountTable tbody").append(row);
+//									$("#myIMSICountTable tbody").append(row);
 
 								}
+							$("#myIMSICountTable tbody").append(markup.join(""));
 							var start = $("#TopTenStart").val();
 							var end = $("#TopTenEnd").val();
 							var subTitle = "Between "+ start +" and "+ end;
@@ -275,16 +284,26 @@ $(function() {
 					$(".even").remove();
 					document.getElementById("myModelTable").style.display = "table";
 					//document.getElementById("myModelTable").style.visibility = "visible";
+					markup = [];
 					for (i = 0; i < data.length; i++) {
-						var row = $("<tr><td>" + data[i][0]
-									+ "</td><td>" + data[i][1]
-									+ "</td><td>" + data[i][2]
-									+ "</td><td>" + data[i][3]
-									+ "</td><td>" + data[i][4]
-									+ "</td><td>" + data[i][5]
-									+ "</td></tr>");
-						$("#myModelTable tbody").append(row);
+//						var row = $("<tr><td>" + data[i][0]
+//									+ "</td><td>" + data[i][1]
+//									+ "</td><td>" + data[i][2]
+//									+ "</td><td>" + data[i][3]
+//									+ "</td><td>" + data[i][4]
+//									+ "</td><td>" + data[i][5]
+//									+ "</td></tr>");
+//						$("#myModelTable tbody").append(row);
+						markup.push("<tr>");
+						markup.push("<td>"+ data[i][0] +"</td>");
+						markup.push("<td>"+ data[i][1] + "</td>");
+						markup.push("<td>"+ data[i][2] + "</td>");
+						markup.push("<td>"+ data[i][3] + "</td>");
+						markup.push("<td>"+ data[i][4] + "</td>");
+						markup.push("<td>"+ data[i][5] + "</td>");
+						markup.push("</tr>");
 					}
+					$("#myModelTable tbody").append(markup.join(""));
 					$("#myModelTable").trigger('update'); 
 				},
 				error : function() {
@@ -314,8 +333,8 @@ $(function() {
 					success : function(data) {
 						$(".odd").remove();
 						$(".even").remove();
-						document
-								.getElementById("myMarketTable").style.display = "table";
+						document.getElementById("myMarketTable").style.display = "table";
+						markup = [];
 						if (data == "") {
 							alert("Entered data doesn't exist in DataBase \nPlease check input & try again.");
 						} else {
@@ -348,19 +367,26 @@ $(function() {
 										+ data[i][3];
 								value[i] = data[i][4];
 								
-								var row = $("<tr><td>"
-										+ data[i][0]
-										+ "</td><td>"
-										+ data[i][1]
-										+ "</td><td>"
-										+ data[i][2]
-										+ "</td><td>"
-										+ data[i][3]
-										+ "</td><td>"
-										+ data[i][4]
-										+ "</td></tr>");
-								$("#myMarketTable tbody")
-										.append(row);
+//								var row = $("<tr><td>"
+//										+ data[i][0]
+//										+ "</td><td>"
+//										+ data[i][1]
+//										+ "</td><td>"
+//										+ data[i][2]
+//										+ "</td><td>"
+//										+ data[i][3]
+//										+ "</td><td>"
+//										+ data[i][4]
+//										+ "</td></tr>");
+//								$("#myMarketTable tbody").append(row);
+								
+								markup.push("<tr>");
+								markup.push("<td>"+ data[i][0] +"</td>");
+								markup.push("<td>"+ data[i][1] +"</td>");
+								markup.push("<td>"+ data[i][2] +"</td>");
+								markup.push("<td>"+ data[i][3] +"</td>");
+								markup.push("<td>"+ data[i][4] +"</td>");
+								markup.push("</tr>");
 							
 								NoOfTop10Failures = NoOfTop10Failures + data[i][4];
 							}
@@ -379,6 +405,7 @@ $(function() {
 							document.getElementById("graphContainer").style.display = "block";
 							graph(dataArrayFinal,$("#StartMarketTime").val(),$("#EndMarketTime").val());
 						}
+						$("#myMarketTable tbody").append(markup.join(""));
 						$("#myMarketTable").trigger('update');
 					},
 					error : function() {
