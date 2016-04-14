@@ -45,7 +45,7 @@ public class ViewDataTest {
     if(status){
     	long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
-        System.out.println(elapsedTime);
+//        System.out.println(elapsedTime);
     }
     
     assertTrue(status);

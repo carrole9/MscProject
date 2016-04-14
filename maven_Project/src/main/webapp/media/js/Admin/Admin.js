@@ -16,6 +16,11 @@ function load(){
 	}else{
 		window.location.replace("http://localhost:8080/maven_Project/");
 	}
+};
+
+function welcome() {
+	var name = window.sessionStorage.getItem("UserName");
+	document.getElementById('welcomeAdmin').innerHTML = "Welcome "+name;
 }
 
 
@@ -134,27 +139,35 @@ $(function (){
 	
 	$('#ImportData').on('click', function(){
 		//var jsonString = JSON.stringify($("#AdminFile").val());
-		 var x = document.getElementById("AdminFile").files[0].name;
-		    var y = "/home/user1/Desktop/Data/"+x;
-		   // alert(y);
-		  var jsonString = JSON.stringify(y);
-		    
-		//alert(jsonString)
-		$.ajax({
-			async:false,
-			type: 'POST',
-			url: 'rest/database/AdminAddData',
-			contentType: "application/json",
-			data: jsonString,
-			success: function(){
-				alert('data is loaded');
-				$('#ViewData').click();
-			},
-			error: function(){
-				alert('Data is successfully loaded');
-				$('#ViewData').click();
-			}
-		})
+//		console.log(document.getElementById("AdminFile").value == "");
+		if(document.getElementById("AdminFile").value == ""){
+			alert('Please choose a file');
+		}
+		else{
+		
+			 var x = document.getElementById("AdminFile").files[0].name;
+			 
+			    var y = "/home/user1/conygreJEE/solutions/maven_Project/"+x;
+			   // alert(y);
+			  var jsonString = JSON.stringify(y);
+			    
+			//alert(jsonString)
+			$.ajax({
+				async:false,
+				type: 'POST',
+				url: 'rest/database/AdminAddData',
+				contentType: "application/json",
+				data: jsonString,
+				success: function(data){
+					alert('data is loaded');
+					$('#ViewData').click();
+				},
+				error: function(){
+					alert('Error in loading data. \nPlease check your file path');
+					$('#ViewData').click();
+				}
+			})
+		}
 		
 	});
 	

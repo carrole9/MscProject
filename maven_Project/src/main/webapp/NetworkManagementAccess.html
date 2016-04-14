@@ -53,6 +53,7 @@ Customer Service Rep. enquiry, count or report function -->
 	<script src="media/js/transition.js"></script>
 	<script src="media/js/collapse.js"></script>
 	<script src="media/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="media/js/clock.js"></script>
 	
 	
 	
@@ -66,7 +67,7 @@ Customer Service Rep. enquiry, count or report function -->
 <!-- 	<script src="media/js/NetworkManagement/exporting.js"></script> -->
 	</head>
 	
-	<body onload="addDropDownFeatures1(),addDropDownFeatures2(),addDropDownFeatures4(),addDropDownFeatures3(),addManufacturersDropDownFeatures(),ChangeModel(),addManufacturersDropDownFeaturesNetwork(),ChangeNetworkModel()">
+	<body onload="welcome(),addDropDownFeatures1(),addDropDownFeatures2(),addDropDownFeatures4(),addDropDownFeatures3(),addManufacturersDropDownFeatures(),ChangeModel(),addManufacturersDropDownFeaturesNetwork(),ChangeNetworkModel()">
 		<div class="container">
 		 <img title="Ericsson Logo" src="media/images/Ericsson.png" id="ericsson" alt="logo" width="100px" />
 			<h2>Network Management Engineer</h2>
@@ -106,19 +107,18 @@ Customer Service Rep. enquiry, count or report function -->
 			<div class="tab-content">
 				<div id="home" class="tab-pane fade in active">
 					<h3>HOME</h3>
-					<br>
-      <p class="message">Support Engineers investigating problems escalated by Customer Service Representatives </p>
-      <br>
-      <p class="message">Queries: </p>
-				<p class="message1">
-					<t> 1. As a Support Engineer I want to see a list of all IMSIs
-					with call failures during a given time period. <br>
-					2. As a Support Engineer I want to count, for a given model of
-					phone, the number of call failures it has had during a given time
-					period. <br>
-					3. As a Support Engineer I want to display, for a given failure
-					Cause Class, the IMSIs that were affected. 
-				</p>
+      <h2 class="message" id="welcomeNE"></h2>
+      <div class="clock">
+		<div id="Date"></div>
+		  <ul>
+		      <li id="hours"></li>
+		      <li id="point">:</li>
+		      <li id="min"></li>
+		      <li id="point">:</li>
+		      <li id="sec"></li>
+		  </ul>
+		</div>
+      
 			</div>
 	
 				<div id="menu1" class="tab-pane fade">

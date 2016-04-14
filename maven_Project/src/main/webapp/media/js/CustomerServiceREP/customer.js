@@ -24,6 +24,11 @@ function CUload(){
 	}
 }
 
+function welcome() {
+	var name = window.sessionStorage.getItem("UserName");
+	document.getElementById('welcomeCustomerSR').innerHTML = "Welcome "+name;
+}
+
 function clearMenu(){
 	document.getElementById("myEventID").style.display = "none";
 	document.getElementById("x").value = "";

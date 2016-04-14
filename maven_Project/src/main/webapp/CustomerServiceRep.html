@@ -57,9 +57,10 @@
 	<script src="media/js/transition.js"></script>
 	<script src="media/js/collapse.js"></script>
 	<script src="media/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="media/js/clock.js"></script>
 	
 </head>
-<body onload="CUload(),addDropDownFeatures1(),addDropDownFeatures2(),addDropDownFeatures4()">
+<body onload="CUload(),addDropDownFeatures1(),addDropDownFeatures2(),addDropDownFeatures4(),welcome()">
 
 <div class="container basedata">
  <img title="Ericsson Logo" src="media/images/Ericsson.png" id="ericsson" alt="logo" width="100px" />
@@ -80,19 +81,17 @@
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
       <h3>HOME</h3>
-      <br>
-      <p class="message">Customer Service Representatives giving a "first line" response to Customer Help calls </p>
-      <br>
-      <p class="message">Queries: </p>
-		<p class="message1">
-			<t> 1. As Customer Service Rep. I want to display, for a given
-			affected IMSI, the Event ID and Cause Code for any / all failures
-			affecting that IMSI <br> 2. As a Customer Service Rep , I want
-			to count, for a given IMSI, the number of failures they have had
-			during a given time period. <br> 3. As a Customer Service Rep.
-			I want to see, for a given IMSI, all the unique Cause Codes
-			associated with its call failures
-		</p>
+      <h2 class="message" id="welcomeCustomerSR"></h2>
+      <div class="clock">
+		<div id="Date"></div>
+		  <ul>
+		      <li id="hours"></li>
+		      <li id="point">:</li>
+		      <li id="min"></li>
+		      <li id="point">:</li>
+		      <li id="sec"></li>
+		  </ul>
+		</div>	
 	</div>
     
     <div id="menu1" class="tab-pane fade">

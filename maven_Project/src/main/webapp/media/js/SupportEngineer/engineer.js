@@ -1,3 +1,8 @@
+function welcome() {
+	var name = window.sessionStorage.getItem("UserName");
+	document.getElementById('welcomeSE').innerHTML = "Welcome "+name;
+}
+
 function SEload(){
 	var type = window.sessionStorage.getItem("type");
 	var option = window.sessionStorage.getItem("SEoption");

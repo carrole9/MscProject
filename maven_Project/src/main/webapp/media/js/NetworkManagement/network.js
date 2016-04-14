@@ -1,3 +1,9 @@
+function welcome() {
+	var name = window.sessionStorage.getItem("UserName");
+	document.getElementById('welcomeNE').innerHTML = "Welcome "+name;
+}
+
+
 function graph(dataArrayFinal,startTime, endTime) {
 
 	$('#graphContainer')
