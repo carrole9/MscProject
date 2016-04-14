@@ -63,7 +63,7 @@ public class PopulateDB {
 	@PersistenceContext
 	EntityManager em;
 
-	private String path = "/home/user1/Desktop/Data/dataset.xls";
+	private String path = "/home/shanu/Desktop/Data/dataset.xls";
 	private String file ="";
 
 	int composetkeyEventClause;
@@ -130,7 +130,7 @@ public class PopulateDB {
 			System.out.println("Watcher started");
 			
 			try(WatchService watcher = FileSystems.getDefault().newWatchService()){
-				java.nio.file.Path dir = Paths.get("/home/user1/Desktop/Data");
+				java.nio.file.Path dir = Paths.get("/home/shanu/Desktop/Data");
 				dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
 				
 				Runtime.getRuntime().addShutdownHook(new Thread(){
@@ -202,7 +202,7 @@ public class PopulateDB {
 	        File file = new File(getFile());
 
 	        // Destination directory
-	        File dir = new File("/home/user1/Desktop/Data/");
+	        File dir = new File("/home/shanu/Desktop/Data/");
 
 	        // Move file to a new directory
 	        boolean success = file.renameTo(new File(dir, file.getName()));

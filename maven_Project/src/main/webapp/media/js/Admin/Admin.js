@@ -147,7 +147,7 @@ $(function (){
 		
 			 var x = document.getElementById("AdminFile").files[0].name;
 			 
-			    var y = "/home/user1/conygreJEE/solutions/maven_Project/"+x;
+			    var y = "/home/shanu/git/MscProject/maven_Project/"+x;
 			   // alert(y);
 			  var jsonString = JSON.stringify(y);
 			    
