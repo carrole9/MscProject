@@ -1,0 +1,220 @@
+@font-face {
+    font-family: EricssonFont;
+    src: url(../font/Ericsson.ttf);
+}
+
+body, html {
+	height: 100%;
+/* 	background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33)); */
+	background-image: url("../images/background.jpg");
+/* 	background-repeat: repeat-y; */
+}
+
+.container {
+	background-color: white;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	border-radius: 20px;
+}
+
+.basedata {
+	width: 95%;
+}
+
+#pagination {
+	float: right;
+}
+
+.form-control {
+	width: 50%;
+}
+#info {
+	visibility: hidden;
+}
+#ericsson {
+	margin-top: 5px;
+	float: right;
+}
+
+h2 {
+	color: red;
+}
+h3 {
+	color: green;
+}
+
+h2, h3 {
+		font-family: EricssonFont;
+}
+
+.title {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.table {
+	  width: auto;
+      border-collapse: collapse;
+	  empty-cells: hide;
+	  margin-left: center;
+	  margin-top: 5px;
+}
+
+myFailureCount.th {
+	background-color: green;
+	color: white;
+}
+
+tr {
+	text-align: center;
+}
+
+tr:HOVER {
+	background-color: orange;
+}
+tablesorter-header{
+	background-color: green;
+}
+
+td {
+	color: blue;
+}
+
+/* .submit{ */
+/* 	border: none; */
+/* 	cursor: pointer; */
+/* 	background-color: green; */
+/* 	color: white; */
+/* 	text-align: center; */
+/* 	display: inline-block; */
+/* } */
+
+.submit:hover {
+	background-color: orange;
+}
+
+.submit {
+	margin-left: 12px;
+}
+
+.message{
+	font-size: 20px;
+	
+}
+.message1{
+	margin-left: 5%;
+	font-size: 15px;
+}
+
+.form-control {
+	width: auto;
+}
+
+.col-sm-2 {
+   margin-top: 5px;
+   width: auto;
+}
+
+.last, .next, .prev, .first {
+	margin-right: 5px;
+}
+
+.last:hover {
+	background-color: greenyellow;
+}
+.next:hover {
+	background-color: greenyellow;
+}
+.prev:hover {
+	background-color: greenyellow;
+}
+.first:hover {
+	background-color: greenyellow;
+}
+
+.tablesorter-pager .pagedisplay{
+	margin-right: 3px;
+	margin-left: 3px;
+}
+
+
+/* .container { */
+/*     width: 960px; */
+/*     margin: 0 auto; */
+/*     overflow: hidden; */
+/* } */
+
+.clock {
+    width: auto;
+    margin: 0 auto;
+    padding: 30px;
+/*     border: 1px solid #333; */
+    color: black;
+    background-color: white;
+    font-size: 4em;
+}
+
+#Date {
+    font-family: 'BebasNeueRegular', Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    text-align: center;
+/*     text-shadow: 0 0 5px #00c6ff; */
+}
+
+ul {
+    width: auto;
+    margin: 0 auto;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+
+ul li {
+    display: inline;
+/*     font-size: 10em; */
+    text-align: center;
+    font-family: 'BebasNeueRegular', Arial, Helvetica, sans-serif;
+/*     text-shadow: 0 0 5px #00c6ff; */
+}
+
+#point {
+    position: relative;
+    -moz-animation: mymove 1s ease infinite;
+    -webkit-animation: mymove 1s ease infinite;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Simple Animation */
+@-webkit-keyframes mymove {
+    0% {opacity: 1.0;
+    text-shadow: 0 0 20px #00c6ff;
+}
+
+50% {
+    opacity: 0;
+    text-shadow: none;
+}
+
+100% {
+    opacity: 1.0;
+    text-shadow: 0 0 20px #00c6ff;
+}	
+}
+
+@-moz-keyframes mymove {
+    0% {
+        opacity: 1.0;
+        text-shadow: 0 0 20px #00c6ff;
+    }
+
+    50% {
+        opacity: 0;
+        text-shadow: none;
+    }
+
+    100% {
+        opacity: 1.0;
+        text-shadow: 0 0 20px #00c6ff;
+    };
+}
