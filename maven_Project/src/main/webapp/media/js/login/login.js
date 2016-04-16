@@ -3,13 +3,13 @@ function load(){
 	var option = window.sessionStorage.getItem("SEoption");
 
 	 if(type=="1"){
-		window.location.replace("http://localhost:8080/maven_Project/Admin.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/Admin.html");
 	}else if(type=="2"){
-		window.location.replace("http://localhost:8080/maven_Project/CustomerServiceRep.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/CustomerServiceRep.html");
 	}else if(type=="3"){
-		window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/SupportEngineerAccess.html");
 	}else if(type=="4"){
-		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/NetworkManagementAccess.html");
 	}
 }
 
@@ -63,16 +63,16 @@ $(function() {
 										window.sessionStorage.setItem("SEoption", "0");
 										window.sessionStorage.setItem("greeting", "true");
 											if (data==1) {
-												window.location.replace("http://localhost:8080/maven_Project/Admin.html");
+												window.location.replace("http://"+document.location.host+"/maven_Project/Admin.html");
 											}
 											else if (data==2) {
-												window.location.replace("http://localhost:8080/maven_Project/CustomerServiceRep.html");
+												window.location.replace("http://"+document.location.host+"/maven_Project/CustomerServiceRep.html");
 											}
 											else if (data==3) {		
-												window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
+												window.location.replace("http://"+document.location.host+"/maven_Project/SupportEngineerAccess.html");
 											}
 											else if (data==4) {
-												window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
+												window.location.replace("http://"+document.location.host+"/maven_Project/NetworkManagementAccess.html");
 											}
 											else
 												alert(data);	

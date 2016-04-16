@@ -10,17 +10,17 @@ function CUload(){
 			window.sessionStorage.setItem("greeting", "false");
 		}
 	}else if(type=="1"){
-		window.location.replace("http://localhost:8080/maven_Project/Admin.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/Admin.html");
 	}else if(type=="3" && option=="2"){
 		document.getElementById("goback").style.display = "block";
 	}else if(type=="3"){
-		window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/SupportEngineerAccess.html");
 	}else if(type=="4" && option=="5"){
 		document.getElementById("goback").style.display = "block";
 	}else if(type=="4"){
-		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/NetworkManagementAccess.html");
 	}else{
-		window.location.replace("http://localhost:8080/maven_Project/");
+		window.location.replace("http://"+document.location.host+"/maven_Project/");
 	}
 }
 
@@ -126,7 +126,7 @@ $(function (){
 		window.sessionStorage.setItem("SEoption","0");
 		window.sessionStorage.setItem("type","0");
 		window.sessionStorage.setItem("UserName", "");
-		window.location.replace("http://localhost:8080/maven_Project/");
+		window.location.replace("http://"+document.location.host+"/maven_Project/");
 	});
 	
 	
@@ -296,10 +296,10 @@ $('#semenu3').on('click', function() {
 $('#goback').on('click', function(){
 	var option = window.sessionStorage.getItem("SEoption");
 	if(option=="2"){
-		window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/SupportEngineerAccess.html");
 		
 	}else if(option=="5"){
-		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/NetworkManagementAccess.html");
 	}else
 		window.history.back();
 });

@@ -9,19 +9,19 @@ function SEload(){
 	//alert(type +" "+option);
 	
 	if(type=="3" && option=="0"){
-		window.location.replace("http://localhost:8080/maven_Project/SupportEngineerAccess.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/SupportEngineerAccess.html");
 	}else if(type=="3"){
 		
 	}else if(type=="1"){
-		window.location.replace("http://localhost:8080/maven_Project/Admin.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/Admin.html");
 	}else if(type=="2"){
-		window.location.replace("http://localhost:8080/maven_Project/CustomerServiceRep.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/CustomerServiceRep.html");
 	}else if(type=="4" && option=="4"){
 		
 	}else if(type=="4"){
-		window.location.replace("http://localhost:8080/maven_Project/NetworkManagementAccess.html");
+		window.location.replace("http://"+document.location.host+"/maven_Project/NetworkManagementAccess.html");
 	}else{
-		window.location.replace("http://localhost:8080/maven_Project/");
+		window.location.replace("http://"+document.location.host+"/maven_Project/");
 	}
 }
 
@@ -170,7 +170,7 @@ $(function() {
 		window.sessionStorage.setItem("SEoption","0");
 		window.sessionStorage.setItem("type","0");
 		window.sessionStorage.setItem("UserName", "");
-		window.location.replace("http://localhost:8080/maven_Project/");
+		window.location.replace("http://"+document.location.host+"/maven_Project/");
 	});
 	
 	$('#suppSub1').on('click', function() {
@@ -465,7 +465,7 @@ $(function (){
 		window.sessionStorage.setItem("SEoption","0");
 		window.sessionStorage.setItem("type","0");
 		window.sessionStorage.setItem("UserName", "");
-		window.location.replace("http://localhost:8080/maven_Project/");
+		window.location.replace("http://"+document.location.host+"/maven_Project/");
 	});
 	
 	
